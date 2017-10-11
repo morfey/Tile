@@ -47,6 +47,27 @@ playground.xcworkspace
 #
 # Pods/
 
+
+*.xcuserstate
+*.xccheckout
+*.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata
+Pods
+.idea/*
+*.orig
+env.sh
+*.hmap
+*.LinkFileList
+*.xcworkspacedata
+*.xcsettings
+*.xcscmblueprint
+*.gcno
+*.pdf
+*.ktx
+*.ktx
+*.rej
+.DS_Store
+
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
