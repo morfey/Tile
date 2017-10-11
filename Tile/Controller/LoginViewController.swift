@@ -11,6 +11,8 @@ import GoogleSignIn
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate {
 
+    @IBOutlet weak var emailTextFiled: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,5 +28,10 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     @IBAction func googleSignInTapped(_ sender: Any) {
         SignIn.shared.googleSignIn()
     }
+    @IBAction func emailSignInTapped(_ sender: Any) {
+        guard let email = emailTextFiled.text, let pass = passwordTextField.text else {
+            return
+        }
+        SignIn.shared.emailSignIn(email: email, pass: pass)
+    }
 }
-

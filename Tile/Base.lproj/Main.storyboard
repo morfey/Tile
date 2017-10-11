@@ -17,36 +17,84 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="su7-uI-VWb">
-                                <rect key="frame" x="104" y="318" width="167" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="su7-uI-VWb">
+                                <rect key="frame" x="0.0" y="394" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xw-FN-bRF">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
-                                        <state key="normal" title="Google"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.400723777309825" blue="0.39608372985849116" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Google">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="googleSignInTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uqw-6K-IK4"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cR-1h-qCp">
-                                        <rect key="frame" x="100" y="0.0" width="67" height="30"/>
-                                        <state key="normal" title="Facebook"/>
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="30"/>
+                                        <color key="backgroundColor" red="0.31358862681417765" green="0.41037086261191968" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Facebook">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="facebookSignInTaped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTD-v3-W6m"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jhE-rZ-emg">
+                                <rect key="frame" x="0.0" y="220" width="375" height="118"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4OE-lc-W8b">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" textContentType="email"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IKQ-aK-ZUA">
+                                        <rect key="frame" x="0.0" y="42" width="375" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AnH-M9-HJK">
+                                        <rect key="frame" x="160" y="84" width="55" height="34"/>
+                                        <state key="normal" title="Sign In">
+                                            <color key="titleColor" red="0.31358862679999999" green="0.4103708626" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="emailSignInTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qNc-p5-zd1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4OE-lc-W8b" secondAttribute="trailing" id="IEG-9f-gJX"/>
+                                    <constraint firstItem="4OE-lc-W8b" firstAttribute="leading" secondItem="jhE-rZ-emg" secondAttribute="leading" id="K1W-14-7Iq"/>
+                                    <constraint firstAttribute="trailing" secondItem="IKQ-aK-ZUA" secondAttribute="trailing" id="Xbp-um-4KZ"/>
+                                    <constraint firstItem="IKQ-aK-ZUA" firstAttribute="leading" secondItem="jhE-rZ-emg" secondAttribute="leading" id="uLj-kF-vNv"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="su7-uI-VWb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IZA-Me-wQQ"/>
-                            <constraint firstItem="su7-uI-VWb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Zmc-kI-3ka"/>
+                            <constraint firstItem="jhE-rZ-emg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="200" id="LXH-lf-4Bl"/>
+                            <constraint firstItem="su7-uI-VWb" firstAttribute="top" secondItem="jhE-rZ-emg" secondAttribute="bottom" constant="56" id="W1C-36-wZB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="su7-uI-VWb" secondAttribute="trailing" id="fxo-os-a11"/>
+                            <constraint firstItem="jhE-rZ-emg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="k1B-Vn-3mb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jhE-rZ-emg" secondAttribute="trailing" id="qEF-gM-FVM"/>
+                            <constraint firstItem="su7-uI-VWb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rBn-oR-R9w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="emailTextFiled" destination="4OE-lc-W8b" id="hYN-id-Vow"/>
+                        <outlet property="passwordTextField" destination="IKQ-aK-ZUA" id="GHx-ML-koX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="140" y="133.5832083958021"/>
         </scene>
     </scenes>
 </document>

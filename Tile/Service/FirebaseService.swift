@@ -37,21 +37,44 @@ class FirebaseService {
         })      
     }
     
+    func auth(email: String, pass: String) {
+        Auth.auth().signIn(withEmail: email, password: pass, completion: {(user, error) in
+            if error == nil {
+                print ("USER: Email user auth with Firebase")
+                if let user = user {
+                    let userData = ["provider": user.providerID]
+                    self.completeSingIn(id: user.uid, userData: userData)
+                }
+            } else {
+                Auth.auth().createUser(withEmail: email, password: pass, completion: {( user,error) in
+                    if error != nil {
+                        print ("USER: Unable to auth with Firebase using email: \(error.debugDescription)")
+                    } else {
+                        print ("USER: Successfuly auth email with Firebase")
+                        if let user = user {
+                            let userData = ["provider": user.providerID]
+                            self.completeSingIn(id: user.uid, userData: userData)
+                        }
+                    }
+                })
+            }
+            
+        })
+    }
+    
     func completeSingIn (id: String, userData: Dictionary<String, String>) {
         REF_USERS.observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.hasChild(id){
                 print ("Old User Detected")
                 self.createDBUser(uid: id, userData: userData)
                 KeychainWrapper.standard.set(id, forKey: "uid")
-                KeychainWrapper.standard.set(userData["fullName"]!, forKey: "fullName")
+                KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
                 print("USER: Saved to keychain")
-                //self.performSegue(withIdentifier: "showTodayTasks", sender: nil)
             } else {
                 print ("New User")
                 self.createDBUser(uid: id, userData: userData)
                 KeychainWrapper.standard.set(id, forKey: "uid")
-                KeychainWrapper.standard.set(userData["fullName"]!, forKey: "fullName")
-                //self.performSegue(withIdentifier: "showTodayTasks", sender: id)
+                KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
             }
         })
     }

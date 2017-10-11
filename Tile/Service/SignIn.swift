@@ -16,6 +16,8 @@ class SignIn: NSObject, GIDSignInDelegate {
         return SignIn()
     }()
     
+    // MARK: - Facebook
+    
     func facebookSignIn() {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: LoginViewController.self()) { (result, error) in
@@ -32,6 +34,8 @@ class SignIn: NSObject, GIDSignInDelegate {
         }
     }
     
+    // MARK: - Google+
+    
     func googleSignIn() {
         GIDSignIn.sharedInstance().signIn()
     }
@@ -45,5 +49,11 @@ class SignIn: NSObject, GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         GIDSignIn.sharedInstance().signOut()
+    }
+    
+    // MARK: - Email
+    
+    func emailSignIn(email: String, pass: String) {
+        FirebaseService.shared.auth(email: email, pass: pass)
     }
 }
