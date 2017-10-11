@@ -30,7 +30,7 @@ class FirebaseService {
             } else {
                 print ("USER: Successfully auth with Firebase")
                 if let user = user {
-                    let userData = ["provider": credential.provider, "fullName": user.displayName!]
+                    let userData = ["provider": credential.provider, "fullName": user.displayName ?? ""]
                     self.completeSingIn(id: user.uid, userData: userData)
                 }
             }

@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInUIDelegate {
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = SignIn.shared
     }
     
     // MARK: - SingInButtonActions
@@ -22,6 +24,7 @@ class LoginViewController: UIViewController {
         SignIn.shared.facebookSignIn()
     }
     @IBAction func googleSignInTapped(_ sender: Any) {
+        SignIn.shared.googleSignIn()
     }
 }
 

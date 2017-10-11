@@ -11,7 +11,7 @@ import GoogleSignIn
 import FBSDKLoginKit
 import Firebase
 
-class SignIn {
+class SignIn: NSObject, GIDSignInDelegate {
     static let shared: SignIn = {
         return SignIn()
     }()
@@ -30,5 +30,20 @@ class SignIn {
                 FirebaseService.shared.auth(credential)
             }
         }
+    }
+    
+    func googleSignIn() {
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        FirebaseService.shared.auth(credential)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        GIDSignIn.sharedInstance().signOut()
     }
 }
