@@ -67,6 +67,7 @@ env.sh
 *.ktx
 *.rej
 .DS_Store
+GoogleService-Info.plist
 
 # Carthage
 #
