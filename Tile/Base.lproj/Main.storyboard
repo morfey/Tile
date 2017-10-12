@@ -18,29 +18,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="su7-uI-VWb">
-                                <rect key="frame" x="0.0" y="394" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="394" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xw-FN-bRF">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="30"/>
-                                        <color key="backgroundColor" red="1" green="0.400723777309825" blue="0.39608372985849116" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                                        <color key="backgroundColor" red="0.892041774611399" green="0.250398366502664" blue="0.22649162017044619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Google">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="googleSignInTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uqw-6K-IK4"/>
+                                            <action selector="googleSignInTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hyt-6m-Zcr"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cR-1h-qCp">
-                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="30"/>
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
                                         <color key="backgroundColor" red="0.31358862681417765" green="0.41037086261191968" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Facebook">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="facebookSignInTaped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTD-v3-W6m"/>
+                                            <action selector="facebookSignInTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CTy-Wa-Vd8"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="SgU-zi-SNQ"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jhE-rZ-emg">
                                 <rect key="frame" x="0.0" y="220" width="375" height="118"/>
@@ -63,7 +66,7 @@
                                             <color key="titleColor" red="0.31358862679999999" green="0.4103708626" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
-                                            <action selector="emailSignInTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qNc-p5-zd1"/>
+                                            <action selector="emailSignInTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F2d-lV-08O"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -88,8 +91,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="emailTextFiled" destination="4OE-lc-W8b" id="hYN-id-Vow"/>
-                        <outlet property="passwordTextField" destination="IKQ-aK-ZUA" id="GHx-ML-koX"/>
+                        <outlet property="emailTextField" destination="4OE-lc-W8b" id="FoP-2f-663"/>
+                        <outlet property="passwordTextField" destination="IKQ-aK-ZUA" id="2Ni-Zh-Ecu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

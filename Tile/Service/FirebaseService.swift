@@ -57,8 +57,7 @@ class FirebaseService {
                         }
                     }
                 })
-            }
-            
+            }  
         })
     }
     

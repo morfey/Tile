@@ -11,8 +11,13 @@
 		22037D111F8E1E9400315130 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22037D101F8E1E9400315130 /* SignIn.swift */; };
 		22037D131F8E21D100315130 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22037D121F8E21D100315130 /* Constants.swift */; };
 		22037D141F8E240A00315130 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E56F1F8E180B0025A0D5 /* GoogleService-Info.plist */; };
+		229B10681F8F87B700FDA0F4 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10621F8F87B700FDA0F4 /* LoginInteractor.swift */; };
+		229B10691F8F87B700FDA0F4 /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10631F8F87B700FDA0F4 /* LoginModels.swift */; };
+		229B106A1F8F87B700FDA0F4 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10641F8F87B700FDA0F4 /* LoginPresenter.swift */; };
+		229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10651F8F87B700FDA0F4 /* LoginRouter.swift */; };
+		229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10661F8F87B700FDA0F4 /* LoginViewController.swift */; };
+		229B106D1F8F87B700FDA0F4 /* LoginWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10671F8F87B700FDA0F4 /* LoginWorker.swift */; };
 		22A5E54D1F8E162F0025A0D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E54C1F8E162F0025A0D5 /* AppDelegate.swift */; };
-		22A5E54F1F8E162F0025A0D5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E54E1F8E162F0025A0D5 /* LoginViewController.swift */; };
 		22A5E5521F8E162F0025A0D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E5501F8E162F0025A0D5 /* Main.storyboard */; };
 		22A5E5551F8E162F0025A0D5 /* Tile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E5531F8E162F0025A0D5 /* Tile.xcdatamodeld */; };
 		22A5E5571F8E162F0025A0D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E5561F8E162F0025A0D5 /* Assets.xcassets */; };
@@ -36,9 +41,14 @@
 		22037D0E1F8E1E0F00315130 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		22037D101F8E1E9400315130 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		22037D121F8E21D100315130 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		229B10621F8F87B700FDA0F4 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		229B10631F8F87B700FDA0F4 /* LoginModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModels.swift; sourceTree = "<group>"; };
+		229B10641F8F87B700FDA0F4 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		229B10651F8F87B700FDA0F4 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		229B10661F8F87B700FDA0F4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		229B10671F8F87B700FDA0F4 /* LoginWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWorker.swift; sourceTree = "<group>"; };
 		22A5E5491F8E162F0025A0D5 /* Tile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A5E54C1F8E162F0025A0D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		22A5E54E1F8E162F0025A0D5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		22A5E5511F8E162F0025A0D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22A5E5541F8E162F0025A0D5 /* Tile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tile.xcdatamodel; sourceTree = "<group>"; };
 		22A5E5561F8E162F0025A0D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,28 +86,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		22037D0A1F8E1DC900315130 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				22A5E54E1F8E162F0025A0D5 /* LoginViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		22037D0B1F8E1DD900315130 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		22037D0C1F8E1DE400315130 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		22037D0D1F8E1DF000315130 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +94,27 @@
 				22037D121F8E21D100315130 /* Constants.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		229B10601F8F879700FDA0F4 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				229B10611F8F87A300FDA0F4 /* Login */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		229B10611F8F87A300FDA0F4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				229B10621F8F87B700FDA0F4 /* LoginInteractor.swift */,
+				229B10631F8F87B700FDA0F4 /* LoginModels.swift */,
+				229B10641F8F87B700FDA0F4 /* LoginPresenter.swift */,
+				229B10651F8F87B700FDA0F4 /* LoginRouter.swift */,
+				229B10661F8F87B700FDA0F4 /* LoginViewController.swift */,
+				229B10671F8F87B700FDA0F4 /* LoginWorker.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		22A5E5401F8E162F0025A0D5 = {
@@ -131,10 +140,8 @@
 		22A5E54B1F8E162F0025A0D5 /* Tile */ = {
 			isa = PBXGroup;
 			children = (
-				22037D0A1F8E1DC900315130 /* Controller */,
+				229B10601F8F879700FDA0F4 /* Scenes */,
 				22037D0D1F8E1DF000315130 /* Service */,
-				22037D0C1F8E1DE400315130 /* Model */,
-				22037D0B1F8E1DD900315130 /* View */,
 				22A5E5501F8E162F0025A0D5 /* Main.storyboard */,
 				22A5E5561F8E162F0025A0D5 /* Assets.xcassets */,
 				22A5E5581F8E162F0025A0D5 /* LaunchScreen.storyboard */,
@@ -407,11 +414,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A5E5551F8E162F0025A0D5 /* Tile.xcdatamodeld in Sources */,
-				22A5E54F1F8E162F0025A0D5 /* LoginViewController.swift in Sources */,
+				229B10691F8F87B700FDA0F4 /* LoginModels.swift in Sources */,
+				229B106A1F8F87B700FDA0F4 /* LoginPresenter.swift in Sources */,
+				229B10681F8F87B700FDA0F4 /* LoginInteractor.swift in Sources */,
 				22037D111F8E1E9400315130 /* SignIn.swift in Sources */,
 				22037D0F1F8E1E0F00315130 /* FirebaseService.swift in Sources */,
 				22A5E54D1F8E162F0025A0D5 /* AppDelegate.swift in Sources */,
+				229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */,
 				22037D131F8E21D100315130 /* Constants.swift in Sources */,
+				229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */,
+				229B106D1F8F87B700FDA0F4 /* LoginWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
