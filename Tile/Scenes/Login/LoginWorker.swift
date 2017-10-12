@@ -17,13 +17,4 @@ class LoginWorker
     func doSomeWork()
     {
     }
-    func facebookSignIn() {
-        SignIn.shared.facebookSignIn()
-    }
-    func googleSignIn() {
-        SignIn.shared.googleSignIn()
-    }
-    func emailSignIn(email: String, pass: String) {
-        SignIn.shared.emailSignIn(email: email, pass: pass)
-    }
 }

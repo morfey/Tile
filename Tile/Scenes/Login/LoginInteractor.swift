@@ -43,17 +43,14 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     }
     
     func facebookSignIn() {
-        worker = LoginWorker()
-        worker?.facebookSignIn()
+        SignIn.shared.facebookSignIn()
     }
     
     func googleSignIn() {
-        worker = LoginWorker()
-        worker?.googleSignIn()
+        SignIn.shared.googleSignIn()
     }
     
     func emailSignIn(email: String, pass: String) {
-        worker = LoginWorker()
-        worker?.emailSignIn(email: email, pass: pass)
+        SignIn.shared.emailSignIn(email: email, pass: pass)
     }
 }
