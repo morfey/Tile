@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="65P-MU-EmU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="su7-uI-VWb">
-                                <rect key="frame" x="0.0" y="394" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="438" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xw-FN-bRF">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
@@ -46,7 +46,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jhE-rZ-emg">
-                                <rect key="frame" x="0.0" y="220" width="375" height="118"/>
+                                <rect key="frame" x="0.0" y="264" width="375" height="118"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4OE-lc-W8b">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -97,7 +97,90 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140" y="133.5832083958021"/>
+            <point key="canvasLocation" x="615" y="-460"/>
+        </scene>
+        <!--Edit Image View Controller-->
+        <scene sceneID="36R-kH-307">
+            <objects>
+                <viewController id="1SB-ET-22N" customClass="EditImageViewController" customModule="Tile" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bSq-5c-QGC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFE-m9-rnD">
+                                <rect key="frame" x="0.0" y="64" width="375" height="485"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="n1" translatesAutoresizingMaskIntoConstraints="NO" id="p2D-uM-lVT">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="485"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3oC-Gl-pZq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="485"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="p2D-uM-lVT" secondAttribute="bottom" id="1uB-tJ-3qY"/>
+                                    <constraint firstAttribute="trailing" secondItem="p2D-uM-lVT" secondAttribute="trailing" id="9pt-go-Gct"/>
+                                    <constraint firstAttribute="trailing" secondItem="3oC-Gl-pZq" secondAttribute="trailing" id="EpW-e4-cfB"/>
+                                    <constraint firstItem="p2D-uM-lVT" firstAttribute="leading" secondItem="mFE-m9-rnD" secondAttribute="leading" id="Lhh-vI-w4h"/>
+                                    <constraint firstItem="3oC-Gl-pZq" firstAttribute="leading" secondItem="mFE-m9-rnD" secondAttribute="leading" id="P1P-zC-O0W"/>
+                                    <constraint firstItem="3oC-Gl-pZq" firstAttribute="top" secondItem="mFE-m9-rnD" secondAttribute="top" id="P9B-vs-CJS"/>
+                                    <constraint firstAttribute="bottom" secondItem="3oC-Gl-pZq" secondAttribute="bottom" id="VHb-GO-BTX"/>
+                                    <constraint firstItem="p2D-uM-lVT" firstAttribute="top" secondItem="mFE-m9-rnD" secondAttribute="top" id="hBI-jn-SXL"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utu-qO-uxK">
+                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="V4v-MU-aeu"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mFE-m9-rnD" firstAttribute="trailing" secondItem="V4k-aF-xLW" secondAttribute="trailing" id="6GA-vi-9py"/>
+                            <constraint firstItem="utu-qO-uxK" firstAttribute="leading" secondItem="V4k-aF-xLW" secondAttribute="leading" id="BKF-Vl-gEN"/>
+                            <constraint firstItem="utu-qO-uxK" firstAttribute="bottom" secondItem="V4k-aF-xLW" secondAttribute="bottom" id="eMT-5x-iP3"/>
+                            <constraint firstItem="utu-qO-uxK" firstAttribute="trailing" secondItem="V4k-aF-xLW" secondAttribute="trailing" id="iiE-az-s3b"/>
+                            <constraint firstItem="mFE-m9-rnD" firstAttribute="top" secondItem="V4k-aF-xLW" secondAttribute="top" id="ow3-jZ-4Nc"/>
+                            <constraint firstItem="mFE-m9-rnD" firstAttribute="leading" secondItem="V4k-aF-xLW" secondAttribute="leading" id="t0L-x9-Anf"/>
+                            <constraint firstItem="utu-qO-uxK" firstAttribute="top" secondItem="mFE-m9-rnD" secondAttribute="bottom" constant="18" id="zqF-Xb-vjU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="V4k-aF-xLW"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="QSR-Lt-gSY"/>
+                    <connections>
+                        <outlet property="conteinerImage" destination="mFE-m9-rnD" id="r6G-ak-q0c"/>
+                        <outlet property="filtersScrollView" destination="utu-qO-uxK" id="JRg-3x-6aS"/>
+                        <outlet property="imageToFilter" destination="3oC-Gl-pZq" id="cLY-Cl-cBS"/>
+                        <outlet property="originalImage" destination="p2D-uM-lVT" id="Xi2-OU-rYc"/>
+                        <segue destination="BYZ-38-t0r" kind="show" id="WYI-18-NNU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eSR-Oa-WGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-180" y="296.40179910044981"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="D4F-E2-wRD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="65P-MU-EmU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0G6-WE-y1G">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1SB-ET-22N" kind="relationship" relationship="rootViewController" id="jvh-LW-Cjs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uHC-nh-7RS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-894" y="299"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="n1" width="790" height="647"/>
+    </resources>
 </document>
