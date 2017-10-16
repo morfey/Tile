@@ -1,5 +1,5 @@
 //
-//  EditImageRouter.swift
+//  TilesRouter.swift
 //  Tile
 //
 //  Created by  Tim on 16.10.2017.
@@ -12,37 +12,38 @@
 
 import UIKit
 
-@objc protocol EditImageRoutingLogic
+@objc protocol TilesRoutingLogic
 {
     //func routeToSomewhere(segue: UIStoryboardSegue?)
-    func routeToTiles(segue: UIStoryboardSegue?)
+    func routeToEditImage(segue: UIStoryboardSegue?)
 }
 
-protocol EditImageDataPassing
+protocol TilesDataPassing
 {
-    var dataStore: EditImageDataStore? { get }
+    var dataStore: TilesDataStore? { get }
 }
 
-class EditImageRouter: NSObject, EditImageRoutingLogic, EditImageDataPassing
+class TilesRouter: NSObject, TilesRoutingLogic, TilesDataPassing
 {
-    weak var viewController: EditImageViewController?
-    var dataStore: EditImageDataStore?
+    weak var viewController: TilesViewController?
+    var dataStore: TilesDataStore?
     
     // MARK: Routing
     
-    func routeToTiles(segue: UIStoryboardSegue?) {
+    func routeToEditImage(segue: UIStoryboardSegue?) {
         if let segue = segue {
-            let destinationVC = segue.destination as! TilesViewController
+            let destinationVC = segue.destination as! EditImageViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToTiles(source: dataStore!, destination: &destinationDS)
+            passDataToEditImage(source: dataStore!, destination: &destinationDS)
         } else {
-            let index = viewController!.navigationController!.viewControllers.count - 2
-            let destinationVC = viewController?.navigationController?.viewControllers[index] as! TilesViewController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditImageViewController") as! EditImageViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToTiles(source: dataStore!, destination: &destinationDS)
-            navigateToTiles(source: viewController!, destination: destinationVC)
+            passDataToEditImage(source: dataStore!, destination: &destinationDS)
+            navigateToEditImage(source: viewController!, destination: destinationVC)
         }
     }
+    
     //func routeToSomewhere(segue: UIStoryboardSegue?)
     //{
     //  if let segue = segue {
@@ -60,24 +61,22 @@ class EditImageRouter: NSObject, EditImageRoutingLogic, EditImageDataPassing
     
     // MARK: Navigation
     
-    func navigateToTiles(source: EditImageViewController, destination: TilesViewController)
-    {
-      source.navigationController?.popViewController(animated: true)
+    func navigateToEditImage(source: TilesViewController, destination: EditImageViewController) {
+        source.show(destination, sender: nil)
     }
     
-    //func navigateToSomewhere(source: EditImageViewController, destination: SomewhereViewController)
+    //func navigateToSomewhere(source: TilesViewController, destination: SomewhereViewController)
     //{
     //  source.show(destination, sender: nil)
     //}
     
     // MARK: Passing data
     
-    func passDataToTiles(source: EditImageDataStore, destination: inout TilesDataStore)
-    {
-      destination.selectedImage = source.imageWithFilter
+    func passDataToEditImage(source: TilesDataStore, destination: inout EditImageDataStore) {
+        destination.originalImage = source.selectedImage
     }
     
-    //func passDataToSomewhere(source: EditImageDataStore, destination: inout SomewhereDataStore)
+    //func passDataToSomewhere(source: TilesDataStore, destination: inout SomewhereDataStore)
     //{
     //  destination.name = source.name
     //}

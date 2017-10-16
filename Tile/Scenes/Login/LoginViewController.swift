@@ -82,7 +82,9 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBAction func facebookSignInTapped(_ sender: Any) {
-        interactor?.facebookSignIn()
+        interactor?.facebookSignIn() {
+            self.router?.routeToTiles(segue: nil)
+        }
     }
     
     @IBAction func googleSignInTapped(_ sender: Any) {
@@ -91,7 +93,9 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
     
     @IBAction func emailSignInTapped(_ sender: Any) {
         guard let email = emailTextField.text, let pass = passwordTextField.text else { return }
-        interactor?.emailSignIn(email: email, pass: pass)
+        interactor?.emailSignIn(email: email, pass: pass) {
+            self.router?.routeToTiles(segue: nil)
+        }
     }
     
     func doSomething()

@@ -16,15 +16,21 @@ protocol EditImageBusinessLogic
 {
     func doSomething(request: EditImage.Something.Request)
     func applyFilters(request: EditImage.Filters.Request)
+    func setImage()
+    func setImageWithFilter(image: UIImage)
 }
 
 protocol EditImageDataStore
 {
+    var originalImage: UIImage? {get set}
+    var imageWithFilter: UIImage? {get set}
     //var name: String { get set }
 }
 
 class EditImageInteractor: EditImageBusinessLogic, EditImageDataStore
 {
+    var originalImage: UIImage?
+    var imageWithFilter: UIImage?
     var presenter: EditImagePresentationLogic?
     var worker: EditImageWorker?
     //var name: String = ""
@@ -42,9 +48,20 @@ class EditImageInteractor: EditImageBusinessLogic, EditImageDataStore
     
     func applyFilters(request: EditImage.Filters.Request) {
         worker = EditImageWorker()
-        let images = worker?.applyFilters(originalImage: request.originalImage, filtrerNames: request.filters)
-        
-        let response = EditImage.Filters.Response(images: images!)
-        presenter?.presentFiltersScrollView(response: response)
+        DispatchQueue.global().async {
+            let images = self.worker?.applyFilters(originalImage: request.originalImage, filtrerNames: request.filters)
+            DispatchQueue.main.async {
+                let response = EditImage.Filters.Response(images: images!)
+                self.presenter?.presentFiltersScrollView(response: response)
+            }
+        }
+    }
+    
+    func setImage() {
+        presenter?.setImage(image: originalImage!)
+    }
+    
+    func setImageWithFilter(image: UIImage) {
+        self.imageWithFilter = image
     }
 }

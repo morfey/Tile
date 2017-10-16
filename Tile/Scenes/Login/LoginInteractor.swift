@@ -15,9 +15,9 @@ import UIKit
 protocol LoginBusinessLogic
 {
     func doSomething(request: Login.Something.Request)
-    func facebookSignIn()
+    func facebookSignIn(completion: @escaping () -> ())
     func googleSignIn()
-    func emailSignIn(email: String, pass: String)
+    func emailSignIn(email: String, pass: String, completion: @escaping () -> ())
 }
 
 protocol LoginDataStore
@@ -42,15 +42,19 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
         presenter?.presentSomething(response: response)
     }
     
-    func facebookSignIn() {
-        SignIn.shared.facebookSignIn()
+    func facebookSignIn(completion: @escaping () -> ()) {
+        SignIn.shared.facebookSignIn() {
+            completion()
+        }
     }
     
     func googleSignIn() {
         SignIn.shared.googleSignIn()
     }
     
-    func emailSignIn(email: String, pass: String) {
-        SignIn.shared.emailSignIn(email: email, pass: pass)
+    func emailSignIn(email: String, pass: String, completion: @escaping () -> ()) {
+        SignIn.shared.emailSignIn(email: email, pass: pass) {
+            completion()
+        }
     }
 }

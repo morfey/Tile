@@ -18,7 +18,7 @@ class SignIn: NSObject, GIDSignInDelegate {
     
     // MARK: - Facebook
     
-    func facebookSignIn() {
+    func facebookSignIn(completion: @escaping () -> ()) {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: LoginViewController.self()) { (result, error) in
             if let error = error {
@@ -29,7 +29,9 @@ class SignIn: NSObject, GIDSignInDelegate {
             else {
                 print ("USER: Successfully auth with Facebook")
                 let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-                FirebaseService.shared.auth(credential)
+                FirebaseService.shared.auth(credential) {
+                    completion()
+                }
             }
         }
     }
@@ -44,7 +46,9 @@ class SignIn: NSObject, GIDSignInDelegate {
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
-        FirebaseService.shared.auth(credential)
+        FirebaseService.shared.auth(credential) {
+            
+        }
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
@@ -53,7 +57,9 @@ class SignIn: NSObject, GIDSignInDelegate {
     
     // MARK: - Email
     
-    func emailSignIn(email: String, pass: String) {
-        FirebaseService.shared.auth(email: email, pass: pass)
+    func emailSignIn(email: String, pass: String, completion: @escaping () -> ()) {
+        FirebaseService.shared.auth(email: email, pass: pass) {
+            completion()
+        }
     }
 }

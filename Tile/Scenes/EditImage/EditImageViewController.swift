@@ -16,6 +16,7 @@ protocol EditImageDisplayLogic: class
 {
     func displaySomething(viewModel: EditImage.Something.ViewModel)
     func displayFiltersScrollView(viewModel: EditImage.Filters.ViewModel)
+    func setImage(image: UIImage)
 }
 
 class EditImageViewController: UIViewController, EditImageDisplayLogic
@@ -82,12 +83,23 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
     {
         super.viewDidLoad()
         doSomething()
+        initImage()
+        //configure()
+    }
+    
+    func initImage() {
+        interactor?.setImage()
         configure()
     }
     
     @objc func filterButtonTapped(sender: UIButton) {
         let button = sender as UIButton
         imageToFilter.image = button.backgroundImage(for: .normal)
+    }
+    
+    @IBAction func saveBtnTapped(_ sender: Any) {
+        interactor?.setImageWithFilter(image: imageToFilter.image!)
+        router?.routeToTiles(segue: nil)
     }
     
     // MARK: Do something
@@ -97,6 +109,7 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
     @IBOutlet weak var originalImage: UIImageView!
     @IBOutlet weak var imageToFilter: UIImageView!
     @IBOutlet weak var filtersScrollView: UIScrollView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     func doSomething()
     {
@@ -112,6 +125,10 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
     func displaySomething(viewModel: EditImage.Something.ViewModel)
     {
         //nameTextField.text = viewModel.name
+    }
+    
+    func setImage(image: UIImage) {
+        originalImage.image = image
     }
     
     func displayFiltersScrollView(viewModel: EditImage.Filters.ViewModel) {
@@ -137,6 +154,7 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
             xCoord +=  buttonWidth + gapBetweenButtons
             filtersScrollView.addSubview(filterButton)
         }
+        activityIndicator.stopAnimating()
         filtersScrollView.contentSize = CGSize(width: buttonWidth * CGFloat(itemCount + 2), height: yCoord)
     }
 }

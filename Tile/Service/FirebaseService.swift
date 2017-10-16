@@ -23,7 +23,7 @@ class FirebaseService {
     
     // MARK: - SignIn/SignOut
     
-    func auth(_ credential: AuthCredential){
+    func auth(_ credential: AuthCredential, completion: @escaping () -> ()){
         Auth.auth().signIn(with: credential, completion: {(user, error) in
             if let error = error {
                 print("USER: UNABLE to authentificate with Firebase - \(error)")
@@ -31,19 +31,23 @@ class FirebaseService {
                 print ("USER: Successfully auth with Firebase")
                 if let user = user {
                     let userData = ["provider": credential.provider, "fullName": user.displayName ?? ""]
-                    self.completeSingIn(id: user.uid, userData: userData)
+                    self.completeSingIn(id: user.uid, userData: userData) {
+                        completion()
+                    }
                 }
             }
         })      
     }
     
-    func auth(email: String, pass: String) {
+    func auth(email: String, pass: String, completion: @escaping () -> ()) {
         Auth.auth().signIn(withEmail: email, password: pass, completion: {(user, error) in
             if error == nil {
                 print ("USER: Email user auth with Firebase")
                 if let user = user {
                     let userData = ["provider": user.providerID]
-                    self.completeSingIn(id: user.uid, userData: userData)
+                    self.completeSingIn(id: user.uid, userData: userData) {
+                        completion()
+                    }
                 }
             } else {
                 Auth.auth().createUser(withEmail: email, password: pass, completion: {( user,error) in
@@ -53,7 +57,9 @@ class FirebaseService {
                         print ("USER: Successfuly auth email with Firebase")
                         if let user = user {
                             let userData = ["provider": user.providerID]
-                            self.completeSingIn(id: user.uid, userData: userData)
+                            self.completeSingIn(id: user.uid, userData: userData) {
+                                completion()
+                            }
                         }
                     }
                 })
@@ -61,7 +67,7 @@ class FirebaseService {
         })
     }
     
-    func completeSingIn (id: String, userData: Dictionary<String, String>) {
+    func completeSingIn (id: String, userData: Dictionary<String, String>, completion: @escaping () -> ()) {
         REF_USERS.observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.hasChild(id){
                 print ("Old User Detected")
@@ -69,11 +75,13 @@ class FirebaseService {
                 KeychainWrapper.standard.set(id, forKey: "uid")
                 KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
                 print("USER: Saved to keychain")
+                completion()
             } else {
                 print ("New User")
                 self.createDBUser(uid: id, userData: userData)
                 KeychainWrapper.standard.set(id, forKey: "uid")
                 KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
+                completion()
             }
         })
     }

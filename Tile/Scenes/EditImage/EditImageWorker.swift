@@ -21,9 +21,9 @@ class EditImageWorker
     
     func applyFilters(originalImage: UIImage, filtrerNames: [String]) -> [CGImage] {
         var filteredImages: [CGImage] = []
+        let ciContext = CIContext(options: nil)
+        let coreImage = CIImage(image: originalImage)
         for i in filtrerNames {
-            let ciContext = CIContext(options: nil)
-            let coreImage = CIImage(image: originalImage)
             let filter = CIFilter(name: i)
             filter!.setDefaults()
             filter!.setValue(coreImage, forKey: kCIInputImageKey)
