@@ -96,4 +96,8 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
             self.router?.routeToTiles(segue: nil)
         }
     }
+    
+    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+        router?.routeToTiles(segue: nil)
+    }
 }

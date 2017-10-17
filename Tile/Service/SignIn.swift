@@ -47,7 +47,8 @@ class SignIn: NSObject, GIDSignInDelegate {
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
         FirebaseService.shared.auth(credential) {
-            
+            let uiDelegate = GIDSignIn.sharedInstance().uiDelegate
+            uiDelegate?.sign!(signIn, dismiss: uiDelegate as! UIViewController)
         }
     }
     
