@@ -14,7 +14,6 @@ import UIKit
 
 protocol EditImagePresentationLogic
 {
-    func presentSomething(response: EditImage.Something.Response)
     func presentFiltersScrollView(response: EditImage.Filters.Response)
     func setImage(image: UIImage)
 }
@@ -24,12 +23,6 @@ class EditImagePresenter: EditImagePresentationLogic
     weak var viewController: EditImageDisplayLogic?
     
     // MARK: Do something
-    
-    func presentSomething(response: EditImage.Something.Response)
-    {
-        let viewModel = EditImage.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
-    }
     
     func presentFiltersScrollView(response: EditImage.Filters.Response) {
         let viewModel = EditImage.Filters.ViewModel(images: response.images)

@@ -14,7 +14,6 @@ import UIKit
 
 protocol LoginBusinessLogic
 {
-    func doSomething(request: Login.Something.Request)
     func facebookSignIn(completion: @escaping () -> ())
     func googleSignIn()
     func emailSignIn(email: String, pass: String, completion: @escaping () -> ())
@@ -29,18 +28,8 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
 {
     var presenter: LoginPresentationLogic?
     var worker: LoginWorker?
-    //var name: String = ""
     
     // MARK: Do something
-    
-    func doSomething(request: Login.Something.Request)
-    {
-        worker = LoginWorker()
-        worker?.doSomeWork()
-        
-        let response = Login.Something.Response()
-        presenter?.presentSomething(response: response)
-    }
     
     func facebookSignIn(completion: @escaping () -> ()) {
         SignIn.shared.facebookSignIn() {

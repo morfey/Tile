@@ -122,11 +122,20 @@
                                     <outletCollection property="gestureRecognizers" destination="jkW-eo-jG2" appends="YES" id="EqV-Om-NnA"/>
                                 </connections>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4o-E6-Nmf">
+                                <rect key="frame" x="160" y="356" width="54" height="30"/>
+                                <state key="normal" title="Camera"/>
+                                <connections>
+                                    <action selector="cameraTapped:" destination="Tx8-pb-0Hv" eventType="touchUpInside" id="9cf-wm-y5R"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BYn-Mc-Qpg" firstAttribute="leading" secondItem="cBW-6T-Z2n" secondAttribute="leading" id="H25-dO-LCj"/>
                             <constraint firstItem="ukV-pd-2VS" firstAttribute="centerY" secondItem="69O-VU-Xpm" secondAttribute="centerY" id="Rxb-K8-F8E"/>
+                            <constraint firstItem="n4o-E6-Nmf" firstAttribute="centerX" secondItem="69O-VU-Xpm" secondAttribute="centerX" id="aZe-iu-AAK"/>
+                            <constraint firstItem="n4o-E6-Nmf" firstAttribute="top" secondItem="ukV-pd-2VS" secondAttribute="bottom" constant="8" id="adk-5S-HUb"/>
                             <constraint firstItem="ukV-pd-2VS" firstAttribute="centerX" secondItem="69O-VU-Xpm" secondAttribute="centerX" id="ixV-Ag-BmQ"/>
                             <constraint firstItem="BYn-Mc-Qpg" firstAttribute="trailing" secondItem="cBW-6T-Z2n" secondAttribute="trailing" id="mV7-Dx-3AS"/>
                             <constraint firstItem="BYn-Mc-Qpg" firstAttribute="top" secondItem="cBW-6T-Z2n" secondAttribute="top" id="nXx-pb-N6R"/>

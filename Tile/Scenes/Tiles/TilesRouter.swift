@@ -14,7 +14,6 @@ import UIKit
 
 @objc protocol TilesRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
     func routeToEditImage(segue: UIStoryboardSegue?)
 }
 
@@ -44,40 +43,15 @@ class TilesRouter: NSObject, TilesRoutingLogic, TilesDataPassing
         }
     }
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
-    
     // MARK: Navigation
     
     func navigateToEditImage(source: TilesViewController, destination: EditImageViewController) {
         source.show(destination, sender: nil)
     }
     
-    //func navigateToSomewhere(source: TilesViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
-    
     // MARK: Passing data
     
     func passDataToEditImage(source: TilesDataStore, destination: inout EditImageDataStore) {
         destination.originalImage = source.selectedImage
     }
-    
-    //func passDataToSomewhere(source: TilesDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
 }

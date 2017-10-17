@@ -14,7 +14,6 @@ import UIKit
 
 @objc protocol LoginRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
     func routeToTiles(segue: UIStoryboardSegue?)
 }
 
@@ -41,36 +40,12 @@ class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
         }
     }
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
-    
     // MARK: Navigation
     
-    //func navigateToSomewhere(source: LoginViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
     func navigateToTiles(source: LoginViewController, destination: TilesViewController) {
         let nav = UINavigationController(rootViewController: destination)
         source.present(nav, animated: true)
     }
     
     // MARK: Passing data
-    
-    //func passDataToSomewhere(source: LoginDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
 }

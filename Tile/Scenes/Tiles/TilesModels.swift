@@ -15,19 +15,6 @@ import UIKit
 enum Tiles
 {
     // MARK: Use cases
-    
-    enum Something
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-        }
-        struct ViewModel
-        {
-        }
-    }
     enum SelectedImage
     {
         struct Request

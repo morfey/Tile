@@ -14,7 +14,6 @@ import UIKit
 
 protocol EditImageDisplayLogic: class
 {
-    func displaySomething(viewModel: EditImage.Something.ViewModel)
     func displayFiltersScrollView(viewModel: EditImage.Filters.ViewModel)
     func setImage(image: UIImage)
 }
@@ -82,7 +81,6 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
         initImage()
         //configure()
     }
@@ -111,20 +109,9 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
     @IBOutlet weak var filtersScrollView: UIScrollView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    func doSomething()
-    {
-        let request = EditImage.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
     func configure() {
         let request = EditImage.Filters.Request(filters: CIFilterNames, originalImage: originalImage.image!)
         interactor?.applyFilters(request: request)
-    }
-    
-    func displaySomething(viewModel: EditImage.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
     }
     
     func setImage(image: UIImage) {

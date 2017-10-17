@@ -14,7 +14,6 @@ import UIKit
 
 protocol EditImageBusinessLogic
 {
-    func doSomething(request: EditImage.Something.Request)
     func applyFilters(request: EditImage.Filters.Request)
     func setImage()
     func setImageWithFilter(image: UIImage)
@@ -24,7 +23,6 @@ protocol EditImageDataStore
 {
     var originalImage: UIImage? {get set}
     var imageWithFilter: UIImage? {get set}
-    //var name: String { get set }
 }
 
 class EditImageInteractor: EditImageBusinessLogic, EditImageDataStore
@@ -33,18 +31,8 @@ class EditImageInteractor: EditImageBusinessLogic, EditImageDataStore
     var imageWithFilter: UIImage?
     var presenter: EditImagePresentationLogic?
     var worker: EditImageWorker?
-    //var name: String = ""
     
     // MARK: Do something
-    
-    func doSomething(request: EditImage.Something.Request)
-    {
-        worker = EditImageWorker()
-        worker?.doSomeWork()
-        
-        let response = EditImage.Something.Response()
-        presenter?.presentSomething(response: response)
-    }
     
     func applyFilters(request: EditImage.Filters.Request) {
         worker = EditImageWorker()

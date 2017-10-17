@@ -15,19 +15,6 @@ import UIKit
 enum EditImage
 {
     // MARK: Use cases
-    
-    enum Something
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-        }
-        struct ViewModel
-        {
-        }
-    }
     enum Filters {
         struct Request
         {

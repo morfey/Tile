@@ -14,7 +14,6 @@ import UIKit
 
 protocol TilesPresentationLogic
 {
-    func presentSomething(response: Tiles.Something.Response)
     func presentSelectedImage(response: Tiles.SelectedImage.Response)
 }
 
@@ -23,12 +22,6 @@ class TilesPresenter: TilesPresentationLogic
     weak var viewController: TilesDisplayLogic?
     
     // MARK: Do something
-    
-    func presentSomething(response: Tiles.Something.Response)
-    {
-        let viewModel = Tiles.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
-    }
     
     func presentSelectedImage(response: Tiles.SelectedImage.Response) {
         let viewModel = Tiles.SelectedImage.ViewModel(image: response.image)

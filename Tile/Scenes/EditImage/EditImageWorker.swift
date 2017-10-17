@@ -14,11 +14,6 @@ import UIKit
 
 class EditImageWorker
 {
-
-    func doSomeWork()
-    {
-    }
-    
     func applyFilters(originalImage: UIImage, filtrerNames: [String]) -> [CGImage] {
         var filteredImages: [CGImage] = []
         let ciContext = CIContext(options: nil)

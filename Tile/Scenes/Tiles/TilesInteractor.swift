@@ -14,7 +14,6 @@ import UIKit
 
 protocol TilesBusinessLogic
 {
-    func doSomething(request: Tiles.Something.Request)
     func setImage(image: UIImage?)
     var selectedImage: UIImage? {get set}
 }
@@ -22,7 +21,6 @@ protocol TilesBusinessLogic
 protocol TilesDataStore
 {
     var selectedImage: UIImage? {get set}
-    //var name: String { get set }
 }
 
 class TilesInteractor: TilesBusinessLogic, TilesDataStore
@@ -30,18 +28,8 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
     var selectedImage: UIImage?
     var presenter: TilesPresentationLogic?
     var worker: TilesWorker?
-    //var name: String = ""
     
     // MARK: Do something
-    
-    func doSomething(request: Tiles.Something.Request)
-    {
-        worker = TilesWorker()
-        worker?.doSomeWork()
-        
-        let response = Tiles.Something.Response()
-        presenter?.presentSomething(response: response)
-    }
     
     func setImage(image: UIImage? = nil) {
         if image != nil {

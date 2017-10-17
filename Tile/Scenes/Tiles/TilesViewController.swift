@@ -15,7 +15,6 @@ import SwiftKeychainWrapper
 
 protocol TilesDisplayLogic: class
 {
-    func displaySomething(viewModel: Tiles.Something.ViewModel)
     func displaySelectedImage(viewModel: Tiles.SelectedImage.ViewModel)
 }
 
@@ -73,7 +72,6 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
@@ -104,29 +102,26 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
         KeychainWrapper.standard.removeAllKeys()
     }
     
+    @IBAction func cameraTapped(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             imgSelected = true
             interactor?.setImage(image: image)
-        } else {
-            print ("fail")
+        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imgSelected = true
+            interactor?.setImage(image: image)
         }
         imagePicker.dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func doSomething()
-    {
-        let request = Tiles.Something.Request()
-        interactor?.doSomething(request: request)
     }
     
     func displaySelectedImage(viewModel: Tiles.SelectedImage.ViewModel) {
         imageAdd.image = viewModel.image
-    }
-    
-    func displaySomething(viewModel: Tiles.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
     }
 }

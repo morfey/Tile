@@ -15,7 +15,7 @@ import GoogleSignIn
 
 protocol LoginDisplayLogic: class
 {
-    func displaySomething(viewModel: Login.Something.ViewModel)
+    
 }
 
 class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDelegate
@@ -72,7 +72,6 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = SignIn.shared
-        doSomething()
     }
     
     // MARK: Do something
@@ -96,16 +95,5 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
         interactor?.emailSignIn(email: email, pass: pass) {
             self.router?.routeToTiles(segue: nil)
         }
-    }
-    
-    func doSomething()
-    {
-        let request = Login.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: Login.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
     }
 }

@@ -15,19 +15,6 @@ import UIKit
 enum Login
 {
     // MARK: Use cases
-    
-    enum Something
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-        }
-        struct ViewModel
-        {
-        }
-    }
     enum Auth {
         struct Request {
             
