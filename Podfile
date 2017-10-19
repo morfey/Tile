@@ -13,6 +13,7 @@ target 'Tile' do
   pod 'Firebase/Storage'
   pod 'GoogleSignIn'
   pod 'SwiftKeychainWrapper'
+  pod 'AKImageCropperView'
 
   target 'TileTests' do
     inherit! :search_paths

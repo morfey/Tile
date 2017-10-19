@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import AKImageCropperView
 
 @objc protocol EditImageDisplayLogic: class
 {
@@ -92,21 +93,61 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
     }
     
     @objc func filterButtonTapped(sender: UIButton) {
+        originalImage.isHidden = true
         let button = sender as UIButton
-        imageToFilter.image = button.backgroundImage(for: .normal)
+        imageCropperView.image = button.backgroundImage(for: .normal)
     }
     
     @IBAction func saveBtnTapped(_ sender: Any) {
-        interactor?.setImageWithFilter(image: imageToFilter.image!)
+        interactor?.setImageWithFilter(image: imageCropperView.image!)
         router?.routeToTiles(segue: nil)
+    }
+    
+    @IBAction func cropBtnTapped(_ sender: Any) {
+        originalImage.isHidden = true
+        if imageCropperView.isOverlayViewActive {
+            imageCropperView.image = imageCropperView.croppedImage
+            imageCropperView.hideOverlayView(animationDuration: 0.3)
+            UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+                self.actionView.alpha = 0
+                //self.imageCropperView.isHidden = true
+            }, completion: nil)
+            //self.imageToFilter.image = self.imageCropperView.croppedImage
+        } else {
+            imageCropperView.isHidden = false
+            actionView.isHidden = false
+            let image = imageCropperView.image != nil ? imageCropperView.image : originalImage.image
+            imageCropperView.image = image
+            imageCropperView.showOverlayView(animationDuration: 0.3)
+            UIView.animate(withDuration: 0.3, delay: 0.3, options: UIViewAnimationOptions.curveLinear, animations: {
+                self.actionView.alpha = 1
+            }, completion: nil)
+        }
+    }
+    
+    var angle: Double = 0.0
+    
+    @IBAction func rotateAction(_ sender: AnyObject) {
+        angle += .pi / 2
+        imageCropperView.rotate(angle, withDuration: 0.3, completion: { _ in
+            if self.angle == 2 * .pi {
+                self.angle = 0.0
+            }
+        })
+    }
+    
+    @IBAction func resetAction(_ sender: AnyObject) {
+        imageCropperView.reset(animationDuration: 0.3)
+        angle = 0.0
     }
     
     // MARK: Do something
     @IBOutlet weak var conteinerImage: UIView!
     @IBOutlet weak var originalImage: UIImageView!
-    @IBOutlet weak var imageToFilter: UIImageView!
     @IBOutlet weak var filtersScrollView: UIScrollView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var imageCropperView: AKImageCropperView!
+    @IBOutlet weak var actionView: UIView!
     
     func configure() {
         let request = EditImage.Filters.Request(filters: CIFilterNames, originalImage: originalImage.image!)
