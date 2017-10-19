@@ -24,7 +24,10 @@ class LoginPresenter: LoginPresentationLogic
     // MARK: Do something
     
     func presentError(_ error: Error) {
-        let viewModel = Login.Error.ViewModel(errorDescription: error.localizedDescription)
+        let alert = UIAlertController(title: "Error in login", message: error.localizedDescription, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        let viewModel = Login.Error.ViewModel(alert: alert)
         viewController?.displayError(viewModel: viewModel)
     }
 }

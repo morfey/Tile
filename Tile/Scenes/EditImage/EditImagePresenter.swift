@@ -25,8 +25,37 @@ class EditImagePresenter: EditImagePresentationLogic
     // MARK: Do something
     
     func presentFiltersScrollView(response: EditImage.Filters.Response) {
-        let viewModel = EditImage.Filters.ViewModel(images: response.images)
+        let scrollView = UIScrollView()
+        var xCoord: CGFloat = 5
+        let yCoord: CGFloat = 5
+        let buttonWidth:CGFloat = 70
+        let buttonHeight: CGFloat = 70
+        let gapBetweenButtons: CGFloat = 5
+        var itemCount = 0
+        
+        for (index, i) in response.images.enumerated() {
+            itemCount = index
+            let filterButton = UIButton(type: .custom)
+            filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
+            filterButton.tag = itemCount
+            filterButton.addTarget(self, action: #selector(filterButtonTapped(sender:)), for: .touchUpInside)
+            filterButton.layer.cornerRadius = 6
+            filterButton.clipsToBounds = true
+            let imageForButton = UIImage(cgImage: i)
+            filterButton.setBackgroundImage(imageForButton, for: .normal)
+            filterButton.contentMode = .scaleAspectFit
+            xCoord +=  buttonWidth + gapBetweenButtons
+            scrollView.addSubview(filterButton)
+        }
+        
+        scrollView.contentSize = CGSize(width: buttonWidth * CGFloat(itemCount + 2), height: yCoord)
+        
+        let viewModel = scrollView
         viewController?.displayFiltersScrollView(viewModel: viewModel)
+    }
+    
+    @objc func filterButtonTapped(sender: UIButton) {
+        viewController?.filterButtonTapped(sender: sender)
     }
     
     func setImage(image: UIImage) {

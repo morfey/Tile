@@ -101,10 +101,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
     }
     
     func displayError(viewModel: Login.Error.ViewModel) {
-        let alert = UIAlertController(title: "Error in login", message: viewModel.errorDescription, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+        present(viewModel.alert, animated: true, completion: nil)
     }
     
     func handleError(_ error: Error) {

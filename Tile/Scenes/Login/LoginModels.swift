@@ -34,7 +34,7 @@ enum Login
             var error: Error
         }
         struct ViewModel {
-            var errorDescription: String
+            var alert: UIAlertController
         }
     }
 }

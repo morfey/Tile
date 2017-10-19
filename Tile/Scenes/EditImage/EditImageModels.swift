@@ -27,7 +27,7 @@ enum EditImage
         }
         struct ViewModel
         {
-            var images: [CGImage]
+            var filtersScrollView: UIScrollView
         }
     }
 }

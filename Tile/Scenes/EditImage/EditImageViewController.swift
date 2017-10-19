@@ -12,9 +12,10 @@
 
 import UIKit
 
-protocol EditImageDisplayLogic: class
+@objc protocol EditImageDisplayLogic: class
 {
-    func displayFiltersScrollView(viewModel: EditImage.Filters.ViewModel)
+    func displayFiltersScrollView(viewModel: UIScrollView)
+    func filterButtonTapped(sender: UIButton)
     func setImage(image: UIImage)
 }
 
@@ -101,8 +102,6 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
     }
     
     // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var conteinerImage: UIView!
     @IBOutlet weak var originalImage: UIImageView!
     @IBOutlet weak var imageToFilter: UIImageView!
@@ -118,30 +117,11 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic
         originalImage.image = image
     }
     
-    func displayFiltersScrollView(viewModel: EditImage.Filters.ViewModel) {
-        var xCoord: CGFloat = 5
-        let yCoord: CGFloat = 5
-        let buttonWidth:CGFloat = 70
-        let buttonHeight: CGFloat = 70
-        let gapBetweenButtons: CGFloat = 5
-        
-        var itemCount = 0
-        
-        for (index, i) in viewModel.images.enumerated() {
-            itemCount = index
-            let filterButton = UIButton(type: .custom)
-            filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
-            filterButton.tag = itemCount
-            filterButton.addTarget(self, action: #selector(filterButtonTapped(sender:)), for: .touchUpInside)
-            filterButton.layer.cornerRadius = 6
-            filterButton.clipsToBounds = true
-            let imageForButton = UIImage(cgImage: i)
-            filterButton.setBackgroundImage(imageForButton, for: .normal)
-            filterButton.contentMode = .scaleAspectFit
-            xCoord +=  buttonWidth + gapBetweenButtons
-            filtersScrollView.addSubview(filterButton)
-        }
+    func displayFiltersScrollView(viewModel: UIScrollView) {
         activityIndicator.stopAnimating()
-        filtersScrollView.contentSize = CGSize(width: buttonWidth * CGFloat(itemCount + 2), height: yCoord)
+        viewModel.subviews.forEach {
+            filtersScrollView.addSubview($0)
+        }
+        filtersScrollView.contentSize = viewModel.contentSize
     }
 }
