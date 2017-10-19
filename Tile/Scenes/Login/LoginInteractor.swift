@@ -32,8 +32,12 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     // MARK: Do something
     
     func facebookSignIn(completion: @escaping () -> ()) {
-        SignIn.shared.facebookSignIn() {
-            completion()
+        SignIn.shared.facebookSignIn() { error in
+            if let error = error {
+                self.presenter?.presentError(error)
+            } else {
+                completion()
+            }
         }
     }
     
@@ -42,8 +46,12 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     }
     
     func emailSignIn(email: String, pass: String, completion: @escaping () -> ()) {
-        SignIn.shared.emailSignIn(email: email, pass: pass) {
-            completion()
+        SignIn.shared.emailSignIn(email: email, pass: pass) { error in
+            if let error = error {
+                self.presenter?.presentError(error)
+            } else {
+                completion()
+            }
         }
     }
 }

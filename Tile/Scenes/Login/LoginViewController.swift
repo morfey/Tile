@@ -15,13 +15,14 @@ import GoogleSignIn
 
 protocol LoginDisplayLogic: class
 {
-    
+    func displayError(viewModel: Login.Error.ViewModel)
 }
 
-class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDelegate
+class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDelegate, GoogleManagerDelegate
 {
     var interactor: LoginBusinessLogic?
     var router: (NSObjectProtocol & LoginRoutingLogic & LoginDataPassing)?
+    var presenter: LoginPresentationLogic?
     
     // MARK: Object lifecycle
     
@@ -47,6 +48,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
         let router = LoginRouter()
         viewController.interactor = interactor
         viewController.router = router
+        viewController.presenter = presenter
         interactor.presenter = presenter
         presenter.viewController = viewController
         router.viewController = viewController
@@ -72,6 +74,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = SignIn.shared
+        SignIn.shared.delegate = self
     }
     
     // MARK: Do something
@@ -97,7 +100,18 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
         }
     }
     
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+    func displayError(viewModel: Login.Error.ViewModel) {
+        let alert = UIAlertController(title: "Error in login", message: viewModel.errorDescription, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func handleError(_ error: Error) {
+        presenter?.presentError(error)
+    }
+    
+    func handleSuccess() {
         router?.routeToTiles(segue: nil)
     }
 }

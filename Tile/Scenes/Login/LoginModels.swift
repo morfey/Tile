@@ -26,4 +26,15 @@ enum Login
             
         }
     }
+    enum Error {
+        struct Request {
+            
+        }
+        struct Response {
+            var error: Error
+        }
+        struct ViewModel {
+            var errorDescription: String
+        }
+    }
 }

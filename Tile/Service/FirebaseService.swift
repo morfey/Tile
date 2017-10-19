@@ -23,42 +23,44 @@ class FirebaseService {
     
     // MARK: - SignIn/SignOut
     
-    func auth(_ credential: AuthCredential, completion: @escaping () -> ()){
+    func auth(_ credential: AuthCredential, completion: @escaping (Error?) -> ()){
         Auth.auth().signIn(with: credential, completion: {(user, error) in
             if let error = error {
                 print("USER: UNABLE to authentificate with Firebase - \(error)")
+                completion(error)
             } else {
                 print ("USER: Successfully auth with Firebase")
                 if let user = user {
                     let userData = ["provider": credential.provider, "fullName": user.displayName ?? ""]
                     self.completeSingIn(id: user.uid, userData: userData) {
-                        completion()
+                        completion(nil)
                     }
                 }
             }
         })      
     }
     
-    func auth(email: String, pass: String, completion: @escaping () -> ()) {
+    func auth(email: String, pass: String, completion: @escaping (Error?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: pass, completion: {(user, error) in
             if error == nil {
                 print ("USER: Email user auth with Firebase")
                 if let user = user {
                     let userData = ["provider": user.providerID]
                     self.completeSingIn(id: user.uid, userData: userData) {
-                        completion()
+                        completion(nil)
                     }
                 }
             } else {
-                Auth.auth().createUser(withEmail: email, password: pass, completion: {( user,error) in
+                Auth.auth().createUser(withEmail: email, password: pass, completion: {(user, error) in
                     if error != nil {
                         print ("USER: Unable to auth with Firebase using email: \(error.debugDescription)")
+                        completion(error)
                     } else {
                         print ("USER: Successfuly auth email with Firebase")
                         if let user = user {
                             let userData = ["provider": user.providerID]
                             self.completeSingIn(id: user.uid, userData: userData) {
-                                completion()
+                                completion(nil)
                             }
                         }
                     }

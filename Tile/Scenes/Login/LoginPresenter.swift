@@ -14,12 +14,17 @@ import UIKit
 
 protocol LoginPresentationLogic
 {
+    func presentError(_ error: Error)
 }
 
 class LoginPresenter: LoginPresentationLogic
 {
-  weak var viewController: LoginDisplayLogic?
-  
-  // MARK: Do something
-  
+    weak var viewController: LoginDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentError(_ error: Error) {
+        let viewModel = Login.Error.ViewModel(errorDescription: error.localizedDescription)
+        viewController?.displayError(viewModel: viewModel)
+    }
 }
