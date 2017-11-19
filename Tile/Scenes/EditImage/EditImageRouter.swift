@@ -47,7 +47,8 @@ class EditImageRouter: NSObject, EditImageRoutingLogic, EditImageDataPassing
     
     func navigateToTiles(source: EditImageViewController, destination: TilesViewController)
     {
-        source.dismiss(animated: true, completion: nil)
+        source.navigationController?.popViewController(animated: true)
+//        source.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Passing data

@@ -130,13 +130,13 @@ extension EditImageViewController : UIGestureRecognizerDelegate  {
 //        }
 //    }
     
-    override public var prefersStatusBarHidden: Bool {
-        return true
-    }
-
+//    override public var prefersStatusBarHidden: Bool {
+//        return true
+//    }
+//
     func scaleEffect(view: UIView) {
         view.superview?.bringSubview(toFront: view)
-        
+
         if #available(iOS 10.0, *) {
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()

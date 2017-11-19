@@ -101,6 +101,7 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic, UIImageP
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         tile = router?.dataStore?.tile
+        title = tile.name
         let img = tile.imageUrl
         originalImage.kf.setImage(with: img, placeholder: #imageLiteral(resourceName: "FullImage"), options: nil, progressBlock: nil) { (nil, error, cache, s) in
             self.configure()
@@ -191,7 +192,7 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic, UIImageP
         let photoEditor = PhotoEditorViewController(nibName:"PhotoEditorViewController",bundle: Bundle(for: PhotoEditorViewController.self))
         
         photoEditor.photoEditorDelegate = self
-        
+        photoEditor.hiddenControls = [.share, .save]
         photoEditor.image = imageCropperView.image
         
         present(photoEditor, animated: true, completion: nil)
@@ -370,7 +371,7 @@ class EditImageViewController: UIViewController, EditImageDisplayLogic, UIImageP
 extension EditImageViewController: PhotoEditorDelegate {
     
     func doneEditing(image: UIImage) {
-//        imageView.image = image
+        imageCropperView.image = image
     }
     
     func canceledEditing() {
