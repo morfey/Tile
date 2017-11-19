@@ -14,6 +14,12 @@ target 'Tile' do
   pod 'GoogleSignIn'
   pod 'SwiftKeychainWrapper'
   pod 'AKImageCropperView'
+  pod 'libCGE', :git => 'https://github.com/wysaid/ios-gpuimage-plus-pod.git'
+  pod 'Kingfisher'
+  pod 'Unbox'
+  pod 'Wrap'
+  pod 'XLPagerTabStrip'
+  pod 'iOSPhotoEditor'
 
   target 'TileTests' do
     inherit! :search_paths

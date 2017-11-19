@@ -94,10 +94,10 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
     }
     
     @IBAction func emailSignInTapped(_ sender: Any) {
-        guard let email = emailTextField.text, let pass = passwordTextField.text else { return }
-        interactor?.emailSignIn(email: email, pass: pass) {
-            self.router?.routeToTiles(segue: nil)
-        }
+//        guard let email = emailTextField.text, let pass = passwordTextField.text else { return }
+//        interactor?.emailSignIn(email: email, pass: pass) {
+//            self.router?.routeToTiles(segue: nil)
+//        }
     }
     
     func displayError(viewModel: Login.Error.ViewModel) {

@@ -15,6 +15,9 @@ import UIKit
 protocol TilesPresentationLogic
 {
     func presentSelectedImage(response: Tiles.SelectedImage.Response)
+    func presentWifiAlert(response: Tiles.ConnectionStatus.Response)
+    func presentNewTile(response: Tiles.NewTile.Response)
+    func presentUsersTiles(responce: Tiles.GetTiles.Response)
 }
 
 class TilesPresenter: TilesPresentationLogic
@@ -28,4 +31,26 @@ class TilesPresenter: TilesPresentationLogic
         viewController?.displaySelectedImage(viewModel: viewModel)
     }
     
+    func presentUsersTiles(responce: Tiles.GetTiles.Response) {
+        let viewModel = Tiles.GetTiles.ViewModel(tiles: responce.tiles)
+        viewController?.displayUsersTiles(viewModel: viewModel)
+    }
+    
+    func presentWifiAlert(response: Tiles.ConnectionStatus.Response) {
+        let alert = UIAlertController(title: "Error", message: "Check your Wi-Fi connect", preferredStyle: .alert)
+        let actionOk = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(actionOk)
+        let actionSettings = UIAlertAction(title: "Settings", style: .default) { _ in
+            let url = URL(string: "App-Prefs:root=WIFI")
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        }
+        alert.addAction(actionSettings)
+        let viewModel = Tiles.ConnectionStatus.ViewModel(alert: alert)
+        viewController?.displayWifiConnectionAlert(viewModel: viewModel)
+    }
+    
+    func presentNewTile(response: Tiles.NewTile.Response) {
+        let viewModel = Tiles.NewTile.ViewModel(tile: response.tile)
+        viewController?.displayNewTile(viewModel: viewModel)
+    }
 }

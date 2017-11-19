@@ -77,4 +77,12 @@ class SignIn: NSObject, GIDSignInDelegate {
             completion(error)
         }
     }
+    
+    func signOut() {
+        FirebaseService.shared.signOut {
+            if GIDSignIn.sharedInstance().currentUser != nil {
+                GIDSignIn.sharedInstance().signOut()
+            }
+        }
+    }
 }

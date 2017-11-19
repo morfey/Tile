@@ -16,9 +16,12 @@ import SwiftKeychainWrapper
 protocol TilesDisplayLogic: class
 {
     func displaySelectedImage(viewModel: Tiles.SelectedImage.ViewModel)
+    func displayWifiConnectionAlert(viewModel: Tiles.ConnectionStatus.ViewModel)
+    func displayNewTile(viewModel: Tiles.NewTile.ViewModel)
+    func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel)
 }
 
-class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource
 {
     var interactor: TilesBusinessLogic?
     var router: (NSObjectProtocol & TilesRoutingLogic & TilesDataPassing)?
@@ -68,46 +71,51 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
     // MARK: View lifecycle
     var imagePicker: UIImagePickerController!
     var imgSelected = false
+    var tiles: [Tile] = []
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
+        tilesView.delegate = self
+        tilesView.dataSource = self
+//        initializeTiles()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if KeychainWrapper.standard.string(forKey: "uid") == nil {
             performSegue(withIdentifier: "Login", sender: nil)
+        } else {
+            interactor?.setImage(image: nil)
+            isConnectedToWifi()
+            initializeTiles()
         }
-        interactor?.setImage(image: nil)
     }
     
     // MARK: Do something
-    
-    @IBOutlet weak var imageAdd: UIImageView!
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    @IBAction func eidtImageTapped(_ sender: Any) {
-        performSegue(withIdentifier: "EditImage", sender: nil)
-    }
+    @IBOutlet weak var tilesView: UICollectionView!
     
     @IBAction func selectImage(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func signOut(_ sender: Any) {
-        KeychainWrapper.standard.removeAllKeys()
+    @IBAction func profileBtnTapped(_ sender: Any) {
+        performSegue(withIdentifier: "Profile", sender: nil)
     }
     
-    @IBAction func cameraTapped(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-            imagePicker.allowsEditing = false
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+    func isConnectedToWifi() {
+        interactor?.checkWifiConnection()
+    }
+    
+    func initializeTiles() {
+        let userId = KeychainWrapper.standard.string(forKey: "uid")
+        let request = Tiles.GetTiles.Request(userId: userId!)
+        interactor?.getTiles(request: request)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -122,6 +130,60 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
     }
     
     func displaySelectedImage(viewModel: Tiles.SelectedImage.ViewModel) {
-        imageAdd.image = viewModel.image
+
+    }
+    
+    func displayWifiConnectionAlert(viewModel: Tiles.ConnectionStatus.ViewModel) {
+        present(viewModel.alert, animated: true, completion: nil)
+    }
+    
+    func displayNewTile(viewModel: Tiles.NewTile.ViewModel) {
+        interactor?.selectedTile = viewModel.tile
+        tiles.append(viewModel.tile)
+        performSegue(withIdentifier: "EditImage", sender: nil)
+    }
+    
+    func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel) {
+        tiles.removeAll()
+        tiles.append(contentsOf: viewModel.tiles)
+        tiles.reverse()
+        tilesView.reloadData()
+    }
+    
+    // MARK: - UICollectionView
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tiles.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = tilesView.dequeueReusableCell(withReuseIdentifier: "TileCell", for: indexPath) as? TileCell {
+            let name = tiles.count == indexPath.row ? "Untitled" : tiles[indexPath.row].name
+            let image = tiles.count == indexPath.row ? nil : tiles[indexPath.row].imageUrl
+            cell.configureCell(name: name, image: image)
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if tiles.endIndex > indexPath.row {
+            let tile = tiles[indexPath.row]
+            interactor?.selectedTile = tile
+            performSegue(withIdentifier: "EditImage", sender: nil)
+        } else {
+            let alert = UIAlertController(title: "Success", message: "Tile is succusfully connected. Enter the name", preferredStyle: .alert)
+            alert.addTextField(configurationHandler: nil)
+            let action = UIAlertAction(title: "OK", style: .default) { act in
+                let name = alert.textFields?.first?.text ?? "Untitled"
+                let userId = KeychainWrapper.standard.string(forKey: "uid")
+                let request = Tiles.NewTile.Request(id: "333", name: name, userId: userId!)
+                self.interactor?.addNewTile(request: request)
+            }
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+
     }
 }

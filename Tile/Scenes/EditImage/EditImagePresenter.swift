@@ -15,6 +15,7 @@ import UIKit
 protocol EditImagePresentationLogic
 {
     func presentFiltersScrollView(response: EditImage.Filters.Response)
+    func presentTileWithImage(responce: EditImage.ImageForTile.Response)
     func setImage(image: UIImage)
 }
 
@@ -23,6 +24,11 @@ class EditImagePresenter: EditImagePresentationLogic
     weak var viewController: EditImageDisplayLogic?
     
     // MARK: Do something
+    
+    func presentTileWithImage(responce: EditImage.ImageForTile.Response) {
+        let viewModel = EditImage.ImageForTile.ViewModel()
+        viewController?.displayTileWithImage(viewModel: viewModel)
+    }
     
     func presentFiltersScrollView(response: EditImage.Filters.Response) {
         let scrollView = UIScrollView()
@@ -34,6 +40,7 @@ class EditImagePresenter: EditImagePresentationLogic
         var itemCount = 0
         
         for (index, i) in response.images.enumerated() {
+            //save(image: UIImage(cgImage: i), i: index)
             itemCount = index
             let filterButton = UIButton(type: .custom)
             filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
@@ -41,6 +48,7 @@ class EditImagePresenter: EditImagePresentationLogic
             filterButton.addTarget(self, action: #selector(filterButtonTapped(sender:)), for: .touchUpInside)
             filterButton.layer.cornerRadius = 6
             filterButton.clipsToBounds = true
+            filterButton.imageView?.contentMode = .center
             let imageForButton = UIImage(cgImage: i)
             filterButton.setBackgroundImage(imageForButton, for: .normal)
             filterButton.contentMode = .scaleAspectFit
@@ -52,6 +60,19 @@ class EditImagePresenter: EditImagePresentationLogic
         
         let viewModel = scrollView
         viewController?.displayFiltersScrollView(viewModel: viewModel)
+    }
+    
+    func save (image: UIImage, i: Int) {
+        let date :NSDate = NSDate()
+        let imageName = "/\(i).jpg"
+        print(imageName)
+
+        var documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        documentsDirectoryPath += imageName
+        print(documentsDirectoryPath)
+        
+        let settingsData: NSData = UIImageJPEGRepresentation(image, 1.0) as! NSData
+        settingsData.write(toFile: documentsDirectoryPath, atomically: true)
     }
     
     @objc func filterButtonTapped(sender: UIButton) {

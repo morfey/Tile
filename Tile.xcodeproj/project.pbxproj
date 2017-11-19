@@ -11,6 +11,10 @@
 		22037D111F8E1E9400315130 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22037D101F8E1E9400315130 /* SignIn.swift */; };
 		22037D131F8E21D100315130 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22037D121F8E21D100315130 /* Constants.swift */; };
 		22037D141F8E240A00315130 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E56F1F8E180B0025A0D5 /* GoogleService-Info.plist */; };
+		2247FB851F9DF84100CE377B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247FB841F9DF84100CE377B /* Reachability.swift */; };
+		2272CC191F9F6AF80032B691 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272CC181F9F6AF80032B691 /* ImageCell.swift */; };
+		2272CC1B1F9F855A0032B691 /* TileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272CC1A1F9F855A0032B691 /* TileCell.swift */; };
+		2272CC1E1F9F92800032B691 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272CC1D1F9F92800032B691 /* Tile.swift */; };
 		2289912C1F94BA5700DF2175 /* EditImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991261F94BA5700DF2175 /* EditImageInteractor.swift */; };
 		2289912D1F94BA5700DF2175 /* EditImageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991271F94BA5700DF2175 /* EditImageModels.swift */; };
 		2289912E1F94BA5700DF2175 /* EditImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991281F94BA5700DF2175 /* EditImagePresenter.swift */; };
@@ -29,12 +33,26 @@
 		229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10651F8F87B700FDA0F4 /* LoginRouter.swift */; };
 		229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10661F8F87B700FDA0F4 /* LoginViewController.swift */; };
 		229B106D1F8F87B700FDA0F4 /* LoginWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10671F8F87B700FDA0F4 /* LoginWorker.swift */; };
+		229B9D1B1FB85F4C00501883 /* EditImage+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B9D1A1FB85F4B00501883 /* EditImage+Gestures.swift */; };
 		22A5E54D1F8E162F0025A0D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E54C1F8E162F0025A0D5 /* AppDelegate.swift */; };
 		22A5E5521F8E162F0025A0D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E5501F8E162F0025A0D5 /* Main.storyboard */; };
 		22A5E5551F8E162F0025A0D5 /* Tile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E5531F8E162F0025A0D5 /* Tile.xcdatamodeld */; };
 		22A5E5571F8E162F0025A0D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E5561F8E162F0025A0D5 /* Assets.xcassets */; };
 		22A5E55A1F8E162F0025A0D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E5581F8E162F0025A0D5 /* LaunchScreen.storyboard */; };
 		22A5E5651F8E162F0025A0D5 /* TileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E5641F8E162F0025A0D5 /* TileTests.swift */; };
+		22EA4DB41FBE0438007E9DD9 /* CreateNewAccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA4DAE1FBE0438007E9DD9 /* CreateNewAccountInteractor.swift */; };
+		22EA4DB51FBE0438007E9DD9 /* CreateNewAccountModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA4DAF1FBE0438007E9DD9 /* CreateNewAccountModels.swift */; };
+		22EA4DB61FBE0438007E9DD9 /* CreateNewAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA4DB01FBE0438007E9DD9 /* CreateNewAccountPresenter.swift */; };
+		22EA4DB71FBE0438007E9DD9 /* CreateNewAccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA4DB11FBE0438007E9DD9 /* CreateNewAccountRouter.swift */; };
+		22EA4DB81FBE0438007E9DD9 /* CreateNewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA4DB21FBE0438007E9DD9 /* CreateNewAccountViewController.swift */; };
+		22EA4DB91FBE0438007E9DD9 /* CreateNewAccountWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA4DB31FBE0438007E9DD9 /* CreateNewAccountWorker.swift */; };
+		22FA0B5C1FB20CA90088D5BA /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA0B5B1FB20CA90088D5BA /* CircleButton.swift */; };
+		22FA0B641FB20ECA0088D5BA /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA0B5E1FB20ECA0088D5BA /* ProfileInteractor.swift */; };
+		22FA0B651FB20ECA0088D5BA /* ProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA0B5F1FB20ECA0088D5BA /* ProfileModels.swift */; };
+		22FA0B661FB20ECA0088D5BA /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA0B601FB20ECA0088D5BA /* ProfilePresenter.swift */; };
+		22FA0B671FB20ECA0088D5BA /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA0B611FB20ECA0088D5BA /* ProfileRouter.swift */; };
+		22FA0B681FB20ECA0088D5BA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA0B621FB20ECA0088D5BA /* ProfileViewController.swift */; };
+		22FA0B691FB20ECA0088D5BA /* ProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA0B631FB20ECA0088D5BA /* ProfileWorker.swift */; };
 		8E17DC976E887F782D3E40E6 /* Pods_TileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D8E20C87F22FA30148F8D1 /* Pods_TileTests.framework */; };
 		B8A40267CD11F2051E5FA347 /* Pods_Tile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7BDA09DAB0E43C5E102FFA3 /* Pods_Tile.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +71,10 @@
 		22037D0E1F8E1E0F00315130 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		22037D101F8E1E9400315130 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		22037D121F8E21D100315130 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2247FB841F9DF84100CE377B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		2272CC181F9F6AF80032B691 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		2272CC1A1F9F855A0032B691 /* TileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCell.swift; sourceTree = "<group>"; };
+		2272CC1D1F9F92800032B691 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		228991261F94BA5700DF2175 /* EditImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageInteractor.swift; sourceTree = "<group>"; };
 		228991271F94BA5700DF2175 /* EditImageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageModels.swift; sourceTree = "<group>"; };
 		228991281F94BA5700DF2175 /* EditImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImagePresenter.swift; sourceTree = "<group>"; };
@@ -71,6 +93,7 @@
 		229B10651F8F87B700FDA0F4 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		229B10661F8F87B700FDA0F4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		229B10671F8F87B700FDA0F4 /* LoginWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWorker.swift; sourceTree = "<group>"; };
+		229B9D1A1FB85F4B00501883 /* EditImage+Gestures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditImage+Gestures.swift"; sourceTree = "<group>"; };
 		22A5E5491F8E162F0025A0D5 /* Tile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A5E54C1F8E162F0025A0D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22A5E5511F8E162F0025A0D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,6 +105,20 @@
 		22A5E5641F8E162F0025A0D5 /* TileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileTests.swift; sourceTree = "<group>"; };
 		22A5E5661F8E162F0025A0D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22A5E56F1F8E180B0025A0D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		22D6D2441FADC908001718E0 /* Tile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tile-Bridging-Header.h"; sourceTree = "<group>"; };
+		22EA4DAE1FBE0438007E9DD9 /* CreateNewAccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountInteractor.swift; sourceTree = "<group>"; };
+		22EA4DAF1FBE0438007E9DD9 /* CreateNewAccountModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountModels.swift; sourceTree = "<group>"; };
+		22EA4DB01FBE0438007E9DD9 /* CreateNewAccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountPresenter.swift; sourceTree = "<group>"; };
+		22EA4DB11FBE0438007E9DD9 /* CreateNewAccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountRouter.swift; sourceTree = "<group>"; };
+		22EA4DB21FBE0438007E9DD9 /* CreateNewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountViewController.swift; sourceTree = "<group>"; };
+		22EA4DB31FBE0438007E9DD9 /* CreateNewAccountWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountWorker.swift; sourceTree = "<group>"; };
+		22FA0B5B1FB20CA90088D5BA /* CircleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		22FA0B5E1FB20ECA0088D5BA /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		22FA0B5F1FB20ECA0088D5BA /* ProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModels.swift; sourceTree = "<group>"; };
+		22FA0B601FB20ECA0088D5BA /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		22FA0B611FB20ECA0088D5BA /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		22FA0B621FB20ECA0088D5BA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		22FA0B631FB20ECA0088D5BA /* ProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWorker.swift; sourceTree = "<group>"; };
 		32D8CEE985C059541F15FD01 /* Pods-TileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TileTests/Pods-TileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		515F338ADD4AA50EE8A6FD45 /* Pods-Tile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tile.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tile/Pods-Tile.release.xcconfig"; sourceTree = "<group>"; };
 		9C46833E6C731BC052367C47 /* Pods-TileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileTests/Pods-TileTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -116,8 +153,27 @@
 				22037D0E1F8E1E0F00315130 /* FirebaseService.swift */,
 				22037D101F8E1E9400315130 /* SignIn.swift */,
 				22037D121F8E21D100315130 /* Constants.swift */,
+				2247FB841F9DF84100CE377B /* Reachability.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		2272CC171F9F6ABD0032B691 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				22FA0B5B1FB20CA90088D5BA /* CircleButton.swift */,
+				2272CC181F9F6AF80032B691 /* ImageCell.swift */,
+				2272CC1A1F9F855A0032B691 /* TileCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2272CC1C1F9F926D0032B691 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2272CC1D1F9F92800032B691 /* Tile.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		228991251F94BA3500DF2175 /* EditImage */ = {
@@ -129,6 +185,7 @@
 				228991291F94BA5700DF2175 /* EditImageRouter.swift */,
 				2289912A1F94BA5700DF2175 /* EditImageViewController.swift */,
 				2289912B1F94BA5700DF2175 /* EditImageWorker.swift */,
+				229B9D1A1FB85F4B00501883 /* EditImage+Gestures.swift */,
 			);
 			path = EditImage;
 			sourceTree = "<group>";
@@ -149,6 +206,8 @@
 		229B10601F8F879700FDA0F4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				22EA4DAD1FBE0420007E9DD9 /* CreateNewAccount */,
+				22FA0B5D1FB20D240088D5BA /* Profile */,
 				228991321F94D59000DF2175 /* Tiles */,
 				228991251F94BA3500DF2175 /* EditImage */,
 				229B10611F8F87A300FDA0F4 /* Login */,
@@ -193,8 +252,11 @@
 			isa = PBXGroup;
 			children = (
 				229B10601F8F879700FDA0F4 /* Scenes */,
+				2272CC1C1F9F926D0032B691 /* Model */,
+				2272CC171F9F6ABD0032B691 /* View */,
 				22037D0D1F8E1DF000315130 /* Service */,
 				22A5E5501F8E162F0025A0D5 /* Main.storyboard */,
+				22D6D2441FADC908001718E0 /* Tile-Bridging-Header.h */,
 				22A5E5561F8E162F0025A0D5 /* Assets.xcassets */,
 				22A5E5581F8E162F0025A0D5 /* LaunchScreen.storyboard */,
 				22A5E55B1F8E162F0025A0D5 /* Info.plist */,
@@ -212,6 +274,32 @@
 				22A5E5661F8E162F0025A0D5 /* Info.plist */,
 			);
 			path = TileTests;
+			sourceTree = "<group>";
+		};
+		22EA4DAD1FBE0420007E9DD9 /* CreateNewAccount */ = {
+			isa = PBXGroup;
+			children = (
+				22EA4DAE1FBE0438007E9DD9 /* CreateNewAccountInteractor.swift */,
+				22EA4DAF1FBE0438007E9DD9 /* CreateNewAccountModels.swift */,
+				22EA4DB01FBE0438007E9DD9 /* CreateNewAccountPresenter.swift */,
+				22EA4DB11FBE0438007E9DD9 /* CreateNewAccountRouter.swift */,
+				22EA4DB21FBE0438007E9DD9 /* CreateNewAccountViewController.swift */,
+				22EA4DB31FBE0438007E9DD9 /* CreateNewAccountWorker.swift */,
+			);
+			path = CreateNewAccount;
+			sourceTree = "<group>";
+		};
+		22FA0B5D1FB20D240088D5BA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				22FA0B5E1FB20ECA0088D5BA /* ProfileInteractor.swift */,
+				22FA0B5F1FB20ECA0088D5BA /* ProfileModels.swift */,
+				22FA0B601FB20ECA0088D5BA /* ProfilePresenter.swift */,
+				22FA0B611FB20ECA0088D5BA /* ProfileRouter.swift */,
+				22FA0B621FB20ECA0088D5BA /* ProfileViewController.swift */,
+				22FA0B631FB20ECA0088D5BA /* ProfileWorker.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		2517FAAEE9D4AF3EE418405B /* Pods */ = {
@@ -290,6 +378,7 @@
 				TargetAttributes = {
 					22A5E5481F8E162F0025A0D5 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					22A5E55F1F8E162F0025A0D5 = {
@@ -354,7 +443,12 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
+				"${BUILT_PRODUCTS_DIR}/Wrap/Wrap.framework",
+				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
+				"${BUILT_PRODUCTS_DIR}/iOSPhotoEditor/iOSPhotoEditor.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -367,7 +461,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Wrap.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSPhotoEditor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -467,23 +566,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22EA4DB91FBE0438007E9DD9 /* CreateNewAccountWorker.swift in Sources */,
+				22FA0B671FB20ECA0088D5BA /* ProfileRouter.swift in Sources */,
 				228991301F94BA5700DF2175 /* EditImageViewController.swift in Sources */,
 				22A5E5551F8E162F0025A0D5 /* Tile.xcdatamodeld in Sources */,
 				229B10691F8F87B700FDA0F4 /* LoginModels.swift in Sources */,
+				22EA4DB71FBE0438007E9DD9 /* CreateNewAccountRouter.swift in Sources */,
+				22FA0B651FB20ECA0088D5BA /* ProfileModels.swift in Sources */,
+				22FA0B661FB20ECA0088D5BA /* ProfilePresenter.swift in Sources */,
+				22FA0B681FB20ECA0088D5BA /* ProfileViewController.swift in Sources */,
 				229B106A1F8F87B700FDA0F4 /* LoginPresenter.swift in Sources */,
 				2289913B1F94D5A500DF2175 /* TilesPresenter.swift in Sources */,
+				22EA4DB51FBE0438007E9DD9 /* CreateNewAccountModels.swift in Sources */,
 				229B10681F8F87B700FDA0F4 /* LoginInteractor.swift in Sources */,
+				22EA4DB41FBE0438007E9DD9 /* CreateNewAccountInteractor.swift in Sources */,
 				22037D111F8E1E9400315130 /* SignIn.swift in Sources */,
+				22FA0B5C1FB20CA90088D5BA /* CircleButton.swift in Sources */,
 				22037D0F1F8E1E0F00315130 /* FirebaseService.swift in Sources */,
+				22EA4DB61FBE0438007E9DD9 /* CreateNewAccountPresenter.swift in Sources */,
+				22FA0B641FB20ECA0088D5BA /* ProfileInteractor.swift in Sources */,
 				22A5E54D1F8E162F0025A0D5 /* AppDelegate.swift in Sources */,
+				2272CC191F9F6AF80032B691 /* ImageCell.swift in Sources */,
 				2289912D1F94BA5700DF2175 /* EditImageModels.swift in Sources */,
 				229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */,
 				228991391F94D5A500DF2175 /* TilesInteractor.swift in Sources */,
 				2289913D1F94D5A500DF2175 /* TilesViewController.swift in Sources */,
+				229B9D1B1FB85F4C00501883 /* EditImage+Gestures.swift in Sources */,
+				22EA4DB81FBE0438007E9DD9 /* CreateNewAccountViewController.swift in Sources */,
 				2289912C1F94BA5700DF2175 /* EditImageInteractor.swift in Sources */,
+				2272CC1E1F9F92800032B691 /* Tile.swift in Sources */,
+				2247FB851F9DF84100CE377B /* Reachability.swift in Sources */,
 				2289913C1F94D5A500DF2175 /* TilesRouter.swift in Sources */,
 				22037D131F8E21D100315130 /* Constants.swift in Sources */,
 				2289913E1F94D5A500DF2175 /* TilesWorker.swift in Sources */,
+				2272CC1B1F9F855A0032B691 /* TileCell.swift in Sources */,
+				22FA0B691FB20ECA0088D5BA /* ProfileWorker.swift in Sources */,
 				228991311F94BA5700DF2175 /* EditImageWorker.swift in Sources */,
 				229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */,
 				2289912E1F94BA5700DF2175 /* EditImagePresenter.swift in Sources */,
@@ -643,12 +760,15 @@
 			baseConfigurationReference = FD662B9576A47ECD26E8B20D /* Pods-Tile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TGE7YRQW2V;
 				INFOPLIST_FILE = Tile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timhazhyi.Tile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tile/Tile-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -659,12 +779,14 @@
 			baseConfigurationReference = 515F338ADD4AA50EE8A6FD45 /* Pods-Tile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TGE7YRQW2V;
 				INFOPLIST_FILE = Tile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timhazhyi.Tile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tile/Tile-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

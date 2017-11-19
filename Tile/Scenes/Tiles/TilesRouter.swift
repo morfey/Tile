@@ -46,12 +46,12 @@ class TilesRouter: NSObject, TilesRoutingLogic, TilesDataPassing
     // MARK: Navigation
     
     func navigateToEditImage(source: TilesViewController, destination: EditImageViewController) {
-        source.show(destination, sender: nil)
+        source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: Passing data
     
     func passDataToEditImage(source: TilesDataStore, destination: inout EditImageDataStore) {
-        destination.originalImage = source.selectedImage
+        destination.tile = source.selectedTile
     }
 }

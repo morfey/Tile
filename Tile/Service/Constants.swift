@@ -9,3 +9,4 @@
 import Foundation
 
 let USERS_KEY = "users"
+let TILES_KEY = "tiles"

@@ -11,21 +11,29 @@
 //
 
 import UIKit
+import Unbox
 
 protocol TilesBusinessLogic
 {
     func setImage(image: UIImage?)
+    func checkWifiConnection()
+    func getTiles(request: Tiles.GetTiles.Request)
+    func addNewTile(request: Tiles.NewTile.Request)
+    
     var selectedImage: UIImage? {get set}
+    var selectedTile: Tile? {get set}
 }
 
 protocol TilesDataStore
 {
     var selectedImage: UIImage? {get set}
+    var selectedTile: Tile? {get set}
 }
 
 class TilesInteractor: TilesBusinessLogic, TilesDataStore
 {
     var selectedImage: UIImage?
+    var selectedTile: Tile?
     var presenter: TilesPresentationLogic?
     var worker: TilesWorker?
     
@@ -38,5 +46,50 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
         if selectedImage == nil {return}
         let response = Tiles.SelectedImage.Response(image: selectedImage!)
         presenter?.presentSelectedImage(response: response)
+    }
+    
+    func checkWifiConnection() {
+        let connection = Reachability.isConnectedToNetwork()
+        if connection {
+            return
+        } else {
+            let response = Tiles.ConnectionStatus.Response(status: connection)
+            presenter?.presentWifiAlert(response: response)
+        }    
+    }
+    
+    func getTiles(request: Tiles.GetTiles.Request) {
+        var tiles: [Tile] = []
+        FirebaseService.shared.getUsersTiles(byId: request.userId) { tilesData in
+            for (index, data) in tilesData.enumerated() {
+                let data = data.value as! Dictionary<String, Any>
+                do {
+                    var tile: Tile = try unbox(dictionary: data)
+                    if let imageUrl = data["images"] as? String {
+                        let url = URL(string: imageUrl)!
+                        tile.add(image: url)
+                    }
+                    tiles.append(tile)
+                } catch {
+                }
+                if index == tilesData.count - 1 {
+                    let responce = Tiles.GetTiles.Response(tiles: tiles)
+                    self.presenter?.presentUsersTiles(responce: responce)
+                }
+            }
+        }
+    }
+    
+    func addNewTile(request: Tiles.NewTile.Request) {
+        let tile = Tile(name: request.name, id: request.id)
+        FirebaseService.shared.add(tile: tile, userId: request.userId) { status, tile in
+            if status == "New Tile succesfull added" {
+                let response = Tiles.NewTile.Response(status: status, tile: tile!)
+                self.presenter?.presentNewTile(response: response)
+            } else if status == "Tile reconnect" {
+                let response = Tiles.ConnectionStatus.Response(status: false)
+                self.presenter?.presentWifiAlert(response: response)
+            }
+        }
     }
 }

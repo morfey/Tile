@@ -30,4 +30,18 @@ enum EditImage
             var filtersScrollView: UIScrollView
         }
     }
+    enum ImageForTile {
+        struct Request
+        {
+            var image: UIImage
+        }
+        struct Response
+        {
+            var url: String
+        }
+        struct ViewModel
+        {
+            
+        }
+    }
 }

@@ -29,4 +29,52 @@ enum Tiles
             var image: UIImage
         }
     }
+    enum ConnectionStatus
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var status: Bool
+        }
+        struct ViewModel
+        {
+            var alert: UIAlertController
+        }
+    }
+    enum NewTile
+    {
+        struct Request
+        {
+            var id: String
+            var name: String
+            var userId: String
+        }
+        struct Response
+        {
+            var status: String
+            var tile: Tile
+        }
+        struct ViewModel
+        {
+            var tile: Tile
+        }
+    }
+    enum GetTiles
+    {
+        struct Request
+        {
+            var userId: String
+        }
+        struct Response
+        {
+            var tiles: [Tile]
+        }
+        struct ViewModel
+        {
+            var tiles: [Tile]
+        }
+    }
+    
 }

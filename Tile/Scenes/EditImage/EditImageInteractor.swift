@@ -15,19 +15,21 @@ import UIKit
 protocol EditImageBusinessLogic
 {
     func applyFilters(request: EditImage.Filters.Request)
+    func saveImageForTile(request: EditImage.ImageForTile.Request)
+    
     func setImage()
     func setImageWithFilter(image: UIImage)
 }
 
 protocol EditImageDataStore
 {
-    var originalImage: UIImage? {get set}
+    var tile: Tile? {get set}
     var imageWithFilter: UIImage? {get set}
 }
 
 class EditImageInteractor: EditImageBusinessLogic, EditImageDataStore
 {
-    var originalImage: UIImage?
+    var tile: Tile?
     var imageWithFilter: UIImage?
     var presenter: EditImagePresentationLogic?
     var worker: EditImageWorker?
@@ -37,7 +39,8 @@ class EditImageInteractor: EditImageBusinessLogic, EditImageDataStore
     func applyFilters(request: EditImage.Filters.Request) {
         worker = EditImageWorker()
         DispatchQueue.global().async {
-            let images = self.worker?.applyFilters(originalImage: request.originalImage, filtrerNames: request.filters)
+            let images = self.worker?.applyGPUImageFilters(originalImage: request.originalImage)
+//            let images = self.worker?.applyFilters(originalImage: request.originalImage, filtrerNames: request.filters)
             DispatchQueue.main.async {
                 let response = EditImage.Filters.Response(images: images!)
                 self.presenter?.presentFiltersScrollView(response: response)
@@ -45,8 +48,15 @@ class EditImageInteractor: EditImageBusinessLogic, EditImageDataStore
         }
     }
     
+    func saveImageForTile(request: EditImage.ImageForTile.Request) {
+        FirebaseService.shared.upload(image: request.image, forTile: tile!.id) { url in
+            let response = EditImage.ImageForTile.Response(url: url)
+            self.presenter?.presentTileWithImage(responce: response)
+        }
+    }
+    
     func setImage() {
-        presenter?.setImage(image: originalImage!)
+//        presenter?.setImage(image: originalImage!)
     }
     
     func setImageWithFilter(image: UIImage) {

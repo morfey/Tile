@@ -12,6 +12,21 @@
 
 import UIKit
 
+let gpuEffectConfigs: [String?] = [
+    "",
+    "@beautify bilateral 10 4 1 @style haze -0.5 -0.5 1 1 1 @curve RGB(0, 0)(94, 20)(160, 168)(255, 255) @curve R(0, 0)(129, 119)(255, 255)B(0, 0)(135, 151)(255, 255)RGB(0, 0)(146, 116)(255, 255)",
+    "#unpack @style sketch 0.9",
+    "@beautify bilateral 100 3.5 2 ",
+    "@adjust sharpen 10 1.5 ",
+    "@adjust monochrome 0 0 0 0 0 0 @adjust exposure 0.54",
+    "@adjust monochrome 0 0 0 0 0 0 curve RGB(0, 0)(66, 71)(100, 116)(172, 255)(255, 255)",
+    "@vignette 0 0.63",
+    "@curve R(0, 0)(62, 148)(255, 255) @curve R(0, 0)(175, 55)(255, 255) @adjust contrast 0.51",
+    "@adjust shadowhighlight -200 120 @adjust saturation 0 @adjust contrast 1.32",
+    "@curve R(0, 0)(145, 138)(255, 255)G(0, 0)(197, 199)(255, 255)B(0, 0)(100, 79)(255, 255)RGB(0, 0)(81, 58)(255, 255) @adjust hsl -0.04 -0.23 0.17 @adjust saturation 1.44",
+    "@adjust level 0 1 0.21 @style sketch -1 @adjust colorbalance 0.27 0 0"
+]
+
 class EditImageWorker
 {
     func applyFilters(originalImage: UIImage, filtrerNames: [String]) -> [CGImage] {
@@ -27,5 +42,15 @@ class EditImageWorker
             filteredImages.append(filteredImageRef!)
         }
         return filteredImages
+    }
+    
+    func applyGPUImageFilters(originalImage image: UIImage) -> [CGImage] {
+        var filteredImages: [CGImage?] = []
+        for i in 0...gpuEffectConfigs.count - 1 {
+            let config = gpuEffectConfigs[i]
+            let imageWFilter = cgeFilterUIImage_MultipleEffects(image, config, 1.0, nil)
+            filteredImages.append(imageWFilter?.cgImage)
+        }
+        return filteredImages as! [CGImage]
     }
 }
