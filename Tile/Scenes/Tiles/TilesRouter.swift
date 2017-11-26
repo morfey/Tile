@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol TilesRoutingLogic
 {
-    func routeToEditImage(segue: UIStoryboardSegue?)
+    func routeToEditTile(segue: UIStoryboardSegue?)
 }
 
 protocol TilesDataPassing
@@ -29,29 +29,29 @@ class TilesRouter: NSObject, TilesRoutingLogic, TilesDataPassing
     
     // MARK: Routing
     
-    func routeToEditImage(segue: UIStoryboardSegue?) {
+    func routeToEditTile(segue: UIStoryboardSegue?) {
         if let segue = segue {
-            let destinationVC = segue.destination as! EditImageViewController
+            let destinationVC = segue.destination as! EditTileViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditImage(source: dataStore!, destination: &destinationDS)
+            passDataToEditTile(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditImageViewController") as! EditImageViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditTileViewController") as! EditTileViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditImage(source: dataStore!, destination: &destinationDS)
-            navigateToEditImage(source: viewController!, destination: destinationVC)
+            passDataToEditTile(source: dataStore!, destination: &destinationDS)
+            navigateToEditTile(source: viewController!, destination: destinationVC)
         }
     }
     
     // MARK: Navigation
     
-    func navigateToEditImage(source: TilesViewController, destination: EditImageViewController) {
+    func navigateToEditTile(source: TilesViewController, destination: EditTileViewController) {
         source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: Passing data
     
-    func passDataToEditImage(source: TilesDataStore, destination: inout EditImageDataStore) {
+    func passDataToEditTile(source: TilesDataStore, destination: inout EditTileDataStore) {
         destination.tile = source.selectedTile
     }
 }

@@ -62,13 +62,15 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
         var tiles: [Tile] = []
         FirebaseService.shared.getUsersTiles(byId: request.userId) { tilesData in
             for (index, data) in tilesData.enumerated() {
+                let key = data.key
                 let data = data.value as! Dictionary<String, Any>
                 do {
                     var tile: Tile = try unbox(dictionary: data)
                     if let imageUrl = data["images"] as? String {
                         let url = URL(string: imageUrl)!
-                        tile.add(image: url)
+                        tile.add(image: url.absoluteString)
                     }
+                    tile.add(dbKey: key)
                     tiles.append(tile)
                 } catch {
                 }
@@ -81,8 +83,8 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
     }
     
     func addNewTile(request: Tiles.NewTile.Request) {
-        let tile = Tile(name: request.name, id: request.id)
-        FirebaseService.shared.add(tile: tile, userId: request.userId) { status, tile in
+        let tile = Tile(name: request.name, id: request.id, key: request.key, userId: request.userId)
+        FirebaseService.shared.add(tile: tile, userId: request.userId, key: request.key) { status, tile in
             if status == "New Tile succesfull added" {
                 let response = Tiles.NewTile.Response(status: status, tile: tile!)
                 self.presenter?.presentNewTile(response: response)

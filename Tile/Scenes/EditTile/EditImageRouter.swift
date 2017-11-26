@@ -1,5 +1,5 @@
 //
-//  EditImageRouter.swift
+//  EditTileRouter.swift
 //  Tile
 //
 //  Created by  Tim on 16.10.2017.
@@ -12,20 +12,20 @@
 
 import UIKit
 
-@objc protocol EditImageRoutingLogic
+@objc protocol EditTileRoutingLogic
 {
     func routeToTiles(segue: UIStoryboardSegue?)
 }
 
-protocol EditImageDataPassing
+protocol EditTileDataPassing
 {
-    var dataStore: EditImageDataStore? { get }
+    var dataStore: EditTileDataStore? { get }
 }
 
-class EditImageRouter: NSObject, EditImageRoutingLogic, EditImageDataPassing
+class EditTileRouter: NSObject, EditTileRoutingLogic, EditTileDataPassing
 {
-    weak var viewController: EditImageViewController?
-    var dataStore: EditImageDataStore?
+    weak var viewController: EditTileViewController?
+    var dataStore: EditTileDataStore?
     
     // MARK: Routing
     
@@ -45,7 +45,7 @@ class EditImageRouter: NSObject, EditImageRoutingLogic, EditImageDataPassing
     
     // MARK: Navigation
     
-    func navigateToTiles(source: EditImageViewController, destination: TilesViewController)
+    func navigateToTiles(source: EditTileViewController, destination: TilesViewController)
     {
         source.navigationController?.popViewController(animated: true)
 //        source.dismiss(animated: true, completion: nil)
@@ -53,7 +53,7 @@ class EditImageRouter: NSObject, EditImageRoutingLogic, EditImageDataPassing
     
     // MARK: Passing data
     
-    func passDataToTiles(source: EditImageDataStore, destination: inout TilesDataStore)
+    func passDataToTiles(source: EditTileDataStore, destination: inout TilesDataStore)
     {
 //        destination.selectedImage = source.imageWithFilter
     }

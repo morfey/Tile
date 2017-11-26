@@ -35,16 +35,16 @@ class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
             let _ = segue.destination as! TilesViewController
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "TilesViewController") as! TilesViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
             navigateToTiles(source: viewController!, destination: destinationVC)
         }
     }
     
     // MARK: Navigation
     
-    func navigateToTiles(source: LoginViewController, destination: TilesViewController) {
-        let nav = UINavigationController(rootViewController: destination)
-        source.present(nav, animated: true)
+    func navigateToTiles(source: LoginViewController, destination: UINavigationController) {
+//        let nav = UINavigationController(rootViewController: destination)
+        source.present(destination, animated: true)
     }
     
     // MARK: Passing data

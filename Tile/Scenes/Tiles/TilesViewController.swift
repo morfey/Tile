@@ -21,7 +21,7 @@ protocol TilesDisplayLogic: class
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel)
 }
 
-class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource
+class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     var interactor: TilesBusinessLogic?
     var router: (NSObjectProtocol & TilesRoutingLogic & TilesDataPassing)?
@@ -81,6 +81,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
+        tilesView.register(UINib(nibName: "TileCell", bundle: nil), forCellWithReuseIdentifier: "TileCell")
         tilesView.delegate = self
         tilesView.dataSource = self
 //        initializeTiles()
@@ -140,7 +141,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
     func displayNewTile(viewModel: Tiles.NewTile.ViewModel) {
         interactor?.selectedTile = viewModel.tile
         tiles.append(viewModel.tile)
-        performSegue(withIdentifier: "EditImage", sender: nil)
+        performSegue(withIdentifier: "EditTile", sender: nil)
     }
     
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel) {
@@ -149,18 +150,18 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
         tiles.reverse()
         tilesView.reloadData()
     }
-    
-    // MARK: - UICollectionView
-    
+
+}
+
+extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tiles.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = tilesView.dequeueReusableCell(withReuseIdentifier: "TileCell", for: indexPath) as? TileCell {
-            let name = tiles.count == indexPath.row ? "Untitled" : tiles[indexPath.row].name
-            let image = tiles.count == indexPath.row ? nil : tiles[indexPath.row].imageUrl
-            cell.configureCell(name: name, image: image)
+            let tile = indexPath.row < tiles.count ? tiles[indexPath.row] : nil
+            cell.configureCell(tile: tile)
             return cell
         } else {
             return UICollectionViewCell()
@@ -171,14 +172,14 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UIImagePickerCon
         if tiles.endIndex > indexPath.row {
             let tile = tiles[indexPath.row]
             interactor?.selectedTile = tile
-            performSegue(withIdentifier: "EditImage", sender: nil)
+            performSegue(withIdentifier: "EditTile", sender: nil)
         } else {
             let alert = UIAlertController(title: "Success", message: "Tile is succusfully connected. Enter the name", preferredStyle: .alert)
             alert.addTextField(configurationHandler: nil)
             let action = UIAlertAction(title: "OK", style: .default) { act in
                 let name = alert.textFields?.first?.text ?? "Untitled"
                 let userId = KeychainWrapper.standard.string(forKey: "uid")
-                let request = Tiles.NewTile.Request(id: "333", name: name, userId: userId!)
+                let request = Tiles.NewTile.Request(id: "08:08:08:08:08:08", key: UUID().uuidString, name: name, userId: userId!)
                 self.interactor?.addNewTile(request: request)
             }
             alert.addAction(action)

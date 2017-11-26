@@ -12,28 +12,47 @@ import Kingfisher
 class TileCell: UICollectionViewCell {
     @IBOutlet weak var tileNameLbl: UILabel!
     @IBOutlet weak var tileImageView: UIImageView!
+    @IBOutlet weak var tileStatusBtn: CircleButton!
+    @IBOutlet weak var batteryView: UIView!
+    @IBOutlet weak var batteryLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.black.cgColor
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.black.cgColor
     }
     
-    func configureCell(name: String, image: URL?) {
-        tileNameLbl.text = name
-        if image != nil {
-            tileImageView.kf.setImage(with: image!)
-            tileImageView.contentMode = .scaleAspectFit
+    func configureCell(tile: Tile?) {
+//        tileImageView.layer.masksToBounds = false
+//        tileImageView.layer.shadowColor = UIColor.lightGray.cgColor
+//        tileImageView.layer.shadowOpacity = 0.8
+//        tileImageView.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+//        tileImageView.layer.shadowRadius = 2
+        if let tile = tile {
+            tileNameLbl.text = tile.name
+            batteryLabel.text = "\(tile.batteryLevel)" + "%"
+            if tile.imageUrl != nil, tile.imageUrl != "none" {
+                tileImageView.kf.setImage(with: URL(string: tile.imageUrl!))
+                tileImageView.contentMode = .scaleAspectFill
+                tileImageView.clipsToBounds = true
+            } else {
+                tileImageView.image = #imageLiteral(resourceName: "empty_image")
+                tileImageView.contentMode = .center
+                tileStatusBtn.isHidden = false
+                batteryView.isHidden = false
+                batteryLabel.isHidden = false
+            }
         } else {
-            tileImageView.image = #imageLiteral(resourceName: "plus")
+            tileNameLbl.text = ""
+            tileImageView.image = #imageLiteral(resourceName: "add_tile")
             tileImageView.contentMode = .center
+            tileStatusBtn.isHidden = true
+            batteryView.isHidden = true
+            batteryLabel.isHidden = true
         }
-        
     }
 }
+

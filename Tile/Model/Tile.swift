@@ -10,39 +10,61 @@ import Foundation
 import Unbox
 
 struct Tile {
+    var dbKey: String?
     var name: String
     var id: String
-    var bateryLevel: Int
-    var isSleeping: Bool
+    var batteryLevel: Int
+    var sleeping: Bool
     var imageAngle: String
     var owner: String
     var needUpdateImage: Bool
     var needUpdateSleepingTime: Bool
     var needUpdateTime: Bool
     var needUpdateSoftware: Bool
+    var needUpdateCurrentStatus: Bool
     var timeZone: String
-    var imageUrl: URL?
-    var otaUrl: URL?
+    var chargeStatus: Bool
+    var currentStatus: String
+    var sleepTime: String
+    var imageUrl: String?
+    var otaUrl: String?
+    var firmwareVersion: String?
     
-    init(name: String, id: String) {
+    init(name: String, id: String, key: String, userId: String) {
+        self.dbKey = key
         self.name = name
         self.id = id
-        self.bateryLevel = 45
+        self.batteryLevel = 45
+        self.chargeStatus = false
         self.imageAngle = "auto"
-        self.isSleeping = false
+        self.sleeping = false
         self.needUpdateTime = false
         self.needUpdateImage = false
         self.needUpdateSoftware = false
         self.needUpdateSleepingTime = false
-        self.owner = ""
+        self.owner = userId
         self.timeZone = "Europe/Kiev"
+        self.currentStatus = "offline"
+        self.needUpdateCurrentStatus = false
+        self.firmwareVersion = "1.0.0"
+        self.otaUrl = "none"
+        self.imageUrl = "none"
+        self.sleepTime = "22:30 - 08:00"
     }
     
-    mutating func add(image: URL) {
+    mutating func add(image: String) {
         self.imageUrl = image
     }
-    mutating func add(ota: URL) {
+    mutating func add(ota: String) {
         self.otaUrl = ota
+    }
+    
+    mutating func add(firmware: String) {
+        self.firmwareVersion = firmware
+    }
+    
+    mutating func add(dbKey: String) {
+        self.dbKey = dbKey
     }
 }
 
@@ -50,8 +72,8 @@ extension Tile: Unboxable {
     init(unboxer: Unboxer) throws {
         self.id = try unboxer.unbox(key: "id")
         self.name = try unboxer.unbox(key: "name")
-        self.bateryLevel = try unboxer.unbox(key: "bateryLevel")
-        self.isSleeping = try unboxer.unbox(key: "isSleeping")
+        self.batteryLevel = try unboxer.unbox(key: "batteryLevel")
+        self.sleeping = try unboxer.unbox(key: "sleeping")
         self.imageAngle = try unboxer.unbox(key: "imageAngle")
         self.owner = try unboxer.unbox(key: "owner")
         self.needUpdateImage = try unboxer.unbox(key: "needUpdateImage")
@@ -61,5 +83,10 @@ extension Tile: Unboxable {
         self.timeZone = try unboxer.unbox(key: "timeZone")
         self.imageUrl = unboxer.unbox(key: "imageUrl")
         self.otaUrl = unboxer.unbox(key: "otaUrl")
+        self.firmwareVersion  = unboxer.unbox(key: "firmwareVersion")
+        self.chargeStatus = try unboxer.unbox(key: "chargeStatus")
+        self.currentStatus = try unboxer.unbox(key: "currentStatus")
+        self.needUpdateCurrentStatus = try unboxer.unbox(key: "needUpdateCurrentStatus")
+        self.sleepTime = try unboxer.unbox(key: "sleepTime")
     }
 }

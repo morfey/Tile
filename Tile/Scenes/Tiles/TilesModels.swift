@@ -48,6 +48,7 @@ enum Tiles
         struct Request
         {
             var id: String
+            var key: String
             var name: String
             var userId: String
         }
