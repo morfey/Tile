@@ -1,5 +1,4 @@
 PODS:
-  - AKImageCropperView (2.0.0)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -67,7 +66,6 @@ PODS:
   - GTMSessionFetcher/Core (1.1.12)
   - GTMSessionFetcher/Full (1.1.12):
     - GTMSessionFetcher/Core (= 1.1.12)
-  - iOSPhotoEditor (0.5)
   - Kingfisher (4.2.0)
   - leveldb-library (1.18.3)
   - libCGE (2.4.5)
@@ -79,23 +77,19 @@ PODS:
   - SwiftKeychainWrapper (3.0.1)
   - Unbox (2.5.0)
   - Wrap (2.1.1)
-  - XLPagerTabStrip (8.0.0)
 
 DEPENDENCIES:
-  - AKImageCropperView
   - FBSDKLoginKit
   - Firebase
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
   - GoogleSignIn
-  - iOSPhotoEditor
   - Kingfisher
   - libCGE (from `https://github.com/wysaid/ios-gpuimage-plus-pod.git`)
   - SwiftKeychainWrapper
   - Unbox
   - Wrap
-  - XLPagerTabStrip
 
 EXTERNAL SOURCES:
   libCGE:
@@ -107,7 +101,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/wysaid/ios-gpuimage-plus-pod.git
 
 SPEC CHECKSUMS:
-  AKImageCropperView: 9c80fd45512daa69426161ad51c248655c1b5182
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   FBSDKCoreKit: 03365dad5d790249196ffad8be4f6d8a2d98f932
   FBSDKLoginKit: 66ff53b73cffd967ab773e32fac39e90a60e6d46
@@ -122,7 +115,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMOAuth2: be83fd28d63ae3087e7d351b1f39c1a7e24ab6e7
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
-  iOSPhotoEditor: 0ddc84bcef9fe73fe8cc45ac999b89e0aa207aea
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   libCGE: 727fd408c1a03f2bb1fbf700b85bd72815bb25f8
@@ -130,8 +122,7 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
   Wrap: 9cc7da7551bb81d0846cb3df9fb624c6c32d267d
-  XLPagerTabStrip: d1ab378af0923320ec0b5eab11d7b2f803d31261
 
-PODFILE CHECKSUM: 6b870eeff31dc4d9547882d0edca4fefb8cac532
+PODFILE CHECKSUM: b67a3bf1db053e0f5cecf801d35109890f85b833
 
 COCOAPODS: 1.3.1

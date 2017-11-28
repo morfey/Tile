@@ -6,9 +6,7 @@
 //  Copyright (c) 2017 TimHazhyi. All rights reserved.
 
 import UIKit
-import AKImageCropperView
 import Photos
-import iOSPhotoEditor
 
 protocol EditTileDisplayLogic: class
 {
@@ -18,7 +16,7 @@ protocol EditTileDisplayLogic: class
     func setImage(image: UIImage)
 }
 
-class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate, GPUImagePlusDelegate
+class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate, GPUimagePlusDelegate
 {
     var interactor: EditTileBusinessLogic?
     var router: (NSObjectProtocol & EditTileRoutingLogic & EditTileDataPassing)?
@@ -114,8 +112,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         let photoEditor = PhotoEditorViewController(nibName:"PhotoEditorViewController",bundle: Bundle(for: PhotoEditorViewController.self))
         
         photoEditor.photoEditorDelegate = self
-        photoEditor.gpuImageDelegate = self
-        photoEditor.hiddenControls = [.share, .save, .draw, .sticker]
+        photoEditor.gpuImagePlusDelegate = self
+        photoEditor.hiddenControls = [.share, .save]
         photoEditor.image = originalImage.image
         
         present(photoEditor, animated: true, completion: nil)
@@ -259,7 +257,6 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
 }
 
 extension EditTileViewController: PhotoEditorDelegate {
-    
     func doneEditing(image: UIImage) {
         originalImage.image = image
     }
