@@ -12,6 +12,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import SocketIO
 
 protocol TilesDisplayLogic: class
 {

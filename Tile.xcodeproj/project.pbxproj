@@ -50,6 +50,12 @@
 		2218A71A1FCDD9DD0024F0B6 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2218A7181FCDD9DD0024F0B6 /* FiltersViewController.swift */; };
 		2218A71B1FCDD9DD0024F0B6 /* FiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2218A7191FCDD9DD0024F0B6 /* FiltersViewController.xib */; };
 		2247FB851F9DF84100CE377B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247FB841F9DF84100CE377B /* Reachability.swift */; };
+		226982CF1FCF380900BDFB1D /* ConnectToTileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982C91FCF380900BDFB1D /* ConnectToTileInteractor.swift */; };
+		226982D01FCF380900BDFB1D /* ConnectToTileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CA1FCF380900BDFB1D /* ConnectToTileModels.swift */; };
+		226982D11FCF380900BDFB1D /* ConnectToTilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CB1FCF380900BDFB1D /* ConnectToTilePresenter.swift */; };
+		226982D21FCF380900BDFB1D /* ConnectToTileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CC1FCF380900BDFB1D /* ConnectToTileRouter.swift */; };
+		226982D31FCF380900BDFB1D /* ConnectToTileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CD1FCF380900BDFB1D /* ConnectToTileViewController.swift */; };
+		226982D41FCF380900BDFB1D /* ConnectToTileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CE1FCF380900BDFB1D /* ConnectToTileWorker.swift */; };
 		2272CC191F9F6AF80032B691 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272CC181F9F6AF80032B691 /* ImageCell.swift */; };
 		2272CC1E1F9F92800032B691 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272CC1D1F9F92800032B691 /* Tile.swift */; };
 		2289912C1F94BA5700DF2175 /* EditImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991261F94BA5700DF2175 /* EditImageInteractor.swift */; };
@@ -148,6 +154,12 @@
 		2218A7181FCDD9DD0024F0B6 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		2218A7191FCDD9DD0024F0B6 /* FiltersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FiltersViewController.xib; sourceTree = "<group>"; };
 		2247FB841F9DF84100CE377B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		226982C91FCF380900BDFB1D /* ConnectToTileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileInteractor.swift; sourceTree = "<group>"; };
+		226982CA1FCF380900BDFB1D /* ConnectToTileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileModels.swift; sourceTree = "<group>"; };
+		226982CB1FCF380900BDFB1D /* ConnectToTilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTilePresenter.swift; sourceTree = "<group>"; };
+		226982CC1FCF380900BDFB1D /* ConnectToTileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileRouter.swift; sourceTree = "<group>"; };
+		226982CD1FCF380900BDFB1D /* ConnectToTileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileViewController.swift; sourceTree = "<group>"; };
+		226982CE1FCF380900BDFB1D /* ConnectToTileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileWorker.swift; sourceTree = "<group>"; };
 		2272CC181F9F6AF80032B691 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		2272CC1D1F9F92800032B691 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		228991261F94BA5700DF2175 /* EditImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageInteractor.swift; sourceTree = "<group>"; };
@@ -279,6 +291,19 @@
 			path = "Photo Editor";
 			sourceTree = "<group>";
 		};
+		226982C81FCF37E000BDFB1D /* ConnectToTile */ = {
+			isa = PBXGroup;
+			children = (
+				226982C91FCF380900BDFB1D /* ConnectToTileInteractor.swift */,
+				226982CA1FCF380900BDFB1D /* ConnectToTileModels.swift */,
+				226982CB1FCF380900BDFB1D /* ConnectToTilePresenter.swift */,
+				226982CC1FCF380900BDFB1D /* ConnectToTileRouter.swift */,
+				226982CD1FCF380900BDFB1D /* ConnectToTileViewController.swift */,
+				226982CE1FCF380900BDFB1D /* ConnectToTileWorker.swift */,
+			);
+			path = ConnectToTile;
+			sourceTree = "<group>";
+		};
 		2272CC171F9F6ABD0032B691 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +352,7 @@
 		229B10601F8F879700FDA0F4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				226982C81FCF37E000BDFB1D /* ConnectToTile */,
 				2218A6571FCDD0F30024F0B6 /* Photo Editor */,
 				22EA4DAD1FBE0420007E9DD9 /* CreateNewAccount */,
 				22FA0B5D1FB20D240088D5BA /* Profile */,
@@ -577,6 +603,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
 				"${BUILT_PRODUCTS_DIR}/Wrap/Wrap.framework",
@@ -592,6 +620,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Wrap.framework",
@@ -714,13 +744,16 @@
 				229B106A1F8F87B700FDA0F4 /* LoginPresenter.swift in Sources */,
 				2218A6F61FCDD3A20024F0B6 /* PhotoEditor+StickersViewController.swift in Sources */,
 				2289913B1F94D5A500DF2175 /* TilesPresenter.swift in Sources */,
+				226982D21FCF380900BDFB1D /* ConnectToTileRouter.swift in Sources */,
 				2218A7131FCDD3A20024F0B6 /* EmojiCollectionViewCell.swift in Sources */,
 				2218A7041FCDD3A20024F0B6 /* PhotoEditor+UITextView.swift in Sources */,
 				2218A6FF1FCDD3A20024F0B6 /* Protocols.swift in Sources */,
 				2218A6F71FCDD3A20024F0B6 /* UIImageView+Alpha.swift in Sources */,
+				226982D11FCF380900BDFB1D /* ConnectToTilePresenter.swift in Sources */,
 				22EA4DB51FBE0438007E9DD9 /* CreateNewAccountModels.swift in Sources */,
 				229B10681F8F87B700FDA0F4 /* LoginInteractor.swift in Sources */,
 				2218A7071FCDD3A20024F0B6 /* PhotoEditor+Drawing.swift in Sources */,
+				226982D41FCF380900BDFB1D /* ConnectToTileWorker.swift in Sources */,
 				22EA4DB41FBE0438007E9DD9 /* CreateNewAccountInteractor.swift in Sources */,
 				22037D111F8E1E9400315130 /* SignIn.swift in Sources */,
 				22FA0B5C1FB20CA90088D5BA /* CircleButton.swift in Sources */,
@@ -734,6 +767,7 @@
 				2218A6FB1FCDD3A20024F0B6 /* StickerCollectionViewCell.swift in Sources */,
 				2289912D1F94BA5700DF2175 /* EditImageModels.swift in Sources */,
 				2218A7021FCDD3A20024F0B6 /* PhotoEditor+Font.swift in Sources */,
+				226982D31FCF380900BDFB1D /* ConnectToTileViewController.swift in Sources */,
 				229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */,
 				228991391F94D5A500DF2175 /* TilesInteractor.swift in Sources */,
 				2289913D1F94D5A500DF2175 /* TilesViewController.swift in Sources */,
@@ -744,6 +778,7 @@
 				2272CC1E1F9F92800032B691 /* Tile.swift in Sources */,
 				2218A7101FCDD3A20024F0B6 /* EmojisCollectionViewDelegate.swift in Sources */,
 				2218A70D1FCDD3A20024F0B6 /* CropView.swift in Sources */,
+				226982CF1FCF380900BDFB1D /* ConnectToTileInteractor.swift in Sources */,
 				2247FB851F9DF84100CE377B /* Reachability.swift in Sources */,
 				2218A7111FCDD3A20024F0B6 /* UIImage+Crop.swift in Sources */,
 				2218A7031FCDD3A20024F0B6 /* PhotoEditor+Gestures.swift in Sources */,
@@ -760,6 +795,7 @@
 				2289912E1F94BA5700DF2175 /* EditImagePresenter.swift in Sources */,
 				2289912F1F94BA5700DF2175 /* EditImageRouter.swift in Sources */,
 				229B106D1F8F87B700FDA0F4 /* LoginWorker.swift in Sources */,
+				226982D01FCF380900BDFB1D /* ConnectToTileModels.swift in Sources */,
 				2289913A1F94D5A500DF2175 /* TilesModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,13 +16,11 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var filtersViewControllerDelegate: FiltersViewControllerDelegate?
+    var gpuImagePlusDelegate: GPUimagePlusDelegate?
+    var originalImage: UIImage!
     
     let screenSize = UIScreen.main.bounds.size
-    var images: [CGImage]! {
-        didSet {
-            configurateScrollView()
-        }
-    }
+    var images: [CGImage]!
     
     let fullView: CGFloat = 100 // remainder of screen height
     var partialView: CGFloat {
@@ -37,6 +35,13 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(FiltersViewController.panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
+        
+        DispatchQueue.global().async {
+            self.images = self.gpuImagePlusDelegate?.proccessFilters(image: self.originalImage)
+            DispatchQueue.main.async {
+                self.configurateScrollView()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +71,10 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    @objc func didSelectFilter(_ sender: UIButton) {
+        filtersViewControllerDelegate?.didSelectFilter(sender)
+    }
+    
     func configurateScrollView() {
         var xCoord: CGFloat = 5
         let yCoord: CGFloat = 5
@@ -80,7 +89,7 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
             let filterButton = UIButton(type: .custom)
             filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
             filterButton.tag = itemCount
-            filterButton.addTarget(self, action: #selector(filtersViewControllerDelegate?.didSelectFilter(button:)), for: .touchUpInside)
+            filterButton.addTarget(self, action: #selector(didSelectFilter(_:)), for: .touchUpInside)
             filterButton.layer.cornerRadius = 6
             filterButton.clipsToBounds = true
             filterButton.imageView?.contentMode = .center
