@@ -95,8 +95,19 @@ class FirebaseService {
     }
     
     func update(tile key: String, withImage imageUrl: String, completion: @escaping () -> ()) {
-        REF_TILES.child(key).updateChildValues(["imageUrl": imageUrl])
+        REF_TILES.child(key).updateChildValues(["imageUrl": imageUrl, "needUpdateImage": true])
         completion()
+    }
+    
+    func update(tile key: String, sleepForceStatus: Bool, completion: (() -> ())? = nil) {
+        REF_TILES.child(key).observeSingleEvent(of: .value) { snapshot in
+            if let snapshot = snapshot.value as? Dictionary<String, Any> {
+                if let sleepStatus = snapshot["sleeping"] as? Bool, sleepStatus != sleepForceStatus {
+                    self.REF_TILES.child(key).updateChildValues(["sleeping": sleepForceStatus])
+                    completion?()
+                }
+            }
+        }
     }
     
     // MARK: - Work with images

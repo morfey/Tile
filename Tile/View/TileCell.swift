@@ -15,6 +15,7 @@ class TileCell: UICollectionViewCell {
     @IBOutlet weak var tileStatusBtn: CircleButton!
     @IBOutlet weak var batteryView: UIView!
     @IBOutlet weak var batteryLabel: UILabel!
+    var tile: Tile!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +25,11 @@ class TileCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    @IBAction func sleepBtnTapped(_ sender: UIButton) {
+        guard let key = tile?.dbKey else { return }
+        tileStatusBtn.isSelected = !tileStatusBtn.isSelected
+        FirebaseService.shared.update(tile: key, sleepForceStatus: tileStatusBtn.isSelected)
+    }
     
     func configureCell(tile: Tile?) {
 //        tileImageView.layer.masksToBounds = false
@@ -32,6 +38,8 @@ class TileCell: UICollectionViewCell {
 //        tileImageView.layer.shadowOffset = CGSize(width: 0, height: 2.0)
 //        tileImageView.layer.shadowRadius = 2
         if let tile = tile {
+            self.tile = tile
+            tileStatusBtn.isSelected = tile.sleeping
             tileNameLbl.text = tile.name
             batteryLabel.text = "\(tile.batteryLevel)" + "%"
             if tile.imageUrl != nil, tile.imageUrl != "none" {

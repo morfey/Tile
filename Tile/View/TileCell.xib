@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A1D-XM-Enc">
-                        <rect key="frame" x="0.0" y="14.5" width="120" height="125.5"/>
+                        <rect key="frame" x="0.0" y="14" width="120" height="125.5"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtX-hX-WyO" customClass="CircleButton" customModule="Tile" customModuleProvider="target">
                         <rect key="frame" x="100" y="0.0" width="40" height="40"/>
@@ -31,11 +31,16 @@
                         <state key="normal" image="power">
                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
+                        <state key="selected" image="power" backgroundImage="powerHighlitedBkg"/>
+                        <state key="highlighted" image="power" backgroundImage="powerHighlitedBkg"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="sleepBtnTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="KIA-yN-Yn1"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZI-9i-7TV">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="14.5"/>
@@ -46,9 +51,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2O-SV-RSb">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2O-SV-RSb">
                         <rect key="frame" x="60" y="120" width="60" height="20"/>
                         <subviews>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dp-da-V8Z">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="47%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEE-yi-ntz">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -63,15 +72,19 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="l6V-9e-O13" secondAttribute="trailing" constant="3" id="2P9-is-6b0"/>
+                            <constraint firstItem="5dp-da-V8Z" firstAttribute="leading" secondItem="f2O-SV-RSb" secondAttribute="leading" id="8mS-Xh-XUj"/>
                             <constraint firstAttribute="bottom" secondItem="ZEE-yi-ntz" secondAttribute="bottom" id="AKC-Wu-4Cg"/>
                             <constraint firstAttribute="width" constant="60" id="Avr-Cg-sU1"/>
+                            <constraint firstAttribute="bottom" secondItem="5dp-da-V8Z" secondAttribute="bottom" id="ClJ-lO-1eq"/>
                             <constraint firstAttribute="height" constant="20" id="QzD-rP-caM"/>
+                            <constraint firstAttribute="trailing" secondItem="5dp-da-V8Z" secondAttribute="trailing" id="e3g-TY-OvN"/>
                             <constraint firstItem="ZEE-yi-ntz" firstAttribute="leading" secondItem="f2O-SV-RSb" secondAttribute="leading" id="lPb-hG-6N5"/>
                             <constraint firstAttribute="trailing" secondItem="ZEE-yi-ntz" secondAttribute="trailing" constant="19" id="nbB-4c-1p4"/>
                             <constraint firstItem="ZEE-yi-ntz" firstAttribute="top" secondItem="f2O-SV-RSb" secondAttribute="top" id="qbT-gm-TDz"/>
+                            <constraint firstItem="5dp-da-V8Z" firstAttribute="top" secondItem="f2O-SV-RSb" secondAttribute="top" id="vI8-UI-qe7"/>
                             <constraint firstItem="l6V-9e-O13" firstAttribute="top" secondItem="f2O-SV-RSb" secondAttribute="top" constant="3" id="wgY-Bz-dFF"/>
                             <constraint firstAttribute="bottom" secondItem="l6V-9e-O13" secondAttribute="bottom" constant="3" id="wsb-kq-ZC2"/>
                         </constraints>
@@ -106,5 +119,6 @@
     <resources>
         <image name="battery" width="5" height="11"/>
         <image name="power" width="18" height="18"/>
+        <image name="powerHighlitedBkg" width="40" height="40"/>
     </resources>
 </document>

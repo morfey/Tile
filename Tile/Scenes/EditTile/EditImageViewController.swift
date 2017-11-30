@@ -69,6 +69,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     var lastPanPoint: CGPoint?
     
     @IBOutlet weak var sleepTimeTextField: UITextField!
+    @IBOutlet weak var sleepTimePicker: UIDatePicker!
     
     
     var CIFilterNames = [
@@ -87,12 +88,14 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         super.viewDidLoad()
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
+        sleepTimeTextField.delegate = self
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         tile = router?.dataStore?.tile
         title = tile.name
         sleepTimeTextField.text = tile.sleepTime
+        initializeTextFieldInputView()
         
         if let url = tile.imageUrl {
             originalImage.kf.setImage(with: URL(string: url), placeholder: #imageLiteral(resourceName: "FullImage"), options: nil, progressBlock: nil)
@@ -253,6 +256,39 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
                 router.perform(selector, with: segue)
             }
         }
+    }
+}
+
+extension EditTileViewController: UITextFieldDelegate {
+    func initializeTextFieldInputView() {
+        // Add date picker
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .time
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        sleepTimeTextField.inputView = datePicker
+        
+        // Add toolbar with done button on the right
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 10))
+        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
+        toolbar.items = [flexibleSeparator, doneButton]
+        sleepTimeTextField.inputAccessoryView = toolbar
+    }
+    
+    @objc func dateChanged(_ datePicker: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        sleepTimeTextField.text = formatter.string(from: datePicker.date)
+    }
+    
+    @objc func doneButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        sleepTimePicker.isHidden = true
+        return true
     }
 }
 
