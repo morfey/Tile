@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import SwiftKeychainWrapper
 import Wrap
+import Unbox
 
 private let DATABASE_REF = Database.database().reference()
 private let STORAGE_REF = Storage.storage().reference()
@@ -50,14 +51,23 @@ class FirebaseService {
         }
     }
     
-    func add(tile: Tile, userId: String, key: String, completion: @escaping(_ status: String, _ tile: Tile?) -> ()) {
-        REF_TILES.child(key).observeSingleEvent(of: .value) { snapshot in
+    func addObserveForTile(tile: Tile, completion: @escaping() -> ()) {
+        REF_TILES.child(tile.id).child("currentStatus").observe(.value) { snapshot in
+            if let snapshot = snapshot.value as? String {
+                if snapshot == "online" {
+                    completion()
+                }
+            }
+        }
+    }
+    
+    func add(tile: Tile, userId: String, completion: @escaping(_ status: String, _ tile: Tile?) -> ()) {
+        REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
                 if let owner = snapshot["owner"] as? String {
                     if owner == userId {
-                        self.checkTileOwner(tileKey: key) { bool in
+                        self.checkTileOwner(tileKey: tile.id) { bool in
                             if bool {
-                                let tile = Tile(name: snapshot["name"] as! String, id: tile.id, key: key, userId: userId)
                                 completion("Tile reconnect", tile)
                             } else {
                                 completion("Not your Tile", nil)
@@ -69,12 +79,10 @@ class FirebaseService {
                 }
             } else {
                 do {
-                    if let dbKey = tile.dbKey {
-                        let values: [String: Any] = try wrap(tile)
-                        self.REF_TILES.child(dbKey).updateChildValues(values)
-                        self.REF_USERS.child(userId).child("tiles").updateChildValues([dbKey: true])
-                        completion("New Tile succesfull added", tile)
-                    }
+                    let values: [String: Any] = try wrap(tile)
+                    self.REF_TILES.child(tile.id).updateChildValues(values)
+                    self.REF_USERS.child(userId).child("tiles").updateChildValues([tile.id: true])
+                    completion("New Tile succesfull added", tile)
                 } catch {
                     
                 }
@@ -94,38 +102,54 @@ class FirebaseService {
         }
     }
     
-    func update(tile key: String, withImage imageUrl: String, completion: @escaping () -> ()) {
-        REF_TILES.child(key).updateChildValues(["imageUrl": imageUrl, "needUpdateImage": true])
+    func update(tile: Tile, withImage imageUrl: String, completion: @escaping () -> ()) {
+        REF_TILES.child(tile.id).updateChildValues(["imageUrl": imageUrl, "needUpdateImage": true])
         completion()
     }
     
-    func update(tile key: String, sleepForceStatus: Bool, completion: (() -> ())? = nil) {
-        REF_TILES.child(key).observeSingleEvent(of: .value) { snapshot in
+    func update(tile: Tile, sleepForceStatus: Bool, completion: (() -> ())? = nil) {
+        REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
                 if let sleepStatus = snapshot["sleeping"] as? Bool, sleepStatus != sleepForceStatus {
-                    self.REF_TILES.child(key).updateChildValues(["sleeping": sleepForceStatus])
+                    self.REF_TILES.child(tile.id).updateChildValues(["sleeping": sleepForceStatus])
                     completion?()
                 }
             }
         }
     }
     
+    func update(tile: Tile, sleepTime: String, completion: (() -> ())? = nil) {
+        REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
+            if let snapshot = snapshot.value as? Dictionary<String, Any> {
+                if let currentsSleepTime = snapshot["sleepTime"] as? String, currentsSleepTime != sleepTime {
+                    self.REF_TILES.child(tile.id).updateChildValues(["sleepTime": sleepTime, "needUpdateSleepingTime": true])
+                    completion?()
+                }
+            }
+        }
+    }
+    
+    func update(tile: Tile, name: String, completion: (() -> ())? = nil) {
+        self.REF_TILES.child(tile.id).updateChildValues(["name": name])
+        completion?()
+    }
+    
     // MARK: - Work with images
     
-    func upload(image: UIImage, forTile key: String, completion: @escaping (String) -> ()) {
+    func upload(image: UIImage, forTile tile: Tile, completion: @escaping (String) -> ()) {
         if let imgData = UIImageJPEGRepresentation(image, 1.0) {
             let imgUid = NSUUID().uuidString
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             
-            STORAGE_REF.child(key).child(imgUid).putData(imgData, metadata: metadata) { (metadata, error) in
+            STORAGE_REF.child(tile.id).child(imgUid).putData(imgData, metadata: metadata) { (metadata, error) in
                 if error != nil {
                     print ("USER: Unable to upload image")
                 } else {
                     print ("USER: Success upload image")
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL {
-                        self.update(tile: key, withImage: url) {
+                        self.update(tile: tile, withImage: url) {
                             completion(url)
                         }
                     }

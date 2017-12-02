@@ -95,7 +95,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         tile = router?.dataStore?.tile
         title = tile.name
         sleepTimeTextField.text = tile.sleepTime
-        initializeTextFieldInputView()
+//        initializeTextFieldInputView()
         
         if let url = tile.imageUrl {
             originalImage.kf.setImage(with: URL(string: url), placeholder: #imageLiteral(resourceName: "FullImage"), options: nil, progressBlock: nil)
@@ -116,7 +116,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         
         photoEditor.photoEditorDelegate = self
         photoEditor.gpuImagePlusDelegate = self
-        photoEditor.hiddenControls = [.share, .save]
+        photoEditor.hiddenControls = [.share, .save, .sticker]
         photoEditor.image = originalImage.image
         
         present(photoEditor, animated: true, completion: nil)
@@ -260,35 +260,49 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
 }
 
 extension EditTileViewController: UITextFieldDelegate {
-    func initializeTextFieldInputView() {
-        // Add date picker
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .time
-        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-        sleepTimeTextField.inputView = datePicker
-        
-        // Add toolbar with done button on the right
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 10))
-        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
-        toolbar.items = [flexibleSeparator, doneButton]
-        sleepTimeTextField.inputAccessoryView = toolbar
-    }
-    
-    @objc func dateChanged(_ datePicker: UIDatePicker) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        sleepTimeTextField.text = formatter.string(from: datePicker.date)
-    }
-    
-    @objc func doneButtonPressed(_ sender: UIButton) {
-        
-    }
+//    func initializeTextFieldInputView() {
+//        // Add date picker
+//        let datePicker = UIDatePicker()
+//        datePicker.datePickerMode = .time
+//        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+//        sleepTimeTextField.inputView = datePicker
+//
+//        // Add toolbar with done button on the right
+//        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 10))
+//        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
+//        toolbar.items = [flexibleSeparator, doneButton]
+//        sleepTimeTextField.inputAccessoryView = toolbar
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
-        sleepTimePicker.isHidden = true
+        guard let text = textField.text, text.count > 0 else { return false }
+        let matche = matches(for: "[0-9]{2}:[0-9]{2}[ ]-[ ][0-9]{2}:[0-9]{2}", in: text)
+        if matche.count > 0 {
+            FirebaseService.shared.update(tile: tile, sleepTime: matche.first!)
+        } else {
+            let alert = UIAlertController(title: "Ошибка", message: "Неверный формат времени.\nВведит время в формате\nхх:хх - хх:хх", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+        }
         return true
+    }
+    
+    func matches(for regex: String, in text: String) -> [String] {
+        
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let results = regex.matches(in: text,
+                                        range: NSRange(text.startIndex..., in: text))
+            return results.map {
+                String(text[Range($0.range, in: text)!])
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return []
+        }
     }
 }
 

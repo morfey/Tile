@@ -12,7 +12,6 @@ protocol EditTileBusinessLogic
     func applyFilters(request: EditTile.Filters.Request)
     func saveImageForTile(request: EditTile.ImageForTile.Request)
     
-    func setImage()
     func setImageWithFilter(image: UIImage)
 }
 
@@ -44,16 +43,12 @@ class EditTileInteractor: EditTileBusinessLogic, EditTileDataStore
     }
     
     func saveImageForTile(request: EditTile.ImageForTile.Request) {
-        if let dbKey = tile?.dbKey {
-            FirebaseService.shared.upload(image: request.image, forTile: dbKey) { url in
+        if let tile = tile {
+            FirebaseService.shared.upload(image: request.image, forTile: tile) { [weak self] url in
                 let response = EditTile.ImageForTile.Response(url: url)
-                self.presenter?.presentTileWithImage(responce: response)
+                self?.presenter?.presentTileWithImage(responce: response)
             }
         }
-    }
-    
-    func setImage() {
-//        presenter?.setImage(image: originalImage!)
     }
     
     func setImageWithFilter(image: UIImage) {

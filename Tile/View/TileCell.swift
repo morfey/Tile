@@ -26,9 +26,9 @@ class TileCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     @IBAction func sleepBtnTapped(_ sender: UIButton) {
-        guard let key = tile?.dbKey else { return }
+        guard let tile = tile else { return }
         tileStatusBtn.isSelected = !tileStatusBtn.isSelected
-        FirebaseService.shared.update(tile: key, sleepForceStatus: tileStatusBtn.isSelected)
+        FirebaseService.shared.update(tile: tile, sleepForceStatus: tileStatusBtn.isSelected)
     }
     
     func configureCell(tile: Tile?) {
@@ -37,30 +37,31 @@ class TileCell: UICollectionViewCell {
 //        tileImageView.layer.shadowOpacity = 0.8
 //        tileImageView.layer.shadowOffset = CGSize(width: 0, height: 2.0)
 //        tileImageView.layer.shadowRadius = 2
+        var hideBtns = true
         if let tile = tile {
             self.tile = tile
             tileStatusBtn.isSelected = tile.sleeping
             tileNameLbl.text = tile.name
             batteryLabel.text = "\(tile.batteryLevel)" + "%"
-            if tile.imageUrl != nil, tile.imageUrl != "none" {
-                tileImageView.kf.setImage(with: URL(string: tile.imageUrl!))
+            if let imgStr = tile.imageUrl, imgStr != "none" {
+                tileImageView.kf.setImage(with: URL(string: imgStr))
                 tileImageView.contentMode = .scaleAspectFill
                 tileImageView.clipsToBounds = true
+                hideBtns = false
             } else {
                 tileImageView.image = #imageLiteral(resourceName: "empty_image")
                 tileImageView.contentMode = .center
-                tileStatusBtn.isHidden = false
-                batteryView.isHidden = false
-                batteryLabel.isHidden = false
+                hideBtns = false
             }
         } else {
             tileNameLbl.text = ""
             tileImageView.image = #imageLiteral(resourceName: "add_tile")
             tileImageView.contentMode = .center
-            tileStatusBtn.isHidden = true
-            batteryView.isHidden = true
-            batteryLabel.isHidden = true
+            hideBtns = true
         }
+        tileStatusBtn.isHidden = hideBtns
+        batteryView.isHidden = hideBtns
+        batteryLabel.isHidden = hideBtns
     }
 }
 

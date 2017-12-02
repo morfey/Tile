@@ -17,7 +17,7 @@ target 'Tile' do
   pod 'Kingfisher'
   pod 'Unbox'
   pod 'Wrap'
-  pod 'Socket.IO-Client-Swift'
+  pod 'Starscream'
 
   target 'TileTests' do
     inherit! :search_paths

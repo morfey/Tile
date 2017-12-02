@@ -14,21 +14,6 @@ import UIKit
 
 enum Tiles
 {
-    // MARK: Use cases
-    enum SelectedImage
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-            var image: UIImage
-        }
-        struct ViewModel
-        {
-            var image: UIImage
-        }
-    }
     enum ConnectionStatus
     {
         struct Request
@@ -48,7 +33,6 @@ enum Tiles
         struct Request
         {
             var id: String
-            var key: String
             var name: String
             var userId: String
         }

@@ -58,12 +58,20 @@
 		226982D41FCF380900BDFB1D /* ConnectToTileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CE1FCF380900BDFB1D /* ConnectToTileWorker.swift */; };
 		2272CC191F9F6AF80032B691 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272CC181F9F6AF80032B691 /* ImageCell.swift */; };
 		2272CC1E1F9F92800032B691 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2272CC1D1F9F92800032B691 /* Tile.swift */; };
-		2289912C1F94BA5700DF2175 /* EditImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991261F94BA5700DF2175 /* EditImageInteractor.swift */; };
-		2289912D1F94BA5700DF2175 /* EditImageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991271F94BA5700DF2175 /* EditImageModels.swift */; };
-		2289912E1F94BA5700DF2175 /* EditImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991281F94BA5700DF2175 /* EditImagePresenter.swift */; };
-		2289912F1F94BA5700DF2175 /* EditImageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991291F94BA5700DF2175 /* EditImageRouter.swift */; };
-		228991301F94BA5700DF2175 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2289912A1F94BA5700DF2175 /* EditImageViewController.swift */; };
-		228991311F94BA5700DF2175 /* EditImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2289912B1F94BA5700DF2175 /* EditImageWorker.swift */; };
+		228066051FD314E200832D77 /* getgateway.c in Sources */ = {isa = PBXBuildFile; fileRef = 228065F31FD314E200832D77 /* getgateway.c */; };
+		228066061FD314E200832D77 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 228065F81FD314E200832D77 /* Info.plist */; };
+		228066071FD314E200832D77 /* IPObjectiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 228065FA1FD314E200832D77 /* IPObjectiveManager.m */; };
+		228066081FD314E200832D77 /* MacAddressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 228065FC1FD314E200832D77 /* MacAddressManager.m */; };
+		228066091FD314E200832D77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228065FE1FD314E200832D77 /* ViewController.swift */; };
+		2280660A1FD314E200832D77 /* WifiIPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228065FF1FD314E200832D77 /* WifiIPManager.swift */; };
+		2280660B1FD314E200832D77 /* WiFiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228066001FD314E200832D77 /* WiFiManager.swift */; };
+		2280660D1FD3333F00832D77 /* NetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2280660C1FD3333F00832D77 /* NetInfo.swift */; };
+		2289912C1F94BA5700DF2175 /* EditTileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991261F94BA5700DF2175 /* EditTileInteractor.swift */; };
+		2289912D1F94BA5700DF2175 /* EditTileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991271F94BA5700DF2175 /* EditTileModels.swift */; };
+		2289912E1F94BA5700DF2175 /* EditTilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991281F94BA5700DF2175 /* EditTilePresenter.swift */; };
+		2289912F1F94BA5700DF2175 /* EditTileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991291F94BA5700DF2175 /* EditTileRouter.swift */; };
+		228991301F94BA5700DF2175 /* EditTileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2289912A1F94BA5700DF2175 /* EditTileViewController.swift */; };
+		228991311F94BA5700DF2175 /* EditTileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2289912B1F94BA5700DF2175 /* EditTileWorker.swift */; };
 		228991391F94D5A500DF2175 /* TilesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991331F94D5A500DF2175 /* TilesInteractor.swift */; };
 		2289913A1F94D5A500DF2175 /* TilesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991341F94D5A500DF2175 /* TilesModels.swift */; };
 		2289913B1F94D5A500DF2175 /* TilesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991351F94D5A500DF2175 /* TilesPresenter.swift */; };
@@ -162,12 +170,27 @@
 		226982CE1FCF380900BDFB1D /* ConnectToTileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileWorker.swift; sourceTree = "<group>"; };
 		2272CC181F9F6AF80032B691 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		2272CC1D1F9F92800032B691 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
-		228991261F94BA5700DF2175 /* EditImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageInteractor.swift; sourceTree = "<group>"; };
-		228991271F94BA5700DF2175 /* EditImageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageModels.swift; sourceTree = "<group>"; };
-		228991281F94BA5700DF2175 /* EditImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImagePresenter.swift; sourceTree = "<group>"; };
-		228991291F94BA5700DF2175 /* EditImageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageRouter.swift; sourceTree = "<group>"; };
-		2289912A1F94BA5700DF2175 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
-		2289912B1F94BA5700DF2175 /* EditImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageWorker.swift; sourceTree = "<group>"; };
+		228065F31FD314E200832D77 /* getgateway.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = getgateway.c; sourceTree = "<group>"; };
+		228065F41FD314E200832D77 /* getgateway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getgateway.h; sourceTree = "<group>"; };
+		228065F51FD314E200832D77 /* if_arp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_arp.h; sourceTree = "<group>"; };
+		228065F61FD314E200832D77 /* if_ether.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_ether.h; sourceTree = "<group>"; };
+		228065F71FD314E200832D77 /* if_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_types.h; sourceTree = "<group>"; };
+		228065F81FD314E200832D77 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		228065F91FD314E200832D77 /* IPObjectiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPObjectiveManager.h; sourceTree = "<group>"; };
+		228065FA1FD314E200832D77 /* IPObjectiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPObjectiveManager.m; sourceTree = "<group>"; };
+		228065FB1FD314E200832D77 /* MacAddressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacAddressManager.h; sourceTree = "<group>"; };
+		228065FC1FD314E200832D77 /* MacAddressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacAddressManager.m; sourceTree = "<group>"; };
+		228065FD1FD314E200832D77 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
+		228065FE1FD314E200832D77 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		228065FF1FD314E200832D77 /* WifiIPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiIPManager.swift; sourceTree = "<group>"; };
+		228066001FD314E200832D77 /* WiFiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WiFiManager.swift; sourceTree = "<group>"; };
+		2280660C1FD3333F00832D77 /* NetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetInfo.swift; sourceTree = "<group>"; };
+		228991261F94BA5700DF2175 /* EditTileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTileInteractor.swift; sourceTree = "<group>"; };
+		228991271F94BA5700DF2175 /* EditTileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTileModels.swift; sourceTree = "<group>"; };
+		228991281F94BA5700DF2175 /* EditTilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTilePresenter.swift; sourceTree = "<group>"; };
+		228991291F94BA5700DF2175 /* EditTileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTileRouter.swift; sourceTree = "<group>"; };
+		2289912A1F94BA5700DF2175 /* EditTileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTileViewController.swift; sourceTree = "<group>"; };
+		2289912B1F94BA5700DF2175 /* EditTileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTileWorker.swift; sourceTree = "<group>"; };
 		228991331F94D5A500DF2175 /* TilesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesInteractor.swift; sourceTree = "<group>"; };
 		228991341F94D5A500DF2175 /* TilesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesModels.swift; sourceTree = "<group>"; };
 		228991351F94D5A500DF2175 /* TilesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesPresenter.swift; sourceTree = "<group>"; };
@@ -238,6 +261,7 @@
 		22037D0D1F8E1DF000315130 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				228065EC1FD314E200832D77 /* WifiManager */,
 				22037D0E1F8E1E0F00315130 /* FirebaseService.swift */,
 				22037D101F8E1E9400315130 /* SignIn.swift */,
 				22037D121F8E21D100315130 /* Constants.swift */,
@@ -323,15 +347,37 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		228065EC1FD314E200832D77 /* WifiManager */ = {
+			isa = PBXGroup;
+			children = (
+				228065F31FD314E200832D77 /* getgateway.c */,
+				228065F41FD314E200832D77 /* getgateway.h */,
+				228065F51FD314E200832D77 /* if_arp.h */,
+				228065F61FD314E200832D77 /* if_ether.h */,
+				228065F71FD314E200832D77 /* if_types.h */,
+				228065F81FD314E200832D77 /* Info.plist */,
+				228065F91FD314E200832D77 /* IPObjectiveManager.h */,
+				228065FA1FD314E200832D77 /* IPObjectiveManager.m */,
+				228065FB1FD314E200832D77 /* MacAddressManager.h */,
+				228065FC1FD314E200832D77 /* MacAddressManager.m */,
+				228065FD1FD314E200832D77 /* Route.h */,
+				228065FE1FD314E200832D77 /* ViewController.swift */,
+				228065FF1FD314E200832D77 /* WifiIPManager.swift */,
+				228066001FD314E200832D77 /* WiFiManager.swift */,
+				2280660C1FD3333F00832D77 /* NetInfo.swift */,
+			);
+			path = WifiManager;
+			sourceTree = "<group>";
+		};
 		228991251F94BA3500DF2175 /* EditTile */ = {
 			isa = PBXGroup;
 			children = (
-				228991261F94BA5700DF2175 /* EditImageInteractor.swift */,
-				228991271F94BA5700DF2175 /* EditImageModels.swift */,
-				228991281F94BA5700DF2175 /* EditImagePresenter.swift */,
-				228991291F94BA5700DF2175 /* EditImageRouter.swift */,
-				2289912A1F94BA5700DF2175 /* EditImageViewController.swift */,
-				2289912B1F94BA5700DF2175 /* EditImageWorker.swift */,
+				228991261F94BA5700DF2175 /* EditTileInteractor.swift */,
+				228991271F94BA5700DF2175 /* EditTileModels.swift */,
+				228991281F94BA5700DF2175 /* EditTilePresenter.swift */,
+				228991291F94BA5700DF2175 /* EditTileRouter.swift */,
+				2289912A1F94BA5700DF2175 /* EditTileViewController.swift */,
+				2289912B1F94BA5700DF2175 /* EditTileWorker.swift */,
 			);
 			path = EditTile;
 			sourceTree = "<group>";
@@ -567,6 +613,7 @@
 				2218A70C1FCDD3A20024F0B6 /* StickersViewController.xib in Resources */,
 				2218A7081FCDD3A20024F0B6 /* PhotoEditorViewController.xib in Resources */,
 				2218A6FD1FCDD3A20024F0B6 /* PhotoCropEditorBorder@2x.png in Resources */,
+				228066061FD314E200832D77 /* Info.plist in Resources */,
 				22037D141F8E240A00315130 /* GoogleService-Info.plist in Resources */,
 				2218A6FA1FCDD3A20024F0B6 /* PhotoCropEditorBorder@3x.png in Resources */,
 				2218A70E1FCDD3A20024F0B6 /* PhotoCropEditorBorder.png in Resources */,
@@ -726,9 +773,11 @@
 			files = (
 				22EA4DB91FBE0438007E9DD9 /* CreateNewAccountWorker.swift in Sources */,
 				22FA0B671FB20ECA0088D5BA /* ProfileRouter.swift in Sources */,
-				228991301F94BA5700DF2175 /* EditImageViewController.swift in Sources */,
+				228991301F94BA5700DF2175 /* EditTileViewController.swift in Sources */,
 				2218A70A1FCDD3A20024F0B6 /* PhotoEditor+Keyboard.swift in Sources */,
+				228066081FD314E200832D77 /* MacAddressManager.m in Sources */,
 				2218A6F41FCDD3A20024F0B6 /* StickersViewController.swift in Sources */,
+				2280660B1FD314E200832D77 /* WiFiManager.swift in Sources */,
 				22AC7FAD1FCB1447000BD370 /* TileCell.swift in Sources */,
 				22A5E5551F8E162F0025A0D5 /* Tile.xcdatamodeld in Sources */,
 				229B10691F8F87B700FDA0F4 /* LoginModels.swift in Sources */,
@@ -741,6 +790,7 @@
 				22FA0B681FB20ECA0088D5BA /* ProfileViewController.swift in Sources */,
 				2218A7121FCDD3A20024F0B6 /* ColorCollectionViewCell.swift in Sources */,
 				2218A7141FCDD3A20024F0B6 /* CropViewController.swift in Sources */,
+				228066051FD314E200832D77 /* getgateway.c in Sources */,
 				229B106A1F8F87B700FDA0F4 /* LoginPresenter.swift in Sources */,
 				2218A6F61FCDD3A20024F0B6 /* PhotoEditor+StickersViewController.swift in Sources */,
 				2289913B1F94D5A500DF2175 /* TilesPresenter.swift in Sources */,
@@ -764,8 +814,10 @@
 				22FA0B641FB20ECA0088D5BA /* ProfileInteractor.swift in Sources */,
 				22A5E54D1F8E162F0025A0D5 /* AppDelegate.swift in Sources */,
 				2272CC191F9F6AF80032B691 /* ImageCell.swift in Sources */,
+				2280660D1FD3333F00832D77 /* NetInfo.swift in Sources */,
 				2218A6FB1FCDD3A20024F0B6 /* StickerCollectionViewCell.swift in Sources */,
-				2289912D1F94BA5700DF2175 /* EditImageModels.swift in Sources */,
+				228066071FD314E200832D77 /* IPObjectiveManager.m in Sources */,
+				2289912D1F94BA5700DF2175 /* EditTileModels.swift in Sources */,
 				2218A7021FCDD3A20024F0B6 /* PhotoEditor+Font.swift in Sources */,
 				226982D31FCF380900BDFB1D /* ConnectToTileViewController.swift in Sources */,
 				229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */,
@@ -774,26 +826,28 @@
 				2218A7061FCDD3A20024F0B6 /* PhotoEditor+Controls.swift in Sources */,
 				2218A7011FCDD3A20024F0B6 /* PhotoEditor+Crop.swift in Sources */,
 				22EA4DB81FBE0438007E9DD9 /* CreateNewAccountViewController.swift in Sources */,
-				2289912C1F94BA5700DF2175 /* EditImageInteractor.swift in Sources */,
+				2289912C1F94BA5700DF2175 /* EditTileInteractor.swift in Sources */,
 				2272CC1E1F9F92800032B691 /* Tile.swift in Sources */,
 				2218A7101FCDD3A20024F0B6 /* EmojisCollectionViewDelegate.swift in Sources */,
 				2218A70D1FCDD3A20024F0B6 /* CropView.swift in Sources */,
 				226982CF1FCF380900BDFB1D /* ConnectToTileInteractor.swift in Sources */,
 				2247FB851F9DF84100CE377B /* Reachability.swift in Sources */,
+				228066091FD314E200832D77 /* ViewController.swift in Sources */,
 				2218A7111FCDD3A20024F0B6 /* UIImage+Crop.swift in Sources */,
 				2218A7031FCDD3A20024F0B6 /* PhotoEditor+Gestures.swift in Sources */,
 				2289913C1F94D5A500DF2175 /* TilesRouter.swift in Sources */,
 				2218A7051FCDD3A20024F0B6 /* CropRectView.swift in Sources */,
 				2218A6F81FCDD3A20024F0B6 /* ResizeControl.swift in Sources */,
 				2218A7151FCDD3A20024F0B6 /* ColorsCollectionViewDelegate.swift in Sources */,
+				2280660A1FD314E200832D77 /* WifiIPManager.swift in Sources */,
 				22037D131F8E21D100315130 /* Constants.swift in Sources */,
 				2289913E1F94D5A500DF2175 /* TilesWorker.swift in Sources */,
 				22FA0B691FB20ECA0088D5BA /* ProfileWorker.swift in Sources */,
-				228991311F94BA5700DF2175 /* EditImageWorker.swift in Sources */,
+				228991311F94BA5700DF2175 /* EditTileWorker.swift in Sources */,
 				2218A7001FCDD3A20024F0B6 /* UIImage+Size.swift in Sources */,
 				229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */,
-				2289912E1F94BA5700DF2175 /* EditImagePresenter.swift in Sources */,
-				2289912F1F94BA5700DF2175 /* EditImageRouter.swift in Sources */,
+				2289912E1F94BA5700DF2175 /* EditTilePresenter.swift in Sources */,
+				2289912F1F94BA5700DF2175 /* EditTileRouter.swift in Sources */,
 				229B106D1F8F87B700FDA0F4 /* LoginWorker.swift in Sources */,
 				226982D01FCF380900BDFB1D /* ConnectToTileModels.swift in Sources */,
 				2289913A1F94D5A500DF2175 /* TilesModels.swift in Sources */,

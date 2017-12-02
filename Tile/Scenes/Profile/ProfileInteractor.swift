@@ -31,9 +31,9 @@ class ProfileInteractor: ProfileBusinessLogic, ProfileDataStore
   // MARK: Do something
   
     func getUserData() {
-        FirebaseService.shared.getCurrentUserData() { data in
+        FirebaseService.shared.getCurrentUserData() { [weak self] data in
             let response = Profile.User.Response(userData: data)
-            self.presenter?.presentUserData(response: response)
+            self?.presenter?.presentUserData(response: response)
         }
     }
 

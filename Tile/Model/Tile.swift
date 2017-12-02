@@ -10,7 +10,6 @@ import Foundation
 import Unbox
 
 struct Tile {
-    var dbKey: String?
     var name: String
     var id: String
     var batteryLevel: Int
@@ -30,9 +29,8 @@ struct Tile {
     var otaUrl: String?
     var firmwareVersion: String?
     
-    init(name: String, id: String, key: String, userId: String) {
-        self.dbKey = key
-        self.name = name
+    init(id: String, userId: String) {
+        self.name = ""
         self.id = id
         self.batteryLevel = 45
         self.chargeStatus = false
@@ -63,8 +61,8 @@ struct Tile {
         self.firmwareVersion = firmware
     }
     
-    mutating func add(dbKey: String) {
-        self.dbKey = dbKey
+    mutating func add(name: String) {
+        self.name = name
     }
 }
 

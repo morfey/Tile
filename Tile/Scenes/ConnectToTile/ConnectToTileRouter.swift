@@ -10,7 +10,7 @@ import UIKit
 
 @objc protocol ConnectToTileRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToTiles(segue: UIStoryboardSegue?)
 }
 
 protocol ConnectToTileDataPassing
@@ -25,32 +25,34 @@ class ConnectToTileRouter: NSObject, ConnectToTileRoutingLogic, ConnectToTileDat
     
     // MARK: Routing
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
+    func routeToTiles(segue: UIStoryboardSegue?)
+    {
+      if let segue = segue {
+        let destinationVC = segue.destination as! TilesViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToTiles(source: dataStore!, destination: &destinationDS)
+      } else {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "TilesViewController") as! TilesViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToTiles(source: dataStore!, destination: &destinationDS)
+        navigateToTiles(source: viewController!, destination: destinationVC)
+      }
+    }
     
     // MARK: Navigation
     
-    //func navigateToSomewhere(source: ConnectToTileViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
+    func navigateToTiles(source: ConnectToTileViewController, destination: TilesViewController)
+    {
+        source.dismiss(animated: true, completion: nil)
+        source.navigationController?.popViewController(animated: true)
+//      source.show(destination, sender: nil)
+    }
     
     // MARK: Passing data
     
-    //func passDataToSomewhere(source: ConnectToTileDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
+    func passDataToTiles(source: ConnectToTileDataStore, destination: inout TilesDataStore)
+    {
+        destination.newTile = source.tile
+    }
 }
