@@ -9,21 +9,6 @@ import UIKit
 
 enum ConnectToTile
 {
-    // MARK: Use cases
-    
-    enum Something
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-        }
-        struct ViewModel
-        {
-        }
-    }
-    
     enum NewTile
     {
         struct Request
@@ -54,17 +39,17 @@ class WifiModel: NSObject, NSCoding {
     }
     
     required init(coder aDecoder: NSCoder) {
-        if let ver = aDecoder.decodeObject(forKey: "name") as? String {
-            self.name = ver
+        if let name = aDecoder.decodeObject(forKey: NAME_KEY) as? String {
+            self.name = name
         }
         
-        if let len = aDecoder.decodeObject(forKey: "len") as? String {
-            self.pass = len
+        if let pass = aDecoder.decodeObject(forKey: "pass") as? String {
+            self.pass = pass
         }
     }
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
+        aCoder.encode(name, forKey: NAME_KEY)
         aCoder.encode(pass, forKey: "pass")
     }
 }

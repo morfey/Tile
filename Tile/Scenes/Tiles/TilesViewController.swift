@@ -80,7 +80,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if KeychainWrapper.standard.string(forKey: "uid") == nil {
+        if KeychainWrapper.standard.string(forKey: UID_KEY) == nil {
             performSegue(withIdentifier: "Login", sender: nil)
         } else {
             isConnectedToWifi()
@@ -104,7 +104,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     }
     
     func initializeTiles() {
-        let userId = KeychainWrapper.standard.string(forKey: "uid")
+        let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
         let request = Tiles.GetTiles.Request(userId: userId!)
         interactor?.getTiles(request: request)
     }

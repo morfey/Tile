@@ -28,7 +28,7 @@ class FirebaseService {
     
     func getUsersTiles(byId: String, completion: @escaping(Dictionary<String, Any>) -> ()) {
         var tilesData: Dictionary<String, Any> = [:]
-        REF_USERS.child(byId).child("tiles").observeSingleEvent(of: .value) { snapshot in
+        REF_USERS.child(byId).child(TILES_KEY).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
                 for (index, key) in snapshot.keys.enumerated() {
                     let id = key
@@ -52,7 +52,7 @@ class FirebaseService {
     }
     
     func addObserveForTile(tile: Tile, completion: @escaping() -> ()) {
-        REF_TILES.child(tile.id).child("currentStatus").observe(.value) { snapshot in
+        REF_TILES.child(tile.id).child(CURRENTSTATUS_KEY).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? String {
                 if snapshot == "online" {
                     completion()
@@ -64,7 +64,7 @@ class FirebaseService {
     func add(tile: Tile, userId: String, completion: @escaping(_ status: String, _ tile: Tile?) -> ()) {
         REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
-                if let owner = snapshot["owner"] as? String {
+                if let owner = snapshot[OWNER_KEY] as? String {
                     if owner == userId {
                         self.checkTileOwner(tileKey: tile.id) { bool in
                             if bool {
@@ -81,7 +81,7 @@ class FirebaseService {
                 do {
                     let values: [String: Any] = try wrap(tile)
                     self.REF_TILES.child(tile.id).updateChildValues(values)
-                    self.REF_USERS.child(userId).child("tiles").updateChildValues([tile.id: true])
+                    self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([tile.id: true])
                     completion("New Tile succesfull added", tile)
                 } catch {
                     
@@ -91,7 +91,7 @@ class FirebaseService {
     }
     
     func checkTileOwner(tileKey: String, completion: @escaping(Bool) -> ()) {
-        if let userId = KeychainWrapper.standard.string(forKey: "uid") {
+        if let userId = KeychainWrapper.standard.string(forKey: UID_KEY) {
             REF_USERS.child(userId).child(TILES_KEY).observeSingleEvent(of: .value) { snapshot in
                 if let snapshot = snapshot.value as? Dictionary<String, Any> {
                     if snapshot[tileKey] != nil {
@@ -103,15 +103,15 @@ class FirebaseService {
     }
     
     func update(tile: Tile, withImage imageUrl: String, completion: @escaping () -> ()) {
-        REF_TILES.child(tile.id).updateChildValues(["imageUrl": imageUrl, "needUpdateImage": true])
+        REF_TILES.child(tile.id).updateChildValues([IMAGEURL_KEY: imageUrl, NEEDUPDATEIMAGE_KEY: true])
         completion()
     }
     
     func update(tile: Tile, sleepForceStatus: Bool, completion: (() -> ())? = nil) {
         REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
-                if let sleepStatus = snapshot["sleeping"] as? Bool, sleepStatus != sleepForceStatus {
-                    self.REF_TILES.child(tile.id).updateChildValues(["sleeping": sleepForceStatus])
+                if let sleepStatus = snapshot[SLEEPING_KEY] as? Bool, sleepStatus != sleepForceStatus {
+                    self.REF_TILES.child(tile.id).updateChildValues([SLEEPING_KEY: sleepForceStatus])
                     completion?()
                 }
             }
@@ -121,8 +121,8 @@ class FirebaseService {
     func update(tile: Tile, sleepTime: String, completion: (() -> ())? = nil) {
         REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
-                if let currentsSleepTime = snapshot["sleepTime"] as? String, currentsSleepTime != sleepTime {
-                    self.REF_TILES.child(tile.id).updateChildValues(["sleepTime": sleepTime, "needUpdateSleepingTime": true])
+                if let currentsSleepTime = snapshot[SLEEPTIME_KEY] as? String, currentsSleepTime != sleepTime {
+                    self.REF_TILES.child(tile.id).updateChildValues([SLEEPTIME_KEY: sleepTime, NEEDUPDATESLEEPINGTIME_KEY: true])
                     completion?()
                 }
             }
@@ -130,7 +130,7 @@ class FirebaseService {
     }
     
     func update(tile: Tile, name: String, completion: (() -> ())? = nil) {
-        self.REF_TILES.child(tile.id).updateChildValues(["name": name])
+        self.REF_TILES.child(tile.id).updateChildValues([NAME_KEY: name])
         completion?()
     }
     
@@ -161,7 +161,7 @@ class FirebaseService {
     // MARK: - Work with User
     
     func getCurrentUserData(completion: @escaping(Dictionary<String, Any>) -> ()) {
-        if let current = KeychainWrapper.standard.string(forKey: "uid") {
+        if let current = KeychainWrapper.standard.string(forKey: UID_KEY) {
             REF_USERS.child(current).observeSingleEvent(of: .value) { snapshot in
                 if let snapshot = snapshot.value as? Dictionary<String, Any> {
                     completion(snapshot)
@@ -232,14 +232,14 @@ class FirebaseService {
             if snapshot.hasChild(id){
                 print ("Old User Detected")
                 self.createDBUser(uid: id, userData: userData)
-                KeychainWrapper.standard.set(id, forKey: "uid")
+                KeychainWrapper.standard.set(id, forKey: UID_KEY)
                 KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
                 print("USER: Saved to keychain")
                 completion()
             } else {
                 print ("New User")
                 self.createDBUser(uid: id, userData: userData)
-                KeychainWrapper.standard.set(id, forKey: "uid")
+                KeychainWrapper.standard.set(id, forKey: UID_KEY)
                 KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
                 completion()
             }

@@ -73,28 +73,19 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         passField.delegate = self
     }
     
-    // MARK: Do something
-    
-    private var socket: WebSocket!
-    
     @IBOutlet weak var statusLbl: UILabel!
-    //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var passField: UITextField!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var waitView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    private var socket: WebSocket!
     
     func connectWebSocket() {
         let gateway = WifiIPManager.sharedInstance.getRouterIpAddressString()
         socket = WebSocket(url: URL(string: "ws://\(gateway):8080/")!)
         socket.delegate = self
         socket.connect()
-    }
-    
-    func displaySomething(viewModel: ConnectToTile.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
     }
     
     @IBAction func sendBtnTapped(_ sender: Any) {
@@ -108,7 +99,7 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
             //TODO: - replace by received MAC
             let random = Int(arc4random_uniform(6))
             let mac = "0\(random):0\(random):03:04:ab:cd"
-            let userId = KeychainWrapper.standard.string(forKey: "uid")
+            let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
             let request = ConnectToTile.NewTile.Request(id: mac, userId: userId!)
             self.interactor?.addNewTile(request: request)
         }

@@ -10,7 +10,5 @@ import UIKit
 
 class ConnectToTileWorker
 {
-    func doSomeWork()
-    {
-    }
+
 }
