@@ -14,7 +14,8 @@ class ImageCell: UICollectionViewCell {
     
     func configureCell(image: UIImage?, first: Bool) {
         if first {
-            imageView.image = UIImage(named: "camera.png")
+            imageView.image = #imageLiteral(resourceName: "camera")
+            imageView.backgroundColor = .groupTableViewBackground
         } else {
             imageView.image = image!
         }

@@ -28,7 +28,7 @@
                             <constraint firstAttribute="width" constant="40" id="QZG-eS-Xcd"/>
                             <constraint firstAttribute="height" constant="40" id="yoI-j7-q5W"/>
                         </constraints>
-                        <state key="normal" image="power">
+                        <state key="normal" image="power" backgroundImage="powerDefaultBkg">
                             <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
                         <state key="selected" image="power" backgroundImage="powerHighlitedBkg"/>
@@ -119,6 +119,7 @@
     <resources>
         <image name="battery" width="5" height="11"/>
         <image name="power" width="18" height="18"/>
+        <image name="powerDefaultBkg" width="40" height="40"/>
         <image name="powerHighlitedBkg" width="40" height="40"/>
     </resources>
 </document>

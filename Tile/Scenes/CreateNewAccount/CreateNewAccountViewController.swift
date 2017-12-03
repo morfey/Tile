@@ -64,7 +64,6 @@ class CreateNewAccountViewController: UIViewController, CreateNewAccountDisplayL
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
     }
     
     override func viewWillAppear(_ animated: Bool) {

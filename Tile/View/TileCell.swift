@@ -19,7 +19,6 @@ class TileCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,20 +28,25 @@ class TileCell: UICollectionViewCell {
         guard let tile = tile else { return }
         tileStatusBtn.isSelected = !tileStatusBtn.isSelected
         FirebaseService.shared.update(tile: tile, sleepForceStatus: tileStatusBtn.isSelected)
+        if tileStatusBtn.isSelected {
+            tileImageView.addBlurEffect()
+        } else {
+            tileImageView.removeBlurEffect()
+        }
     }
     
     func configureCell(tile: Tile?) {
-//        tileImageView.layer.masksToBounds = false
-//        tileImageView.layer.shadowColor = UIColor.lightGray.cgColor
-//        tileImageView.layer.shadowOpacity = 0.8
-//        tileImageView.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-//        tileImageView.layer.shadowRadius = 2
         var hideBtns = true
         if let tile = tile {
             self.tile = tile
             tileStatusBtn.isSelected = tile.sleeping
             tileNameLbl.text = tile.name
             batteryLabel.text = "\(tile.batteryLevel)" + "%"
+            if tile.sleeping {
+                tileImageView.addBlurEffect()
+            } else {
+                tileImageView.removeBlurEffect()
+            }
             if let imgStr = tile.imageUrl, imgStr != "none" {
                 tileImageView.kf.setImage(with: URL(string: imgStr))
                 tileImageView.contentMode = .scaleAspectFill
@@ -57,11 +61,37 @@ class TileCell: UICollectionViewCell {
             tileNameLbl.text = ""
             tileImageView.image = #imageLiteral(resourceName: "add_tile")
             tileImageView.contentMode = .center
+            tileStatusBtn.isSelected = false
+            tileImageView.removeBlurEffect()
             hideBtns = true
         }
         tileStatusBtn.isHidden = hideBtns
         batteryView.isHidden = hideBtns
         batteryLabel.isHidden = hideBtns
+    }
+}
+
+fileprivate extension UIImageView
+{
+    func addBlurEffect() {
+        let effects = self.subviews.map {$0 as? UIVisualEffectView}
+        if effects.count == 0 {
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = self.bounds
+            
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            blurEffectView.alpha = 0.7
+            self.addSubview(blurEffectView)
+        }
+    }
+    
+    func removeBlurEffect() {
+        self.subviews.forEach {
+            if let effect = $0 as? UIVisualEffectView {
+                effect.removeFromSuperview()
+            }
+        }
     }
 }
 

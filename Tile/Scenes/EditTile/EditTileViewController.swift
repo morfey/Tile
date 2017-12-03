@@ -10,13 +10,11 @@ import Photos
 
 protocol EditTileDisplayLogic: class
 {
-    func displayFiltersScrollView(viewModel: UIScrollView)
     func displayTileWithImage(viewModel: EditTile.ImageForTile.ViewModel)
-    func filterButtonTapped(sender: UIButton)
     func setImage(image: UIImage)
 }
 
-class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate, GPUimagePlusDelegate
+class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GPUimagePlusDelegate
 {
     var interactor: EditTileBusinessLogic?
     var router: (NSObjectProtocol & EditTileRoutingLogic & EditTileDataPassing)?
@@ -55,18 +53,13 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     }
     
     // MARK: View lifecycle
-    var imagePicker: UIImagePickerController!
-    var angle: Double = 0.0
-    var imgSelected = false
-    var images: NSMutableArray!
-    var totalImageCountNeeded: Int!
-    var tile: Tile!
-    var lastTextViewTransform: CGAffineTransform?
-    var lastTextViewTransCenter: CGPoint?
-    var lastTextViewFont:UIFont?
-    var activeTextView: UITextView?
-    var imageViewToPan: UIImageView?
-    var lastPanPoint: CGPoint?
+    private var imagePicker: UIImagePickerController!
+    private var angle: Double = 0.0
+    private var imgSelected = false
+    private var images: NSMutableArray!
+    private var totalImageCountNeeded: Int!
+    private var tile: Tile!
+    private var numberOfCellsPerRow = 3
     
     @IBOutlet weak var sleepTimeTextField: UITextField!
     @IBOutlet weak var sleepTimePicker: UIDatePicker!
@@ -95,17 +88,17 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         tile = router?.dataStore?.tile
         title = tile.name
         sleepTimeTextField.text = tile.sleepTime
-//        initializeTextFieldInputView()
+        //        initializeTextFieldInputView()
         
         if let url = tile.imageUrl {
-            originalImage.kf.setImage(with: URL(string: url), placeholder: #imageLiteral(resourceName: "FullImage"), options: nil, progressBlock: nil)
+            originalImage.kf.setImage(with: URL(string: url), placeholder: #imageLiteral(resourceName: "empty_image"), options: nil, progressBlock: nil)
         }
         fetchPhotos()
     }
     
     @IBAction func saveBtnTapped(_ sender: Any) {
         originalImage.endEditing(true)
-        if let image = originalImage.image != nil ? originalImage.toImage() : originalImage.image {
+        if let image = originalImage.image {
             let request = EditTile.ImageForTile.Request(image: image)
             interactor?.saveImageForTile(request: request)
         }
@@ -122,21 +115,11 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         present(photoEditor, animated: true, completion: nil)
     }
     
-    func filterButtonTapped(sender: UIButton) {
-//        
-    }
-    
     func proccessFilters(image: UIImage) -> ([CGImage]) {
         let worker = EditTileWorker()
         let images = worker.applyGPUImageFilters(originalImage: image)
         return images
     }
-    
-//    func configure() {
-//        imageCropperView.image = originalImage.image!
-//        let request = EditImage.Filters.Request(filters: CIFilterNames, originalImage: originalImage.image!)
-//        interactor?.applyFilters(request: request)
-//    }
     
     func cameraPicker() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -148,14 +131,6 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     
     func setImage(image: UIImage) {
         originalImage.image = image
-    }
-    
-    func displayFiltersScrollView(viewModel: UIScrollView) {
-//        activityIndicator.stopAnimating()
-//        viewModel.subviews.forEach {
-//            filtersScrollView.addSubview($0)
-//        }
-//        filtersScrollView.contentSize = viewModel.contentSize
     }
     
     func fetchPhotos () {
@@ -196,20 +171,28 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             originalImage.image = image
-//            configure()
             imgSelected = true
-//            effectsView.isHidden = true
         } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             originalImage.image = image
-//            configure()
             imgSelected = true
-//            effectsView.isHidden = true
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: UICollectionViewDelegate & DataSource
+    // MARK: Routing
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+}
+// MARK: UICollectionViewDelegate & DataSource
+extension EditTileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count + 1
     }
@@ -219,7 +202,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
             if indexPath.row == 0 {
                 cell.configureCell(image: nil, first: true)
             } else if indexPath.row == images.count {
-                let image = UIImage(named: "FullImage.png")
+                let image = #imageLiteral(resourceName: "phoneGalleryButton")
                 cell.configureCell(image: image, first: false)
             } else {
                 cell.configureCell(image: images.object(at: indexPath.row) as? UIImage, first: false)
@@ -239,41 +222,41 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
                 present(imagePicker, animated: true, completion: nil)
             } else {
                 originalImage.image = cell.imageView.image!
-//                configure()
+                //                configure()
                 imgSelected = true
-//                effectsView.isHidden = true
+                //                effectsView.isHidden = true
             }
         }
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
+            let maxS = CGFloat(max(0, numberOfCellsPerRow - 1)) * horizontalSpacing
+            var cellWidth = view.frame.width - maxS + (flowLayout.sectionInset.left * 2)
+            cellWidth = cellWidth / CGFloat(numberOfCellsPerRow)
+            return CGSize(width: cellWidth, height: cellWidth)
+        } else {
+            return CGSize(width: 100, height: 100)
         }
     }
 }
 
 extension EditTileViewController: UITextFieldDelegate {
-//    func initializeTextFieldInputView() {
-//        // Add date picker
-//        let datePicker = UIDatePicker()
-//        datePicker.datePickerMode = .time
-//        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-//        sleepTimeTextField.inputView = datePicker
-//
-//        // Add toolbar with done button on the right
-//        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 10))
-//        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
-//        toolbar.items = [flexibleSeparator, doneButton]
-//        sleepTimeTextField.inputAccessoryView = toolbar
-//    }
+    //    func initializeTextFieldInputView() {
+    //        // Add date picker
+    //        let datePicker = UIDatePicker()
+    //        datePicker.datePickerMode = .time
+    //        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+    //        sleepTimeTextField.inputView = datePicker
+    //
+    //        // Add toolbar with done button on the right
+    //        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 10))
+    //        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    //        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
+    //        toolbar.items = [flexibleSeparator, doneButton]
+    //        sleepTimeTextField.inputAccessoryView = toolbar
+    //    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
