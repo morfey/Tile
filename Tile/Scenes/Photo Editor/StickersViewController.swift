@@ -135,7 +135,7 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK: Pan Gesture
     
-    func panGesture(_ recognizer: UIPanGestureRecognizer) {
+    @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
         
         let translation = recognizer.translation(in: self.view)
         let velocity = recognizer.velocity(in: self.view)
@@ -199,9 +199,6 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
         bluredView.frame = UIScreen.main.bounds
         view.insertSubview(bluredView, at: 0)
     }
-    
-    
-    
 }
 
 extension StickersViewController: UIScrollViewDelegate {

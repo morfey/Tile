@@ -31,9 +31,6 @@ class EmojisCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         }
     }
     
-    var stickerDelegate : StickerDelegate?
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return emojis.count
     }

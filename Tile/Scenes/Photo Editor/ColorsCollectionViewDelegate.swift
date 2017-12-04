@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol ColorDelegate {
-    func chosedColor(color: UIColor)
-}
-
 class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var colorDelegate : ColorDelegate?
@@ -24,14 +20,12 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         super.init()
     }
     
-    var stickerDelegate : StickerDelegate?
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return colors.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        colorDelegate?.chosedColor(color: colors[indexPath.item])
+        colorDelegate?.didSelectColor(color: colors[indexPath.item])
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

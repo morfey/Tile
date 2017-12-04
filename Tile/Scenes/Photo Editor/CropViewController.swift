@@ -52,7 +52,7 @@ open class CropViewController: UIViewController {
     open var zoomedCropRect: CGRect {
         return cropView!.zoomedCropRect()
     }
-
+    
     fileprivate var cropView: CropView?
     
     public required init?(coder aDecoder: NSCoder) {
@@ -80,10 +80,10 @@ open class CropViewController: UIViewController {
         contentView.addSubview(cropView!)
         
     }
-
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.toolbar.isTranslucent = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(CropViewController.cancel(_:)))
@@ -127,11 +127,11 @@ open class CropViewController: UIViewController {
         cropView?.resetCropRectAnimated(animated)
     }
     
-    func cancel(_ sender: UIBarButtonItem) {
+    @objc func cancel(_ sender: UIBarButtonItem) {
         delegate?.cropViewControllerDidCancel(self)
     }
     
-    func done(_ sender: UIBarButtonItem) {
+    @objc func done(_ sender: UIBarButtonItem) {
         if let image = cropView?.croppedImage {
             guard let rotation = cropView?.rotation else {
                 return
@@ -143,7 +143,7 @@ open class CropViewController: UIViewController {
         }
     }
     
-    func constrain(_ sender: UIBarButtonItem) {
+    @objc func constrain(_ sender: UIBarButtonItem) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let original = UIAlertAction(title: "Original", style: .default) { [unowned self] action in
             guard let image = self.cropView?.image else {
@@ -167,7 +167,7 @@ open class CropViewController: UIViewController {
         actionSheet.addAction(original)
         let square = UIAlertAction(title: "Square", style: .default) { [unowned self] action in
             let ratio: CGFloat = 1.0
-//            self.cropView?.cropAspectRatio = ratio
+            //            self.cropView?.cropAspectRatio = ratio
             if var cropRect = self.cropView?.cropRect {
                 let width = cropRect.width
                 cropRect.size = CGSize(width: width, height: width * ratio)
@@ -220,7 +220,7 @@ open class CropViewController: UIViewController {
         
         present(actionSheet, animated: true, completion: nil)
     }
-
+    
     // MARK: - Private methods
     fileprivate func adjustCropRect() {
         imageCropRect = CGRect.zero
@@ -237,7 +237,4 @@ open class CropViewController: UIViewController {
         cropViewCropRect.size = size
         cropView?.cropRect = cropViewCropRect
     }
-    
-    
-
 }
