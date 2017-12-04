@@ -62,7 +62,6 @@ env.sh
 *.xcsettings
 *.xcscmblueprint
 *.gcno
-*.pdf
 *.ktx
 *.ktx
 *.rej
