@@ -14,6 +14,10 @@ protocol EditTileDisplayLogic: class
     func setImage(image: UIImage)
 }
 
+protocol GPUimagePlusDelegate {
+    func proccessFilters(image: UIImage) -> ([CGImage])
+}
+
 class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GPUimagePlusDelegate
 {
     var interactor: EditTileBusinessLogic?

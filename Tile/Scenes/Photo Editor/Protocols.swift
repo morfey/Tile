@@ -25,6 +25,16 @@ public protocol PhotoEditorDelegate {
     func canceledEditing()
 }
 
+@objc protocol FiltersViewControllerDelegate {
+    /**
+     - Parameter button: selected view from FiltersViewController
+     */
+    @objc func didSelectFilter(_ sender: UIButton)
+    /**
+     FiltersViewController did Disappear
+     */
+    func filtersViewDidDisappear()
+}
 
 /**
  - didSelectView
