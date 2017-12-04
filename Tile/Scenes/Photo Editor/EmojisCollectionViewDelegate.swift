@@ -31,9 +31,6 @@ class EmojisCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         }
     }
     
-    var stickerDelegate : StickerDelegate?
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return emojis.count
     }
@@ -42,7 +39,7 @@ class EmojisCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         let emojiLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         emojiLabel.text = emojis[indexPath.item]
         emojiLabel.font = UIFont.systemFont(ofSize: 50)
-        stickerDelegate?.viewTapped(view: emojiLabel)
+//        stickerDelegate?.viewTapped(view: emojiLabel)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -46,9 +46,24 @@ protocol StickersViewControllerDelegate {
     func stickersViewDidDisappear()
 }
 
+@objc protocol FiltersViewControllerDelegate {
+    /**
+     - Parameter button: selected view from FiltersViewController
+     */
+    @objc func didSelectFilter(_ sender: UIButton)
+    /**
+     FiltersViewController did Disappear
+     */
+    func filtersViewDidDisappear()
+}
+
 /**
  - didSelectColor
  */
 protocol ColorDelegate {
     func didSelectColor(color: UIColor)
+}
+
+public protocol GPUimagePlusDelegate {
+    func proccessFilters(image: UIImage) -> ([CGImage])
 }
