@@ -18,17 +18,18 @@ public enum control {
     case save
     case share
     case clear
+    case filters
 }
 
 extension PhotoEditorViewController {
-
-     //MARK: Top Toolbar
+    
+    //MARK: Top Toolbar
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         photoEditorDelegate?.canceledEditing()
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction func cropButtonTapped(_ sender: UIButton) {
         let controller = CropViewController()
         controller.delegate = self
@@ -36,11 +37,15 @@ extension PhotoEditorViewController {
         let navController = UINavigationController(rootViewController: controller)
         present(navController, animated: true, completion: nil)
     }
-
+    
     @IBAction func stickersButtonTapped(_ sender: Any) {
         addStickersViewController()
     }
-
+    
+    @IBAction func filtersButtonTapped(_ sender: Any) {
+        addSFiltersViewController()
+    }
+    
     @IBAction func drawButtonTapped(_ sender: Any) {
         isDrawing = true
         canvasImageView.isUserInteractionEnabled = false
@@ -48,7 +53,7 @@ extension PhotoEditorViewController {
         colorPickerView.isHidden = false
         hideToolbar(hide: true)
     }
-
+    
     @IBAction func textButtonTapped(_ sender: Any) {
         isTyping = true
         let textView = UITextView(frame: CGRect(x: 0, y: canvasImageView.center.y,
@@ -68,7 +73,7 @@ extension PhotoEditorViewController {
         self.canvasImageView.addSubview(textView)
         addGestures(view: textView)
         textView.becomeFirstResponder()
-    }    
+    }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         view.endEditing(true)
@@ -105,7 +110,7 @@ extension PhotoEditorViewController {
         photoEditorDelegate?.doneEditing(image: img)
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     //MAKR: helper methods
     
     @objc func image(_ image: UIImage, withPotentialError error: NSErrorPointer, contextInfo: UnsafeRawPointer) {
@@ -131,9 +136,10 @@ extension PhotoEditorViewController {
             case .sticker:
                 stickerButton.isHidden = true
             case .text:
-                stickerButton.isHidden = true
+                textButton.isHidden = true
+            case .filters:
+                filtersButton.isHidden = true
             }
         }
     }
-    
 }
