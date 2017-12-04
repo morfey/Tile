@@ -136,19 +136,19 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
 }
 
 extension ConnectToTileViewController: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocket) {
-        statusLbl.text = "connected: \(socket.currentURL)"
+    func websocketDidConnect(socket: WebSocketClient) {
+        statusLbl.text = "connected: "
     }
     
-    func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         statusLbl.text = error?.localizedDescription ?? "disconnect"
     }
     
-    func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         statusLbl.text = text
     }
     
-    func websocketDidReceiveData(socket: WebSocket, data: Data) {
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         //TODO: - first need receive tile's MAC address
         let wifiList = NSKeyedUnarchiver.unarchiveObject(with: data) as? [WifiModel]
         wifiList?.forEach {
