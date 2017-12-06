@@ -39,6 +39,12 @@ class ConnectToTileInteractor: ConnectToTileBusinessLogic, ConnectToTileDataStor
                     let response = ConnectToTile.NewTile.Response(status: status, tile: tile!)
                     self?.presenter?.presentNewTile(response: response)
                 }
+            } else {
+                let alert = UIAlertController(title: "", message: "Error", preferredStyle: .alert)
+                alert.addTextField(configurationHandler: nil)
+                let action = UIAlertAction(title: "OK", style: .default)
+                alert.addAction(action)
+                self?.presenter?.present(alert: alert)
             }
         }
     }

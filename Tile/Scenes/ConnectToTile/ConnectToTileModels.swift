@@ -28,9 +28,14 @@ enum ConnectToTile
     }
 }
 
-class WifiModel: NSObject, NSCoding {
+class WifiModel: NSObject, Codable {
     var name: String = ""
     var pass: String = ""
+    var jsonRepresentation : Data {
+        let dict = ["name" : name, "pass" : pass]
+        let data =  try! JSONSerialization.data(withJSONObject: dict, options: [])
+        return data
+    }
     
     init(name: String, pass: String) {
         self.name = name

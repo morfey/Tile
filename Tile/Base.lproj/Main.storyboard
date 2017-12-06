@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i27-FA-vNL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i27-FA-vNL">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -295,16 +296,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="4g3-iI-men">
-                                <rect key="frame" x="0.0" y="249.5" width="320" height="69"/>
+                                <rect key="frame" x="8" y="250" width="304" height="69"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cgv-Tb-mvF">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="pass" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVv-xy-RnQ">
-                                        <rect key="frame" x="0.0" y="39" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="39" width="304" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -318,7 +319,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiD-ie-Y9T">
-                                <rect key="frame" x="0.0" y="326.5" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="327" width="320" height="30"/>
                                 <state key="normal" title="Send">
                                     <color key="titleColor" red="0.86565148830000005" green="0.73320990799999997" blue="0.46267938609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
@@ -326,8 +327,8 @@
                                     <action selector="sendBtnTapped:" destination="7Vq-NE-O6q" eventType="touchUpInside" id="EKy-JA-OVG"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yoZ-ys-fKq">
-                                <rect key="frame" x="16" y="125.5" width="288" height="116"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yoZ-ys-fKq">
+                                <rect key="frame" x="16" y="125.5" width="288" height="116.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -354,8 +355,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4g3-iI-men" firstAttribute="centerX" secondItem="UgR-Dl-Boa" secondAttribute="centerX" id="005-ZL-CeO"/>
                             <constraint firstItem="bxe-Lj-mp1" firstAttribute="trailing" secondItem="yoZ-ys-fKq" secondAttribute="trailing" constant="16" id="1LR-QJ-Fu9"/>
+                            <constraint firstItem="4g3-iI-men" firstAttribute="leading" secondItem="bxe-Lj-mp1" secondAttribute="leading" constant="8" id="1c0-gB-81Q"/>
                             <constraint firstItem="uiD-ie-Y9T" firstAttribute="leading" secondItem="bxe-Lj-mp1" secondAttribute="leading" id="29r-kN-C6A"/>
                             <constraint firstItem="4g3-iI-men" firstAttribute="top" secondItem="yoZ-ys-fKq" secondAttribute="bottom" constant="8" id="6Qk-hz-mqt"/>
                             <constraint firstItem="bxe-Lj-mp1" firstAttribute="trailing" secondItem="Cmu-Oa-Bpg" secondAttribute="trailing" id="7XI-zW-LOD"/>
@@ -364,13 +365,12 @@
                             <constraint firstItem="Cmu-Oa-Bpg" firstAttribute="leading" secondItem="bxe-Lj-mp1" secondAttribute="leading" id="9b5-O0-KtV"/>
                             <constraint firstItem="bcR-8q-58C" firstAttribute="bottom" secondItem="bxe-Lj-mp1" secondAttribute="bottom" id="IL6-hF-SS8"/>
                             <constraint firstItem="Cmu-Oa-Bpg" firstAttribute="top" secondItem="bxe-Lj-mp1" secondAttribute="top" constant="20" id="LHk-EW-Uce"/>
-                            <constraint firstItem="bxe-Lj-mp1" firstAttribute="trailing" secondItem="4g3-iI-men" secondAttribute="trailing" id="P5y-xE-CZp"/>
+                            <constraint firstItem="bxe-Lj-mp1" firstAttribute="trailing" secondItem="4g3-iI-men" secondAttribute="trailing" constant="8" id="RMv-4a-4RE"/>
                             <constraint firstItem="bcR-8q-58C" firstAttribute="leading" secondItem="uiD-ie-Y9T" secondAttribute="leading" id="SZ9-MM-fS0"/>
                             <constraint firstItem="yoZ-ys-fKq" firstAttribute="leading" secondItem="bxe-Lj-mp1" secondAttribute="leading" constant="16" id="Vb1-6m-V0P"/>
                             <constraint firstItem="bcR-8q-58C" firstAttribute="top" secondItem="bxe-Lj-mp1" secondAttribute="top" id="dI0-uj-Af5"/>
                             <constraint firstItem="4g3-iI-men" firstAttribute="centerY" secondItem="UgR-Dl-Boa" secondAttribute="centerY" id="diR-Sw-sX8"/>
                             <constraint firstItem="bxe-Lj-mp1" firstAttribute="trailing" secondItem="uiD-ie-Y9T" secondAttribute="trailing" id="gyc-i9-6EX"/>
-                            <constraint firstItem="4g3-iI-men" firstAttribute="leading" secondItem="bxe-Lj-mp1" secondAttribute="leading" id="pCH-Tn-urw"/>
                             <constraint firstItem="yoZ-ys-fKq" firstAttribute="top" secondItem="Cmu-Oa-Bpg" secondAttribute="bottom" constant="65.5" id="thN-CM-6EP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bxe-Lj-mp1"/>

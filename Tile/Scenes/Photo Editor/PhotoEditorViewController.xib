@@ -142,7 +142,7 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9an-1W-thw">
-                            <rect key="frame" x="12" y="11.5" width="30" height="37"/>
+                            <rect key="frame" x="12" y="9" width="30" height="42"/>
                             <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
                             <size key="titleShadowOffset" width="1" height="0.0"/>
                             <state key="normal" title="">
@@ -219,7 +219,7 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNH-TU-KxG">
-                            <rect key="frame" x="313" y="-14" width="50" height="62"/>
+                            <rect key="frame" x="305" y="-23" width="58" height="71"/>
                             <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="50"/>
                             <size key="titleShadowOffset" width="1" height="0.0"/>
                             <state key="normal" title="">
@@ -257,7 +257,7 @@
                     <rect key="frame" x="162" y="605" width="50" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqh-uS-U1m">
-                            <rect key="frame" x="9.5" y="10" width="31" height="30"/>
+                            <rect key="frame" x="7.5" y="7.5" width="35.5" height="35"/>
                             <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="30"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>

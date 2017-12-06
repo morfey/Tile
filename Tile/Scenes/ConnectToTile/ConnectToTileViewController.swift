@@ -13,6 +13,7 @@ import SwiftKeychainWrapper
 protocol ConnectToTileDisplayLogic: class
 {
     func displayNewTile(viewModel: ConnectToTile.NewTile.ViewModel)
+    func display(alert: UIAlertController)
 }
 
 class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
@@ -80,9 +81,13 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
     @IBOutlet weak var waitView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var socket: WebSocket!
+    private var mac: String = ""
+    private var gateway: String = ""
+    var buf: InputStream!
     
     func connectWebSocket() {
-        let gateway = WifiIPManager.sharedInstance.getRouterIpAddressString()
+        gateway = WifiIPManager.sharedInstance.getRouterIpAddressString()
+        mac = WifiIPManager.sharedInstance.getRouterMacAddressString()
         socket = WebSocket(url: URL(string: "ws://\(gateway):8080/")!)
         socket.delegate = self
         socket.connect()
@@ -94,11 +99,7 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             let wifi = WifiModel(name: name, pass: pass)
-            let sendData = NSKeyedArchiver.archivedData(withRootObject: wifi)
-            socket.write(data: sendData)
-            //TODO: - replace by received MAC
-            let random = Int(arc4random_uniform(6))
-            let mac = "0\(random):0\(random):03:04:ab:cd"
+            socket.write(data: wifi.jsonRepresentation)
             let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
             let request = ConnectToTile.NewTile.Request(id: mac, userId: userId!)
             self.interactor?.addNewTile(request: request)
@@ -133,6 +134,11 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
+    func display(alert: UIAlertController) {
+        present(alert, animated: true, completion: nil)
+
+    }
 }
 
 extension ConnectToTileViewController: WebSocketDelegate {
@@ -149,11 +155,40 @@ extension ConnectToTileViewController: WebSocketDelegate {
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        //TODO: - first need receive tile's MAC address
-        let wifiList = NSKeyedUnarchiver.unarchiveObject(with: data) as? [WifiModel]
-        wifiList?.forEach {
-            textView.text = textView.text + "\($0.name): \($0.pass)\n"
+        buf = InputStream(data: data)
+        buf.open()
+        readAvailableBytes(stream: buf)
+    }
+    
+    private func readAvailableBytes(stream: InputStream) {
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: 1024)
+        
+        while stream.hasBytesAvailable {
+            let numberOfBytesRead = buf.read(buffer, maxLength: 1024)
+            
+            if numberOfBytesRead < 0 {
+                if let _ = buf.streamError {
+                    break
+                }
+            }
+            
+            if var wifi = processedMessageString(buffer: buffer, length: numberOfBytesRead) {
+                wifi = Array(Set(wifi))
+                wifi.forEach {
+                    textView.text.append("\($0.components(separatedBy: .whitespaces).joined())\n")
+                }
+            }
         }
+    }
+    
+    private func processedMessageString(buffer: UnsafeMutablePointer<UInt8>,
+                                        length: Int) -> [String]? {
+        guard let stringArray = String(bytesNoCopy: buffer,
+                                       length: length,
+                                       encoding: .ascii,
+                                       freeWhenDone: true) else {return nil}
+        
+        return Array(stringArray.components(separatedBy: "\0").dropFirst(11))
     }
 }
 
