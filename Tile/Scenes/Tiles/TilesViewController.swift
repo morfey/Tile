@@ -13,6 +13,7 @@ protocol TilesDisplayLogic: class
     func displayWifiConnectionAlert(viewModel: Tiles.ConnectionStatus.ViewModel)
     func displayNewTile(viewModel: Tiles.NewTile.ViewModel)
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel)
+    func display(alert: UIAlertController)
 }
 
 class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationControllerDelegate
@@ -125,7 +126,10 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
         tiles.reverse()
         tilesView.reloadData()
     }
-
+    
+    func display(alert: UIAlertController) {
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSource {

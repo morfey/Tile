@@ -12,6 +12,7 @@ protocol TilesPresentationLogic
     func presentWifiAlert(response: Tiles.ConnectionStatus.Response)
     func presentNewTile(response: Tiles.NewTile.Response)
     func presentUsersTiles(responce: Tiles.GetTiles.Response)
+    func present(alert: UIAlertController)
 }
 
 class TilesPresenter: TilesPresentationLogic
@@ -39,5 +40,9 @@ class TilesPresenter: TilesPresentationLogic
     func presentNewTile(response: Tiles.NewTile.Response) {
         let viewModel = Tiles.NewTile.ViewModel(tile: response.tile)
         viewController?.displayNewTile(viewModel: viewModel)
+    }
+    
+    func present(alert: UIAlertController) {
+        viewController?.display(alert: alert)
     }
 }

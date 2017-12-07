@@ -18,7 +18,6 @@ enum ConnectToTile
         }
         struct Response
         {
-            var status: String
             var tile: Tile
         }
         struct ViewModel

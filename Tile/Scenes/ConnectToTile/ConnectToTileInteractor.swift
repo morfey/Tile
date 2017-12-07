@@ -33,14 +33,15 @@ class ConnectToTileInteractor: ConnectToTileBusinessLogic, ConnectToTileDataStor
     func addNewTile(request: ConnectToTile.NewTile.Request) {
         let tile = Tile(id: request.id, userId: request.userId)
         FirebaseService.shared.add(tile: tile, userId: request.userId) { [weak self] status, tile in
-            if status == "New Tile succesfull added" {
+            switch status {
+            case .success, .recconnect:
                 self?.tile = tile
                 FirebaseService.shared.addObserveForTile(tile: tile!) {
-                    let response = ConnectToTile.NewTile.Response(status: status, tile: tile!)
+                    let response = ConnectToTile.NewTile.Response(tile: tile!)
                     self?.presenter?.presentNewTile(response: response)
                 }
-            } else {
-                let alert = UIAlertController(title: "", message: "Error", preferredStyle: .alert)
+            case .notYourTile:
+                let alert = UIAlertController(title: "Error", message: "Not your tile", preferredStyle: .alert)
                 alert.addTextField(configurationHandler: nil)
                 let action = UIAlertAction(title: "OK", style: .default)
                 alert.addAction(action)

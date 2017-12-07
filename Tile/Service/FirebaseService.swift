@@ -15,6 +15,12 @@ import Unbox
 private let DATABASE_REF = Database.database().reference()
 private let STORAGE_REF = Storage.storage().reference()
 
+enum TileConnection {
+    case success,
+         notYourTile,
+         recconnect
+}
+
 class FirebaseService {
     
     static let shared: FirebaseService = {
@@ -61,20 +67,20 @@ class FirebaseService {
         }
     }
     
-    func add(tile: Tile, userId: String, completion: @escaping(_ status: String, _ tile: Tile?) -> ()) {
+    func add(tile: Tile, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
         REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
                 if let owner = snapshot[OWNER_KEY] as? String {
                     if owner == userId {
                         self.checkTileOwner(tileKey: tile.id) { bool in
                             if bool {
-                                completion("Tile reconnect", tile)
+                                completion(.recconnect, tile)
                             } else {
-                                completion("Not your Tile", nil)
+                                completion(.notYourTile, nil)
                             }
                         }
                     } else {
-                        completion("Not your Tile", nil)
+                        completion(.notYourTile, nil)
                     }
                 }
             } else {
@@ -82,7 +88,7 @@ class FirebaseService {
                     let values: [String: Any] = try wrap(tile)
                     self.REF_TILES.child(tile.id).updateChildValues(values)
                     self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([tile.id: true])
-                    completion("New Tile succesfull added", tile)
+                    completion(.success, tile)
                 } catch {
                     
                 }

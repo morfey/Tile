@@ -31,8 +31,8 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
     var selectedTile: Tile?
     var newTile: Tile? {
         didSet {
-            let response = Tiles.NewTile.Response(status: "", tile: newTile!)
-                presenter?.presentNewTile(response: response)
+            let response = Tiles.NewTile.Response(tile: newTile!)
+            presenter?.presentNewTile(response: response)
         }
     }
     var presenter: TilesPresentationLogic?
@@ -71,12 +71,18 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
     func addNewTile(request: Tiles.NewTile.Request) {
         let tile = Tile(id: request.id, userId: request.userId)
         FirebaseService.shared.add(tile: tile, userId: request.userId) { [weak self] status, tile in
-            if status == "New Tile succesfull added" {
-                let response = Tiles.NewTile.Response(status: status, tile: tile!)
-                self?.presenter?.presentNewTile(response: response)
-            } else if status == "Tile reconnect" {
-                let response = Tiles.ConnectionStatus.Response(status: false)
-                self?.presenter?.presentWifiAlert(response: response)
+            switch status {
+            case .success, .recconnect:
+                FirebaseService.shared.addObserveForTile(tile: tile!) {
+                    let response = Tiles.NewTile.Response(tile: tile!)
+                    self?.presenter?.presentNewTile(response: response)
+                }
+            case .notYourTile:
+                let alert = UIAlertController(title: "Error", message: "Not your tile", preferredStyle: .alert)
+                alert.addTextField(configurationHandler: nil)
+                let action = UIAlertAction(title: "OK", style: .default)
+                alert.addAction(action)
+                self?.presenter?.present(alert: alert)
             }
         }
     }

@@ -106,21 +106,6 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         }
     }
     
-    func matches(for regex: String, in text: String) -> [String] {
-        
-        do {
-            let regex = try NSRegularExpression(pattern: regex)
-            let results = regex.matches(in: text,
-                                        range: NSRange(text.startIndex..., in: text))
-            return results.map {
-                String(text[Range($0.range, in: text)!])
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
     func displayNewTile(viewModel: ConnectToTile.NewTile.ViewModel) {
         waitView.isHidden = true
         activityIndicator.stopAnimating()
