@@ -94,7 +94,7 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
     }
     
     @IBAction func sendBtnTapped(_ sender: Any) {
-        if let name = nameField.text, !name.isEmpty, let pass = passField.text, !pass.isEmpty {
+        if let name = nameField.text, !name.isEmpty, let pass = passField.text, !pass.isEmpty, socket.isConnected {
             waitView.isHidden = false
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
@@ -103,6 +103,12 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
             let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
             let request = ConnectToTile.NewTile.Request(id: mac, userId: userId!)
             self.interactor?.addNewTile(request: request)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Something went wrong", preferredStyle: .alert)
+            alert.addTextField(configurationHandler: nil)
+            let action = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
         }
     }
     
