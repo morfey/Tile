@@ -215,21 +215,25 @@ class FirebaseService {
                     }
                 }
             } else {
-                Auth.auth().createUser(withEmail: email, password: pass, completion: {(user, error) in
-                    if error != nil {
-                        print ("USER: Unable to auth with Firebase using email: \(error.debugDescription)")
-                        completion(error)
-                    } else {
-                        print ("USER: Successfuly auth email with Firebase")
-                        if let user = user {
-                            let userData = ["provider": user.providerID]
-                            self.completeSingIn(id: user.uid, userData: userData) {
-                                completion(nil)
-                            }
-                        }
+                completion(error)
+            }
+        })
+    }
+    
+    func createUser(withEmail email: String, pass: String, name: String, lastName: String, completion: @escaping (Error?) -> ()) {
+        Auth.auth().createUser(withEmail: email, password: pass, completion: {(user, error) in
+            if error != nil {
+                print ("USER: Unable to auth with Firebase using email: \(error.debugDescription)")
+                completion(error)
+            } else {
+                print ("USER: Successfuly auth email with Firebase")
+                if let user = user {
+                    let userData = ["provider": user.providerID, "fullName": "\(name) \(lastName)", "email": email]
+                    self.completeSingIn(id: user.uid, userData: userData) {
+                        completion(nil)
                     }
-                })
-            }  
+                }
+            }
         })
     }
     

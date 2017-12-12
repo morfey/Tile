@@ -10,18 +10,27 @@ import UIKit
 
 protocol CreateNewAccountBusinessLogic
 {
-
+    func createNewAccount(request: CreateNewAccount.New.Request, completion: @escaping () -> ())
 }
 
 protocol CreateNewAccountDataStore
 {
-  //var name: String { get set }
+
 }
 
 class CreateNewAccountInteractor: CreateNewAccountBusinessLogic, CreateNewAccountDataStore
 {
-  var presenter: CreateNewAccountPresentationLogic?
-  var worker: CreateNewAccountWorker?
-  //var name: String = ""
-  
+    var presenter: CreateNewAccountPresentationLogic?
+    var worker: CreateNewAccountWorker?
+    //var name: String = ""
+    
+    func createNewAccount(request: CreateNewAccount.New.Request, completion: @escaping () -> ()) {
+        FirebaseService.shared.createUser(withEmail: request.email, pass: request.pass, name: request.name, lastName: request.lastName) { [weak self] error in
+            if let error = error {
+                self?.presenter?.presentError(error)
+            } else {
+                completion()
+            }
+        }
+    }
 }

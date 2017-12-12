@@ -42,9 +42,9 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     }
     
     func emailSignIn(email: String, pass: String, completion: @escaping () -> ()) {
-        SignIn.shared.emailSignIn(email: email, pass: pass) { error in
+        SignIn.shared.emailSignIn(email: email, pass: pass) { [weak self] error in
             if let error = error {
-                self.presenter?.presentError(error)
+                self?.presenter?.presentError(error)
             } else {
                 completion()
             }

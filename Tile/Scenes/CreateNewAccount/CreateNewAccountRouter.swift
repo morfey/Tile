@@ -10,7 +10,7 @@ import UIKit
 
 @objc protocol CreateNewAccountRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToTiles(segue: UIStoryboardSegue?)
 }
 
 protocol CreateNewAccountDataPassing
@@ -25,32 +25,20 @@ class CreateNewAccountRouter: NSObject, CreateNewAccountRoutingLogic, CreateNewA
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+    func routeToTiles(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let _ = segue.destination as! TilesViewController
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
+            navigateToTiles(source: viewController!, destination: destinationVC)
+        }
+    }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: CreateNewAccountViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: CreateNewAccountDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    func navigateToTiles(source: CreateNewAccountViewController, destination: UINavigationController) {
+        source.show(destination, sender: nil)
+    }
 }
