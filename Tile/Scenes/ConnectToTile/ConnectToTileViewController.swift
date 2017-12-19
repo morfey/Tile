@@ -13,6 +13,7 @@ import SwiftKeychainWrapper
 protocol ConnectToTileDisplayLogic: class
 {
     func displayNewTile(viewModel: ConnectToTile.NewTile.ViewModel)
+    func displayWifiConnectionAlert(viewModel: ConnectToTile.ConnectionStatus.ViewModel)
     func display(alert: UIAlertController)
 }
 
@@ -100,6 +101,7 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
             activityIndicator.startAnimating()
             let wifi = WifiModel(name: name, pass: pass)
             socket.write(data: wifi.jsonRepresentation)
+            
             let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
             let request = ConnectToTile.NewTile.Request(id: mac, userId: userId!)
             self.interactor?.addNewTile(request: request)
@@ -124,6 +126,10 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func displayWifiConnectionAlert(viewModel: ConnectToTile.ConnectionStatus.ViewModel) {
+        present(viewModel.alert, animated: true, completion: nil)
     }
     
     func display(alert: UIAlertController) {

@@ -25,6 +25,21 @@ enum ConnectToTile
             var tile: Tile
         }
     }
+    
+    enum ConnectionStatus
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var status: Bool
+        }
+        struct ViewModel
+        {
+            var alert: UIAlertController
+        }
+    }
 }
 
 class WifiModel: NSObject, Codable {
