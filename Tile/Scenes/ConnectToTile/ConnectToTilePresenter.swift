@@ -29,6 +29,7 @@ class ConnectToTilePresenter: ConnectToTilePresentationLogic
     
     func presentWifiAlert(response: ConnectToTile.ConnectionStatus.Response) {
         let alert = UIAlertController(title: "Error", message: "Check your Wi-Fi connect", preferredStyle: .alert)
+        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         let actionOk = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(actionOk)
         let actionSettings = UIAlertAction(title: "Settings", style: .default) { _ in

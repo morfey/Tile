@@ -153,7 +153,7 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
             interactor?.selectedTile = tile
             performSegue(withIdentifier: "EditTile", sender: nil)
         } else {
-            performSegue(withIdentifier: "ConnectToTile", sender: nil)
+            performSegue(withIdentifier: "GoToSettings", sender: nil)
 //            let alert = UIAlertController(title: "Success", message: "Tile is succusfully connected. Enter the name", preferredStyle: .alert)
 //            alert.addTextField(configurationHandler: nil)
 //            let action = UIAlertAction(title: "OK", style: .default) { act in

@@ -33,8 +33,9 @@ class ConnectToTileRouter: NSObject, ConnectToTileRoutingLogic, ConnectToTileDat
         passDataToTiles(source: dataStore!, destination: &destinationDS)
       } else {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "TilesViewController") as! TilesViewController
-        var destinationDS = destinationVC.router!.dataStore!
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
+        let vc = destinationVC.viewControllers.first as! TilesViewController
+        var destinationDS = vc.router!.dataStore!
         passDataToTiles(source: dataStore!, destination: &destinationDS)
         navigateToTiles(source: viewController!, destination: destinationVC)
       }
@@ -42,11 +43,11 @@ class ConnectToTileRouter: NSObject, ConnectToTileRoutingLogic, ConnectToTileDat
     
     // MARK: Navigation
     
-    func navigateToTiles(source: ConnectToTileViewController, destination: TilesViewController)
+    func navigateToTiles(source: ConnectToTileViewController, destination: UINavigationController)
     {
-        source.dismiss(animated: true, completion: nil)
-        source.navigationController?.popViewController(animated: true)
-//      source.show(destination, sender: nil)
+//        source.dismiss(animated: true, completion: nil)
+//        source.navigationController?.popViewController(animated: true)
+        source.show(destination, sender: nil)
     }
     
     // MARK: Passing data

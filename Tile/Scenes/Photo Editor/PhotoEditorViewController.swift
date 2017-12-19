@@ -139,7 +139,7 @@ public final class PhotoEditorViewController: UIViewController {
         topToolbar.isHidden = hide
         topGradient.isHidden = hide
         bottomToolbar.isHidden = hide
-        bottomGradient.isHidden = hide
+//        bottomGradient.isHidden = hide
     }
 }
 

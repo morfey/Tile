@@ -9,6 +9,7 @@
 import UIKit
 import Starscream
 import SwiftKeychainWrapper
+import Unbox
 
 protocol ConnectToTileDisplayLogic: class
 {
@@ -71,20 +72,19 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
     {
         super.viewDidLoad()
         connectWebSocket()
-        nameField.delegate = self
-        passField.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "network")
     }
     
-    @IBOutlet weak var statusLbl: UILabel!
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var passField: UITextField!
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var waitView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var socket: WebSocket!
     private var mac: String = ""
     private var gateway: String = ""
     var buf: InputStream!
+    fileprivate var networks: [WifiModel] = []
     
     func connectWebSocket() {
         gateway = WifiIPManager.sharedInstance.getRouterIpAddressString()
@@ -94,30 +94,31 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         socket.connect()
     }
     
-    @IBAction func sendBtnTapped(_ sender: Any) {
-        if let name = nameField.text, !name.isEmpty, let pass = passField.text, !pass.isEmpty, socket.isConnected {
-            waitView.isHidden = false
-            activityIndicator.isHidden = false
-            activityIndicator.startAnimating()
-            let wifi = WifiModel(name: name, pass: pass)
-            socket.write(data: wifi.jsonRepresentation)
-            
-            let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
-            let request = ConnectToTile.NewTile.Request(id: mac, userId: userId!)
-            self.interactor?.addNewTile(request: request)
-        } else {
-            let alert = UIAlertController(title: "Error", message: "Something went wrong", preferredStyle: .alert)
-            alert.addTextField(configurationHandler: nil)
-            let action = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }
-    }
+//    @IBAction func sendBtnTapped(_ sender: Any) {
+//        if let name = nameField.text, !name.isEmpty, let pass = passField.text, !pass.isEmpty, socket.isConnected {
+//            waitView.isHidden = false
+//            activityIndicator.isHidden = false
+//            activityIndicator.startAnimating()
+//            let wifi = WifiModel(name: name, pass: pass)
+//            socket.write(data: wifi.jsonRepresentation)
+//
+//            let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
+//            let request = ConnectToTile.NewTile.Request(id: mac, userId: userId!)
+//            self.interactor?.addNewTile(request: request)
+//        } else {
+//            let alert = UIAlertController(title: "Error", message: "Something went wrong", preferredStyle: .alert)
+//            alert.addTextField(configurationHandler: nil)
+//            let action = UIAlertAction(title: "OK", style: .default)
+//            alert.addAction(action)
+//            present(alert, animated: true, completion: nil)
+//        }
+//    }
     
     func displayNewTile(viewModel: ConnectToTile.NewTile.ViewModel) {
         waitView.isHidden = true
         activityIndicator.stopAnimating()
         let alert = UIAlertController(title: "Success", message: "Tile is succusfully connected. Enter the name", preferredStyle: .alert)
+        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         alert.addTextField(configurationHandler: nil)
         let action = UIAlertAction(title: "OK", style: .default) { act in
             let name = alert.textFields?.first?.text ?? "Untitled"
@@ -134,21 +135,71 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
     
     func display(alert: UIAlertController) {
         present(alert, animated: true, completion: nil)
+    }
+}
 
+extension ConnectToTileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "network") {
+            cell.textLabel?.text = networks[indexPath.row].name
+            return cell
+        } else {
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return networks.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Connect", message: "Enter Wi-Fi password", preferredStyle: .alert)
+        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
+        alert.addTextField(configurationHandler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let action = UIAlertAction(title: "OK", style: .default) { act in
+            self.waitView.isHidden = false
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
+            let pass = alert.textFields?.first?.text ?? "Untitled"
+            self.networks[indexPath.row].add(pass: pass)
+            self.socket.write(data: self.networks[indexPath.row].jsonRepresentation)
+            
+            let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
+            let request = ConnectToTile.NewTile.Request(id: self.mac, userId: userId!)
+            self.interactor?.addNewTile(request: request)
+        }
+        alert.addAction(action)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
     }
 }
 
 extension ConnectToTileViewController: WebSocketDelegate {
     func websocketDidConnect(socket: WebSocketClient) {
-        statusLbl.text = "connected: "
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        statusLbl.text = error?.localizedDescription ?? "disconnect"
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        statusLbl.text = text
+        if let data = text.data(using: .utf8) {
+            let json = try! JSONSerialization.jsonObject(with: data, options: []) as! Array<Dictionary<String, Any>>
+            var reviewArrays: Array<WifiModel> = []
+            
+            for array in json {
+                let unbox = Unboxer.init(dictionary: array)
+                
+                let product = try! WifiModel.init(unboxer: unbox)
+                reviewArrays.append(product)
+            }
+            networks = reviewArrays.removeDuplicates()
+            tableView.reloadData()
+        }
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
@@ -168,13 +219,9 @@ extension ConnectToTileViewController: WebSocketDelegate {
                     break
                 }
             }
-            
-            if var wifi = processedMessageString(buffer: buffer, length: numberOfBytesRead) {
-                wifi = Array(Set(wifi))
-                wifi.forEach {
-                    textView.text.append("\($0.components(separatedBy: .whitespaces).joined())\n")
-                }
-            }
+//            if var wifi = processedMessageString(buffer: buffer, length: numberOfBytesRead) {
+//
+//            }
         }
     }
     
@@ -193,5 +240,18 @@ extension ConnectToTileViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
+    }
+}
+
+extension Array where Element:Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+        
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+        return result
     }
 }

@@ -6,6 +6,7 @@
 //  Copyright (c) 2017 TimHazhyi. All rights reserved.
 
 import UIKit
+import Unbox
 
 enum ConnectToTile
 {
@@ -42,33 +43,34 @@ enum ConnectToTile
     }
 }
 
-class WifiModel: NSObject, Codable {
+class WifiModel: Equatable {
     var name: String = ""
     var pass: String = ""
+    var isOpen: Bool?
+    var signalStrength: Int?
     var jsonRepresentation : Data {
         let dict = ["name" : name, "pass" : pass]
-        let data =  try! JSONSerialization.data(withJSONObject: dict, options: [])
+        guard let data =  try? JSONSerialization.data(withJSONObject: dict, options: []) else { return Data()}
         return data
     }
     
-    init(name: String, pass: String) {
+    init(name: String, isOpen: Bool, signalStrength: Int) {
         self.name = name
+        self.isOpen = isOpen
+        self.signalStrength = signalStrength
+    }
+    
+    func add(pass: String) {
         self.pass = pass
-        super.init()
     }
     
-    required init(coder aDecoder: NSCoder) {
-        if let name = aDecoder.decodeObject(forKey: NAME_KEY) as? String {
-            self.name = name
-        }
-        
-        if let pass = aDecoder.decodeObject(forKey: "pass") as? String {
-            self.pass = pass
-        }
+    init(unboxer: Unboxer) throws {
+        name   = try unboxer.unbox(key: "name")
+        isOpen = unboxer.unbox(key: "isOpen")
+        signalStrength = unboxer.unbox(key: "signalStrength")
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: NAME_KEY)
-        aCoder.encode(pass, forKey: "pass")
+    static func ==(lhs: WifiModel, rhs: WifiModel) -> Bool {
+        return lhs.name == rhs.name
     }
 }

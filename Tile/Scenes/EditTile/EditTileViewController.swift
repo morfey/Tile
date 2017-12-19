@@ -265,7 +265,7 @@ extension EditTileViewController: UITextFieldDelegate {
         if matche.count > 0 {
             FirebaseService.shared.update(tile: tile, sleepTime: matche.first!)
         } else {
-            let alert = UIAlertController(title: "Ошибка", message: "Неверный формат времени.\nВведит время в формате\nхх:хх - хх:хх", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: "Time format must be\nхх:хх - хх:хх", preferredStyle: .alert)
             let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alert.addAction(ok)
             present(alert, animated: true, completion: nil)

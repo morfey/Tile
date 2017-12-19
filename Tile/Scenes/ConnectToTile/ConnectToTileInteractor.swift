@@ -44,6 +44,7 @@ class ConnectToTileInteractor: ConnectToTileBusinessLogic, ConnectToTileDataStor
                         }
                     case .notYourTile:
                         let alert = UIAlertController(title: "Error", message: "Not your tile", preferredStyle: .alert)
+                        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
                         alert.addTextField(configurationHandler: nil)
                         let action = UIAlertAction(title: "OK", style: .default)
                         alert.addAction(action)

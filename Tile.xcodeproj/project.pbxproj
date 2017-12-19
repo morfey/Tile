@@ -40,6 +40,12 @@
 		2289913C1F94D5A500DF2175 /* TilesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991361F94D5A500DF2175 /* TilesRouter.swift */; };
 		2289913D1F94D5A500DF2175 /* TilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991371F94D5A500DF2175 /* TilesViewController.swift */; };
 		2289913E1F94D5A500DF2175 /* TilesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991381F94D5A500DF2175 /* TilesWorker.swift */; };
+		228E02561FE9901B009AA8EC /* GoToSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228E02501FE9901B009AA8EC /* GoToSettingsInteractor.swift */; };
+		228E02571FE9901B009AA8EC /* GoToSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228E02511FE9901B009AA8EC /* GoToSettingsModels.swift */; };
+		228E02581FE9901B009AA8EC /* GoToSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228E02521FE9901B009AA8EC /* GoToSettingsPresenter.swift */; };
+		228E02591FE9901B009AA8EC /* GoToSettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228E02531FE9901B009AA8EC /* GoToSettingsRouter.swift */; };
+		228E025A1FE9901B009AA8EC /* GoToSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228E02541FE9901B009AA8EC /* GoToSettingsViewController.swift */; };
+		228E025B1FE9901B009AA8EC /* GoToSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228E02551FE9901B009AA8EC /* GoToSettingsWorker.swift */; };
 		229431401FE057AA002F2A0C /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2294313F1FE057AA002F2A0C /* DesignableUITextField.swift */; };
 		229B10681F8F87B700FDA0F4 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10621F8F87B700FDA0F4 /* LoginInteractor.swift */; };
 		229B10691F8F87B700FDA0F4 /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10631F8F87B700FDA0F4 /* LoginModels.swift */; };
@@ -162,6 +168,12 @@
 		228991361F94D5A500DF2175 /* TilesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesRouter.swift; sourceTree = "<group>"; };
 		228991371F94D5A500DF2175 /* TilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesViewController.swift; sourceTree = "<group>"; };
 		228991381F94D5A500DF2175 /* TilesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesWorker.swift; sourceTree = "<group>"; };
+		228E02501FE9901B009AA8EC /* GoToSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSettingsInteractor.swift; sourceTree = "<group>"; };
+		228E02511FE9901B009AA8EC /* GoToSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSettingsModels.swift; sourceTree = "<group>"; };
+		228E02521FE9901B009AA8EC /* GoToSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSettingsPresenter.swift; sourceTree = "<group>"; };
+		228E02531FE9901B009AA8EC /* GoToSettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSettingsRouter.swift; sourceTree = "<group>"; };
+		228E02541FE9901B009AA8EC /* GoToSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSettingsViewController.swift; sourceTree = "<group>"; };
+		228E02551FE9901B009AA8EC /* GoToSettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSettingsWorker.swift; sourceTree = "<group>"; };
 		2294313F1FE057AA002F2A0C /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		229B10621F8F87B700FDA0F4 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		229B10631F8F87B700FDA0F4 /* LoginModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModels.swift; sourceTree = "<group>"; };
@@ -357,9 +369,23 @@
 			path = Tiles;
 			sourceTree = "<group>";
 		};
+		228E024F1FE98F81009AA8EC /* GoToSettings */ = {
+			isa = PBXGroup;
+			children = (
+				228E02501FE9901B009AA8EC /* GoToSettingsInteractor.swift */,
+				228E02511FE9901B009AA8EC /* GoToSettingsModels.swift */,
+				228E02521FE9901B009AA8EC /* GoToSettingsPresenter.swift */,
+				228E02531FE9901B009AA8EC /* GoToSettingsRouter.swift */,
+				228E02541FE9901B009AA8EC /* GoToSettingsViewController.swift */,
+				228E02551FE9901B009AA8EC /* GoToSettingsWorker.swift */,
+			);
+			path = GoToSettings;
+			sourceTree = "<group>";
+		};
 		229B10601F8F879700FDA0F4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				228E024F1FE98F81009AA8EC /* GoToSettings */,
 				22A371C81FD5D96B0029DEDB /* Photo Editor */,
 				226982C81FCF37E000BDFB1D /* ConnectToTile */,
 				22EA4DAD1FBE0420007E9DD9 /* CreateNewAccount */,
@@ -780,7 +806,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				22EA4DB91FBE0438007E9DD9 /* CreateNewAccountWorker.swift in Sources */,
+				228E02571FE9901B009AA8EC /* GoToSettingsModels.swift in Sources */,
 				22FA0B671FB20ECA0088D5BA /* ProfileRouter.swift in Sources */,
+				228E02561FE9901B009AA8EC /* GoToSettingsInteractor.swift in Sources */,
 				228991301F94BA5700DF2175 /* EditTileViewController.swift in Sources */,
 				22A3721E1FD5D96B0029DEDB /* PhotoEditor+Gestures.swift in Sources */,
 				228066081FD314E200832D77 /* MacAddressManager.m in Sources */,
@@ -793,10 +821,12 @@
 				22A3721B1FD5D96B0029DEDB /* PhotoEditor+Drawing.swift in Sources */,
 				22FA0B651FB20ECA0088D5BA /* ProfileModels.swift in Sources */,
 				22FA0B661FB20ECA0088D5BA /* ProfilePresenter.swift in Sources */,
+				228E02581FE9901B009AA8EC /* GoToSettingsPresenter.swift in Sources */,
 				22A372281FD5D96B0029DEDB /* StickersViewController.swift in Sources */,
 				22FA0B681FB20ECA0088D5BA /* ProfileViewController.swift in Sources */,
 				228066051FD314E200832D77 /* getgateway.c in Sources */,
 				229B106A1F8F87B700FDA0F4 /* LoginPresenter.swift in Sources */,
+				228E025A1FE9901B009AA8EC /* GoToSettingsViewController.swift in Sources */,
 				22A3722B1FD5D96B0029DEDB /* UIImage+Size.swift in Sources */,
 				2289913B1F94D5A500DF2175 /* TilesPresenter.swift in Sources */,
 				226982D21FCF380900BDFB1D /* ConnectToTileRouter.swift in Sources */,
@@ -830,12 +860,14 @@
 				22A3722C1FD5D96B0029DEDB /* UIImageExtensions.swift in Sources */,
 				22A372261FD5D96B0029DEDB /* StickerCollectionViewCell.swift in Sources */,
 				228991391F94D5A500DF2175 /* TilesInteractor.swift in Sources */,
+				228E025B1FE9901B009AA8EC /* GoToSettingsWorker.swift in Sources */,
 				229431401FE057AA002F2A0C /* DesignableUITextField.swift in Sources */,
 				2289913D1F94D5A500DF2175 /* TilesViewController.swift in Sources */,
 				22A372221FD5D96B0029DEDB /* PhotoEditorViewController.swift in Sources */,
 				22A3721A1FD5D96B0029DEDB /* PhotoEditor+Crop.swift in Sources */,
 				22A372071FD5D96B0029DEDB /* CropRectView.swift in Sources */,
 				22A3721F1FD5D96B0029DEDB /* PhotoEditor+Keyboard.swift in Sources */,
+				228E02591FE9901B009AA8EC /* GoToSettingsRouter.swift in Sources */,
 				22A3720C1FD5D96B0029DEDB /* EmojisCollectionViewDelegate.swift in Sources */,
 				22EA4DB81FBE0438007E9DD9 /* CreateNewAccountViewController.swift in Sources */,
 				2289912C1F94BA5700DF2175 /* EditTileInteractor.swift in Sources */,
