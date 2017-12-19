@@ -10,6 +10,7 @@ import UIKit
 
 protocol CreateNewAccountDisplayLogic: class
 {
+    func displayError(viewModel: CreateNewAccount.Error.ViewModel)
 }
 
 class CreateNewAccountViewController: UIViewController, CreateNewAccountDisplayLogic
@@ -60,6 +61,12 @@ class CreateNewAccountViewController: UIViewController, CreateNewAccountDisplayL
     }
     
     // MARK: View lifecycle
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passTextField: UITextField!
+    @IBOutlet weak var bottom: NSLayoutConstraint!
+    @IBOutlet weak var acceptBtn: UIButton!
     
     override func viewDidLoad()
     {
@@ -93,8 +100,19 @@ class CreateNewAccountViewController: UIViewController, CreateNewAccountDisplayL
                            completion: nil)
         }
     }
-    // MARK: Do something
+    @IBAction func acceptBtnTapped(_ sender: Any) {
+        acceptBtn.isSelected = !acceptBtn.isSelected
+    }
     
-    //@IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var bottom: NSLayoutConstraint!
+    @IBAction func createAccountBtnTapped(_ sender: Any) {
+        guard let name = nameTextField.text, let lastName = lastNameTextField.text, let email = emailTextField.text, let pass = passTextField.text else { return }
+        let request = CreateNewAccount.New.Request(name: name, lastName: lastName, email: email, pass: pass)
+        interactor?.createNewAccount(request: request) {
+            self.router?.routeToTiles(segue: nil)
+        }
+    }
+    
+    func displayError(viewModel: CreateNewAccount.Error.ViewModel) {
+        present(viewModel.alert, animated: true, completion: nil)
+    }
 }

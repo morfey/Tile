@@ -40,6 +40,7 @@
 		2289913C1F94D5A500DF2175 /* TilesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991361F94D5A500DF2175 /* TilesRouter.swift */; };
 		2289913D1F94D5A500DF2175 /* TilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991371F94D5A500DF2175 /* TilesViewController.swift */; };
 		2289913E1F94D5A500DF2175 /* TilesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228991381F94D5A500DF2175 /* TilesWorker.swift */; };
+		229431401FE057AA002F2A0C /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2294313F1FE057AA002F2A0C /* DesignableUITextField.swift */; };
 		229B10681F8F87B700FDA0F4 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10621F8F87B700FDA0F4 /* LoginInteractor.swift */; };
 		229B10691F8F87B700FDA0F4 /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10631F8F87B700FDA0F4 /* LoginModels.swift */; };
 		229B106A1F8F87B700FDA0F4 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10641F8F87B700FDA0F4 /* LoginPresenter.swift */; };
@@ -161,6 +162,7 @@
 		228991361F94D5A500DF2175 /* TilesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesRouter.swift; sourceTree = "<group>"; };
 		228991371F94D5A500DF2175 /* TilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesViewController.swift; sourceTree = "<group>"; };
 		228991381F94D5A500DF2175 /* TilesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesWorker.swift; sourceTree = "<group>"; };
+		2294313F1FE057AA002F2A0C /* DesignableUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
 		229B10621F8F87B700FDA0F4 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		229B10631F8F87B700FDA0F4 /* LoginModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModels.swift; sourceTree = "<group>"; };
 		229B10641F8F87B700FDA0F4 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				22FA0B5B1FB20CA90088D5BA /* CircleButton.swift */,
+				2294313F1FE057AA002F2A0C /* DesignableUITextField.swift */,
 				2272CC181F9F6AF80032B691 /* ImageCell.swift */,
 				22AC7FAB1FCB1447000BD370 /* TileCell.swift */,
 				22AC7FAC1FCB1447000BD370 /* TileCell.xib */,
@@ -827,6 +830,7 @@
 				22A3722C1FD5D96B0029DEDB /* UIImageExtensions.swift in Sources */,
 				22A372261FD5D96B0029DEDB /* StickerCollectionViewCell.swift in Sources */,
 				228991391F94D5A500DF2175 /* TilesInteractor.swift in Sources */,
+				229431401FE057AA002F2A0C /* DesignableUITextField.swift in Sources */,
 				2289913D1F94D5A500DF2175 /* TilesViewController.swift in Sources */,
 				22A372221FD5D96B0029DEDB /* PhotoEditorViewController.swift in Sources */,
 				22A3721A1FD5D96B0029DEDB /* PhotoEditor+Crop.swift in Sources */,
