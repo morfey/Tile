@@ -167,11 +167,12 @@ extension ConnectToTileViewController: UITableViewDelegate, UITableViewDataSourc
             self.activityIndicator.startAnimating()
             let pass = alert.textFields?.first?.text ?? "Untitled"
             self.networks[indexPath.row].add(pass: pass)
-            self.socket.write(data: self.networks[indexPath.row].jsonRepresentation)
+//            self.socket.write(data: self.networks[indexPath.row].jsonRepresentation)
+            self.socket.write(string: String.init(data: self.networks[indexPath.row].jsonRepresentation, encoding: .utf8)!)
             
             let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
             let request = ConnectToTile.NewTile.Request(id: self.mac, userId: userId!)
-            self.interactor?.addNewTile(request: request)
+//            self.interactor?.addNewTile(request: request)
         }
         alert.addAction(action)
         alert.addAction(cancel)
@@ -188,10 +189,10 @@ extension ConnectToTileViewController: WebSocketDelegate {
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         if let data = text.data(using: .utf8) {
-            let json = try! JSONSerialization.jsonObject(with: data, options: []) as! Array<Dictionary<String, Any>>
+            let json = try! JSONSerialization.jsonObject(with: data, options: []) as! Dictionary<String, Any>
             var reviewArrays: Array<WifiModel> = []
-            
-            for array in json {
+            mac = json["macAddr"] as! String
+            for array in json["wifiList"] as! Array<Dictionary<String, Any>> {
                 let unbox = Unboxer.init(dictionary: array)
                 
                 let product = try! WifiModel.init(unboxer: unbox)

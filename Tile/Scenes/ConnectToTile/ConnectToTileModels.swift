@@ -50,7 +50,7 @@ class WifiModel: Equatable {
     var signalStrength: Int?
     var jsonRepresentation : Data {
         let dict = ["name" : name, "pass" : pass]
-        guard let data =  try? JSONSerialization.data(withJSONObject: dict, options: []) else { return Data()}
+        guard let data =  try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) else { return Data()}
         return data
     }
     
