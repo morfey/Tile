@@ -32,7 +32,7 @@ struct Tile {
     init(id: String, userId: String) {
         self.name = ""
         self.id = id
-        self.batteryLevel = 45
+        self.batteryLevel = 60
         self.chargeStatus = false
         self.imageAngle = "auto"
         self.sleeping = false

@@ -18,6 +18,8 @@ class ImageCell: UICollectionViewCell {
             imageView.backgroundColor = .groupTableViewBackground
         } else {
             imageView.image = image!
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
         }
     }
 }

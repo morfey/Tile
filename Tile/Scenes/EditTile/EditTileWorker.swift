@@ -18,12 +18,7 @@ let gpuEffectConfigs: [String?] = [
     "@curve R(0, 0)(117, 95)(155, 171)(179, 225)(255, 255)G(0, 0)(94, 66)(155, 176)(255, 255)B(0, 0)(48, 59)(141, 130)(255, 224)",
     "@adjust hsv -0.7 -0.7 0.5 -0.7 -0.7 0.5 @pixblend ol 0.243 0.07059 0.59215 1 25",
     "@adjust hsv -1 -1 -1 -1 -1 -1",
-    "@adjust saturation 0 @adjust level 0 0.83921 0.8772",
-    "@vignette 0 0.63",
-    "@curve R(0, 0)(62, 148)(255, 255) @curve R(0, 0)(175, 55)(255, 255) @adjust contrast 0.51",
-    "@adjust shadowhighlight -200 120 @adjust saturation 0 @adjust contrast 1.32",
-    "@curve R(0, 0)(145, 138)(255, 255)G(0, 0)(197, 199)(255, 255)B(0, 0)(100, 79)(255, 255)RGB(0, 0)(81, 58)(255, 255) @adjust hsl -0.04 -0.23 0.17 @adjust saturation 1.44",
-    "@adjust level 0 1 0.21 @style sketch -1 @adjust colorbalance 0.27 0 0"
+    "@adjust saturation 0 @adjust level 0 0.83921 0.8772"
 ]
 
 class EditTileWorker

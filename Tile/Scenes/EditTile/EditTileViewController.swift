@@ -91,7 +91,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         //        initializeTextFieldInputView()
         
         if let url = tile.imageUrl {
-            originalImage.kf.setImage(with: URL(string: url), placeholder: #imageLiteral(resourceName: "empty_image"), options: nil, progressBlock: nil)
+            let placeholder = #imageLiteral(resourceName: "empty_image").imageWithInsets(insetDimen: 30)
+            originalImage.kf.setImage(with: URL(string: url), placeholder: placeholder, options: nil, progressBlock: nil)
         }
         fetchPhotos()
     }
@@ -296,5 +297,33 @@ extension EditTileViewController: PhotoEditorDelegate {
     
     func canceledEditing() {
         print("Canceled")
+    }
+}
+
+extension UIImage {
+    /// Returns a image that fills in newSize
+    func resizedImage(newSize: CGSize) -> UIImage {
+        // Guard newSize is different
+        guard self.size != newSize else { return self }
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.width))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    func imageWithInsets(insetDimen: CGFloat) -> UIImage {
+        return imageWithInset(insets: UIEdgeInsets(top: insetDimen, left: insetDimen, bottom: insetDimen, right: insetDimen))
+    }
+    
+    func imageWithInset(insets: UIEdgeInsets) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(
+            CGSize(width: self.size.width + insets.left + insets.right,
+                   height: self.size.height + insets.top + insets.bottom), false, self.scale)
+        let origin = CGPoint(x: insets.left, y: insets.top)
+        self.draw(at: origin)
+        let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return imageWithInsets!
     }
 }

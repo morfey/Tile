@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,7 +23,7 @@
                         <rect key="frame" x="0.0" y="14" width="120" height="125.5"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtX-hX-WyO" customClass="CircleButton" customModule="Tile" customModuleProvider="target">
-                        <rect key="frame" x="100" y="0.0" width="40" height="40"/>
+                        <rect key="frame" x="98" y="2" width="40" height="40"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="QZG-eS-Xcd"/>
@@ -36,6 +37,9 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
@@ -99,10 +103,10 @@
                 <constraint firstAttribute="bottom" secondItem="f2O-SV-RSb" secondAttribute="bottom" id="MWR-vD-jwQ"/>
                 <constraint firstAttribute="bottom" secondItem="A1D-XM-Enc" secondAttribute="bottom" id="N8r-oh-Seb"/>
                 <constraint firstItem="A1D-XM-Enc" firstAttribute="top" secondItem="yZI-9i-7TV" secondAttribute="bottom" id="POj-c1-obq"/>
-                <constraint firstItem="gtX-hX-WyO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bC8-9c-Ob2"/>
-                <constraint firstAttribute="trailing" secondItem="gtX-hX-WyO" secondAttribute="trailing" id="goo-Ly-GJA"/>
+                <constraint firstItem="gtX-hX-WyO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="bC8-9c-Ob2"/>
+                <constraint firstAttribute="trailing" secondItem="gtX-hX-WyO" secondAttribute="trailing" constant="2" id="goo-Ly-GJA"/>
                 <constraint firstAttribute="trailing" secondItem="A1D-XM-Enc" secondAttribute="trailing" constant="20" id="vak-4S-NRb"/>
-                <constraint firstItem="gtX-hX-WyO" firstAttribute="leading" secondItem="yZI-9i-7TV" secondAttribute="trailing" id="zNE-CT-8cf"/>
+                <constraint firstItem="gtX-hX-WyO" firstAttribute="leading" secondItem="yZI-9i-7TV" secondAttribute="trailing" constant="-2" id="zNE-CT-8cf"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="189" height="168"/>

@@ -154,16 +154,6 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
             performSegue(withIdentifier: "EditTile", sender: nil)
         } else {
             performSegue(withIdentifier: "GoToSettings", sender: nil)
-//            let alert = UIAlertController(title: "Success", message: "Tile is succusfully connected. Enter the name", preferredStyle: .alert)
-//            alert.addTextField(configurationHandler: nil)
-//            let action = UIAlertAction(title: "OK", style: .default) { act in
-//                let name = alert.textFields?.first?.text ?? "Untitled"
-//                let userId = KeychainWrapper.standard.string(forKey: "uid")
-//                let request = Tiles.NewTile.Request(id: "08:08:08:08:08:08", key: UUID().uuidString, name: name, userId: userId!)
-//                self.interactor?.addNewTile(request: request)
-//            }
-//            alert.addAction(action)
-//            present(alert, animated: true, completion: nil)
         }
 
     }

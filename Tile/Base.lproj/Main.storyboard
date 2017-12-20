@@ -125,7 +125,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="17"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="text"/>
                                         </userDefinedRuntimeAttributes>
@@ -134,7 +134,7 @@
                                         <rect key="frame" x="0.0" y="47" width="343" height="17"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="text"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
@@ -146,7 +146,7 @@
                                         <rect key="frame" x="0.0" y="94" width="343" height="17"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" textContentType="email"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="mail"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
@@ -158,7 +158,7 @@
                                         <rect key="frame" x="0.0" y="141" width="343" height="17"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="lock"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
@@ -201,7 +201,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tCq-bm-u92">
-                                <rect key="frame" x="121" y="574" width="62" height="30"/>
+                                <rect key="frame" x="124" y="574" width="62" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="NJB-8d-No3"/>
                                     <constraint firstAttribute="width" constant="62" id="us1-q5-e3H"/>
@@ -212,7 +212,7 @@
                                         <fragment content="agreement">
                                             <attributes>
                                                 <color key="NSColor" red="0.54049999999999998" green="0.54049999999999998" blue="0.54049999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <font key="NSFont" size="12" name="SFUIDisplay-Light"/>
+                                                <font key="NSFont" metaFont="cellTitle"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                 <integer key="NSUnderline" value="1"/>
                                                 <color key="NSUnderlineColor" red="0.54049999999999998" green="0.54049999999999998" blue="0.54049999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -228,7 +228,7 @@
                             <constraint firstItem="4b2-fZ-w0f" firstAttribute="bottom" secondItem="zL7-jP-SJY" secondAttribute="bottom" id="EFS-n6-jNQ"/>
                             <constraint firstItem="Kn2-RA-BMR" firstAttribute="leading" secondItem="jPv-Oo-nUE" secondAttribute="trailing" constant="17" id="G46-gr-YkC"/>
                             <constraint firstItem="jjy-Gg-cWH" firstAttribute="leading" secondItem="zL7-jP-SJY" secondAttribute="leading" constant="16" id="Hjy-7M-AK2"/>
-                            <constraint firstItem="tCq-bm-u92" firstAttribute="leading" secondItem="jPv-Oo-nUE" secondAttribute="trailing" constant="83" id="IXj-Cj-7Bd"/>
+                            <constraint firstItem="tCq-bm-u92" firstAttribute="leading" secondItem="jPv-Oo-nUE" secondAttribute="trailing" constant="86" id="IXj-Cj-7Bd"/>
                             <constraint firstItem="002-8x-MuB" firstAttribute="top" secondItem="jjy-Gg-cWH" secondAttribute="bottom" constant="16" id="LG5-YV-A1d"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jjy-Gg-cWH" secondAttribute="trailing" constant="20" symbolic="YES" id="Ngt-Zr-xQF"/>
                             <constraint firstItem="002-8x-MuB" firstAttribute="leading" secondItem="zL7-jP-SJY" secondAttribute="leading" constant="16" id="X9Y-Rf-kk0"/>
@@ -293,6 +293,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -539,13 +542,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFE-m9-rnD">
-                                <rect key="frame" x="0.0" y="40" width="375" height="337"/>
+                                <rect key="frame" x="0.0" y="40" width="375" height="297"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p2D-uM-lVT">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="297"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPG-5j-W6T" customClass="CircleButton" customModule="Tile" customModuleProvider="target">
-                                        <rect key="frame" x="299" y="267" width="60" height="60"/>
+                                        <rect key="frame" x="299" y="227" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="86l-Aa-U9R"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="uIL-xh-m6r"/>
@@ -572,31 +575,31 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZQg-aN-Ohm">
-                                <rect key="frame" x="0.0" y="377" width="375" height="226"/>
+                                <rect key="frame" x="0.0" y="337" width="375" height="266"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="226" id="YAr-C0-eYc"/>
+                                    <constraint firstAttribute="height" constant="266" id="YAr-C0-eYc"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="uPN-3M-R1W">
-                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="itemSize" width="120" height="120"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="NqV-qd-fiy" customClass="ImageCell" customModule="Tile" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="10" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="10" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-EM-e5V">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ClK-cc-zbw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                     <gestureRecognizers/>
                                                 </imageView>
                                             </subviews>
@@ -644,7 +647,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -707,20 +710,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PVW-Jo-IM6">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PVW-Jo-IM6">
                                 <rect key="frame" x="16" y="228" width="343" height="68"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RqP-Gn-Iw5">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RqP-Gn-Iw5" customClass="DesignableUITextField" customModule="Tile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" keyboardAppearance="alert" textContentType="email"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="mail"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gM8-Ip-bdx">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gM8-Ip-bdx" customClass="DesignableUITextField" customModule="Tile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="38" width="343" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" keyboardAppearance="alert" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" textContentType="password"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="lock"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -745,22 +760,27 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4b-Rl-9Q8">
                                 <rect key="frame" x="251" y="622" width="55" height="30"/>
-                                <state key="normal" title="Sign Up"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" red="0.8918183445930481" green="0.72488212585449219" blue="0.41821688413619995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="RB5-Bq-Omb" kind="show" id="065-iC-K0R"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-Qy-Xu7">
-                                <rect key="frame" x="16" y="500.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="500.5" width="343" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTy-8l-QWS">
-                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTy-8l-QWS">
+                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="40"/>
+                                        <state key="normal" image="facebook"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPb-W7-TPT">
-                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPb-W7-TPT">
+                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="40"/>
+                                        <state key="normal" image="group2"/>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="NAu-NR-h7U"/>
+                                    <constraint firstAttribute="height" constant="40" id="NAu-NR-h7U"/>
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or connect with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0R-0y-UUa">
@@ -829,9 +849,11 @@
         <image name="checkedCell" width="22" height="22"/>
         <image name="edit" width="58" height="60"/>
         <image name="emailBtn" width="287" height="70"/>
+        <image name="facebook" width="40" height="40"/>
         <image name="facebookBtn" width="256" height="40"/>
         <image name="full_screen" width="28" height="28"/>
         <image name="googleBtn" width="256" height="40"/>
+        <image name="group2" width="40" height="40"/>
         <image name="lock" width="18" height="18"/>
         <image name="logo" width="137" height="174"/>
         <image name="mail" width="18" height="18"/>
@@ -843,6 +865,7 @@
         <image name="uncheckedCell" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="065-iC-K0R"/>
         <segue reference="v3P-Xe-DTR"/>
     </inferredMetricsTieBreakers>
 </document>

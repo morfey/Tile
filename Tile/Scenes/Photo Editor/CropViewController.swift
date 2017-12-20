@@ -86,12 +86,17 @@ open class CropViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.toolbar.isTranslucent = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(CropViewController.cancel(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(CropViewController.done(_:)))
+        let cancelBtn = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(CropViewController.cancel(_:)))
+        cancelBtn.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
+        navigationItem.leftBarButtonItem = cancelBtn
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(CropViewController.done(_:)))
+        doneBtn.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
+        navigationItem.rightBarButtonItem = doneBtn
         
         if self.toolbarItems == nil {
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
             let constrainButton = UIBarButtonItem(title: "Constrain", style: .plain, target: self, action: #selector(CropViewController.constrain(_:)))
+            constrainButton.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
             toolbarItems = [flexibleSpace, constrainButton, flexibleSpace]
         }
         
@@ -145,6 +150,7 @@ open class CropViewController: UIViewController {
     
     @objc func constrain(_ sender: UIBarButtonItem) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
         let original = UIAlertAction(title: "Original", style: .default) { [unowned self] action in
             guard let image = self.cropView?.image else {
                 return

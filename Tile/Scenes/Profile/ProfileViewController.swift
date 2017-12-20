@@ -67,11 +67,15 @@ class ProfileViewController: UIViewController, ProfileDisplayLogic
     {
         super.viewDidLoad()
         getUserData()
+        avatarImage.layer.borderWidth = 1
+        avatarImage.layer.masksToBounds = false
+        avatarImage.layer.borderColor = UIColor.clear.cgColor
+        avatarImage.layer.cornerRadius = avatarImage.frame.height / 2
+        avatarImage.clipsToBounds = true
     }
     
     // MARK: Do something
     
-    //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var fullNameLbl: UILabel!
     @IBOutlet weak var emailLbl: UILabel!
