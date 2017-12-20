@@ -50,7 +50,7 @@ extension PhotoEditorViewController: FiltersViewControllerDelegate {
     
     @objc func didSelectFilter(_ sender: UIButton) {
         self.imageView.image = sender.backgroundImage(for: .normal)
-        self.removeFiltersView()
+//        self.removeFiltersView()
     }
     
     func filtersViewDidDisappear() {

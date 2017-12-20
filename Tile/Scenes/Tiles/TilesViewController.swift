@@ -132,9 +132,23 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     }
 }
 
-extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tiles.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if tiles.count == 0 {
+            let totalCellWidth = 120
+            let totalSpacingWidth = 0
+            
+            let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+            let rightInset = leftInset
+            
+            return UIEdgeInsetsMake(0, leftInset, 0, rightInset)
+        } else {
+            return UIEdgeInsetsMake(10, 16, 0, 16)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
