@@ -28,7 +28,7 @@ extension PhotoEditorViewController {
     }
     
     func removeFiltersView() {
-        stickersVCIsVisible = false
+        filtersVCIsVisible = false
         self.canvasImageView.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.3,
                        delay: 0,

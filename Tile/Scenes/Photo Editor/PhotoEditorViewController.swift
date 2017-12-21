@@ -39,6 +39,7 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var filtersButton: UIButton!
+    @IBOutlet weak var brightnessButton: UIButton!
     
     public var image: UIImage?
     /**
@@ -71,9 +72,12 @@ public final class PhotoEditorViewController: UIViewController {
     var activeTextView: UITextView?
     var imageViewToPan: UIImageView?
     var isTyping: Bool = false
+    var colorControlsFilter : CIFilter!
+    var ciImageContext: CIContext!
     
     var stickersViewController: StickersViewController!
     var filtersViewControler: FiltersViewController!
+    var brightnessViewController: BrightnessViewController!
     
     //Register Custom font before we load XIB
     public override func loadView() {
@@ -106,6 +110,17 @@ public final class PhotoEditorViewController: UIViewController {
         configureCollectionView()
         stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: Bundle(for: StickersViewController.self))
         filtersViewControler = FiltersViewController(nibName: "FiltersViewController", bundle: Bundle(for: FiltersViewController.self))
+        brightnessViewController = BrightnessViewController(nibName: "BrightnessViewController", bundle: Bundle(for: FiltersViewController.self))
+        let openGLContext = EAGLContext(api: .openGLES3)!
+        ciImageContext = CIContext(eaglContext: openGLContext)
+        colorControlsFilter = CIFilter(name: "CIColorControls")!
+        colorControlsFilter.setDefaults()
+        
+        if let cgimg = imageView.image?.cgImage {
+            let coreImage = CIImage(cgImage: cgimg)
+            self.colorControlsFilter.setValue(coreImage, forKey: kCIInputImageKey)
+        }
+        
         hideControls()
     }
     

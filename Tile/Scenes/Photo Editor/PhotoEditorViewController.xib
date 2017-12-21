@@ -17,6 +17,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhotoEditorViewController" customModule="Tile" customModuleProvider="target">
             <connections>
                 <outlet property="bottomToolbar" destination="87h-1G-t5q" id="Pzi-Dw-qOq"/>
+                <outlet property="brightnessButton" destination="7Hq-5s-m8B" id="nd7-cW-aKO"/>
                 <outlet property="canvasImageView" destination="n3p-yR-4xc" id="OED-1L-YMz"/>
                 <outlet property="canvasView" destination="S1Y-ZS-dct" id="p6I-kg-UUU"/>
                 <outlet property="clearButton" destination="Kpe-Ez-Cio" id="C0i-3L-kLI"/>
@@ -85,7 +86,7 @@
                             <rect key="frame" x="12" y="0.0" width="351" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ghm-bq-BmY">
-                                    <rect key="frame" x="0.0" y="0.0" width="58" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="46" height="60"/>
                                     <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
                                     <size key="titleShadowOffset" width="1" height="0.0"/>
                                     <state key="normal" title="">
@@ -96,8 +97,15 @@
                                         <action selector="cropButtonTapped:" destination="-1" eventType="touchUpInside" id="fa9-jd-guk"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hq-5s-m8B">
+                                    <rect key="frame" x="61" y="0.0" width="46" height="60"/>
+                                    <state key="normal" image="brightness"/>
+                                    <connections>
+                                        <action selector="brightnessButtonTapped:" destination="-1" eventType="touchUpInside" id="SLg-J0-3aE"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLX-iy-2Rc">
-                                    <rect key="frame" x="73" y="0.0" width="58.5" height="60"/>
+                                    <rect key="frame" x="122" y="0.0" width="46" height="60"/>
                                     <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
                                     <size key="titleShadowOffset" width="1" height="0.0"/>
                                     <state key="normal" title="">
@@ -109,14 +117,14 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rm2-aQ-B0e">
-                                    <rect key="frame" x="146.5" y="0.0" width="58" height="60"/>
+                                    <rect key="frame" x="183" y="0.0" width="46" height="60"/>
                                     <state key="normal" image="filters"/>
                                     <connections>
                                         <action selector="filtersButtonTapped:" destination="-1" eventType="touchUpInside" id="b7n-5e-VXA"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qm4-f6-DBr">
-                                    <rect key="frame" x="219.5" y="0.0" width="58.5" height="60"/>
+                                    <rect key="frame" x="244" y="0.0" width="46" height="60"/>
                                     <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
                                     <size key="titleShadowOffset" width="1" height="0.0"/>
                                     <state key="normal" title="">
@@ -128,7 +136,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wH-LJ-SyD">
-                                    <rect key="frame" x="293" y="0.0" width="58" height="60"/>
+                                    <rect key="frame" x="305" y="0.0" width="46" height="60"/>
                                     <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
                                     <size key="titleShadowOffset" width="1" height="0.0"/>
                                     <state key="normal" title="">
@@ -316,6 +324,7 @@
         </view>
     </objects>
     <resources>
+        <image name="brightness" width="28" height="28"/>
         <image name="filters" width="28" height="28"/>
     </resources>
 </document>

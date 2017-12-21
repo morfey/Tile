@@ -1,57 +1,38 @@
 //
-//  FiltersViewController.swift
+//  BrightnessViewController.swift
 //  Tile
 //
-//  Created by  Tim on 28.11.2017.
+//  Created by  Tim on 21.12.2017.
 //  Copyright © 2017 TimHazhyi. All rights reserved.
 //
 
 import UIKit
 
-class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
-    
-    @IBOutlet weak var headerView: UIView!
+class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var holdView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    var filtersViewControllerDelegate: FiltersViewControllerDelegate?
-    var gpuImagePlusDelegate: GPUimagePlusDelegate?
-    var originalImage: UIImage!
+    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var brightnessButton: UIButton!
+    @IBOutlet weak var constrastButton: UIButton!
+    @IBOutlet weak var saturationButton: UIButton!
+    private var currentKey: String = kCIInputBrightnessKey
     
     let screenSize = UIScreen.main.bounds.size
-    var images: [CGImage]!
-    
-    let fullView: CGFloat = 100 // remainder of screen height
+    var delegate: BrightnessViewControllerDelegate?
+    let fullView: CGFloat = 150 // remainder of screen height
     var partialView: CGFloat {
         return UIScreen.main.bounds.height - 130
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         holdView.layer.cornerRadius = 3
-
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(FiltersViewController.panGesture))
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BrightnessViewController.panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
-        
-        DispatchQueue.global().async {
-            self.images = self.gpuImagePlusDelegate?.proccessFilters(image: self.originalImage)
-            DispatchQueue.main.async {
-                self.configurateScrollView()
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        prepareBackgroundView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         UIView.animate(withDuration: 0.6) { [weak self] in
             guard let `self` = self else { return }
             let frame = self.view.frame
@@ -63,40 +44,45 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    @objc func didSelectFilter(_ sender: UIButton) {
-        filtersViewControllerDelegate?.didSelectFilter(sender)
+    override func viewWillAppear(_ animated: Bool) {
+        prepareBackgroundView()
     }
     
-    func configurateScrollView() {
-        var xCoord: CGFloat = 5
-        let yCoord: CGFloat = 5
-        let buttonWidth:CGFloat = 70
-        let buttonHeight: CGFloat = 70
-        let gapBetweenButtons: CGFloat = 5
-        var itemCount = 0
-        
-        for (index, i) in images.enumerated() {
-            //save(image: UIImage(cgImage: i), i: index)
-            itemCount = index
-            let filterButton = UIButton(type: .custom)
-            filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
-            filterButton.tag = itemCount
-            filterButton.addTarget(self, action: #selector(didSelectFilter(_:)), for: .touchUpInside)
-            filterButton.layer.cornerRadius = 6
-            filterButton.clipsToBounds = true
-            filterButton.imageView?.contentMode = .center
-            let imageForButton = UIImage(cgImage: i)
-            filterButton.setBackgroundImage(imageForButton, for: .normal)
-            filterButton.contentMode = .scaleAspectFit
-            xCoord +=  buttonWidth + gapBetweenButtons
-            scrollView.addSubview(filterButton)
-            activityIndicator.stopAnimating()
-        }
-        
-        scrollView.contentSize = CGSize(width: buttonWidth * CGFloat(itemCount + 2), height: yCoord)
+    @IBAction func brightnessButtonTapped(_ sender: UIButton) {
+        setSelected(sender)
+        saturationButton.isHighlighted = false
+        constrastButton.isHighlighted = false
+        let brightnessValue = delegate?.colorControlsFilter.value(forKey: kCIInputBrightnessKey) as? Float
+        slider.value = brightnessValue ?? 0.0
+        slider.maximumValue = 1.00
+        slider.minimumValue = -1.00
+        currentKey = kCIInputBrightnessKey
+    }
+    @IBAction func contrastButtonTapped(_ sender: UIButton) {
+        setSelected(sender)
+        saturationButton.isHighlighted = false
+        brightnessButton.isHighlighted = false
+        let contrastValue = delegate?.colorControlsFilter.value(forKey: kCIInputContrastKey) as? Float
+        slider.value = contrastValue ?? 1.00
+        slider.maximumValue = 2.00
+        slider.minimumValue = 0.00
+        currentKey = kCIInputContrastKey
     }
     
-    //MARK: Pan Gesture
+    @IBAction func saturationButtonTapped(_ sender: UIButton) {
+        setSelected(sender)
+        brightnessButton.isHighlighted = false
+        constrastButton.isHighlighted = false
+        let saturationValue = delegate?.colorControlsFilter.value(forKey: kCIInputSaturationKey) as? Float
+        slider.value = saturationValue ?? 1.00
+        slider.maximumValue = 2.00
+        slider.minimumValue = 0.00
+        currentKey = kCIInputSaturationKey
+    }
+    
+    @IBAction func didChangeValue(_ sender: UISlider) {
+        delegate?.didChangeFilter(value: sender.value, forKey: currentKey)
+    }
     
     @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
         
@@ -149,7 +135,7 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
         }, completion: { (finished) -> Void in
             self.view.removeFromSuperview()
             self.removeFromParentViewController()
-            self.filtersViewControllerDelegate?.filtersViewDidDisappear()
+            self.delegate?.brightnessViewDidDisappear()
         })
     }
     
@@ -162,6 +148,17 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
         bluredView.frame = UIScreen.main.bounds
         view.insertSubview(bluredView, at: 0)
     }
+    
+    func setSelected(_ button: UIButton) {
+        button.isSelected = !button.isSelected
+        if button.isSelected {
+            button.layer.shadowColor = UIColor.red.cgColor
+            button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+            button.layer.masksToBounds = false
+            button.layer.shadowRadius = 2
+            button.layer.shadowOpacity = 0.2
+        } else {
+            button.layer.shadowColor = UIColor.clear.cgColor
+        }
+    }
 }
-
-

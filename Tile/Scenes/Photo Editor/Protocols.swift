@@ -46,6 +46,12 @@ protocol StickersViewControllerDelegate {
     func stickersViewDidDisappear()
 }
 
+protocol BrightnessViewControllerDelegate {
+    var colorControlsFilter : CIFilter!  { get }
+    func didChangeFilter(value: Float, forKey: String)
+    func brightnessViewDidDisappear()
+}
+
 @objc protocol FiltersViewControllerDelegate {
     /**
      - Parameter button: selected view from FiltersViewController

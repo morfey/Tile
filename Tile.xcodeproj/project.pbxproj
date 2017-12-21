@@ -53,6 +53,9 @@
 		229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10651F8F87B700FDA0F4 /* LoginRouter.swift */; };
 		229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10661F8F87B700FDA0F4 /* LoginViewController.swift */; };
 		229B106D1F8F87B700FDA0F4 /* LoginWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10671F8F87B700FDA0F4 /* LoginWorker.swift */; };
+		22A0EF9C1FEC2B7C00693523 /* BrightnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A0EF9A1FEC2B7C00693523 /* BrightnessViewController.swift */; };
+		22A0EF9D1FEC2B7C00693523 /* BrightnessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A0EF9B1FEC2B7C00693523 /* BrightnessViewController.xib */; };
+		22A0EF9F1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A0EF9E1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift */; };
 		22A372011FD5D96B0029DEDB /* PhotoEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A371CD1FD5D96B0029DEDB /* PhotoEditor.storyboard */; };
 		22A372041FD5D96B0029DEDB /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A371D11FD5D96B0029DEDB /* ColorCollectionViewCell.swift */; };
 		22A372051FD5D96B0029DEDB /* ColorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A371D21FD5D96B0029DEDB /* ColorCollectionViewCell.xib */; };
@@ -181,6 +184,9 @@
 		229B10651F8F87B700FDA0F4 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		229B10661F8F87B700FDA0F4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		229B10671F8F87B700FDA0F4 /* LoginWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWorker.swift; sourceTree = "<group>"; };
+		22A0EF9A1FEC2B7C00693523 /* BrightnessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessViewController.swift; sourceTree = "<group>"; };
+		22A0EF9B1FEC2B7C00693523 /* BrightnessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrightnessViewController.xib; sourceTree = "<group>"; };
+		22A0EF9E1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController + Brightness.swift"; sourceTree = "<group>"; };
 		22A371CE1FD5D96B0029DEDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PhotoEditor.storyboard; sourceTree = "<group>"; };
 		22A371D11FD5D96B0029DEDB /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		22A371D21FD5D96B0029DEDB /* ColorCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -441,7 +447,10 @@
 				22A371ED1FD5D96B0029DEDB /* PhotoEditor+StickersViewController.swift */,
 				22A371EE1FD5D96B0029DEDB /* PhotoEditor+UITextView.swift */,
 				22A371EF1FD5D96B0029DEDB /* PhotoEditorViewController.swift */,
+				22A0EF9E1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift */,
 				22A371F01FD5D96B0029DEDB /* PhotoEditorViewController.xib */,
+				22A0EF9A1FEC2B7C00693523 /* BrightnessViewController.swift */,
+				22A0EF9B1FEC2B7C00693523 /* BrightnessViewController.xib */,
 				22A371F11FD5D96B0029DEDB /* Protocols.swift */,
 				22A371F21FD5D96B0029DEDB /* ResizeControl.swift */,
 				22A371F31FD5D96B0029DEDB /* StickerCollectionViewCell.swift */,
@@ -656,6 +665,7 @@
 				22A372291FD5D96B0029DEDB /* StickersViewController.xib in Resources */,
 				22A372271FD5D96B0029DEDB /* StickerCollectionViewCell.xib in Resources */,
 				22A5E5571F8E162F0025A0D5 /* Assets.xcassets in Resources */,
+				22A0EF9D1FEC2B7C00693523 /* BrightnessViewController.xib in Resources */,
 				22A372161FD5D96B0029DEDB /* PhotoCropEditorBorder.png in Resources */,
 				22A5E5521F8E162F0025A0D5 /* Main.storyboard in Resources */,
 				22AC7FAE1FCB1447000BD370 /* TileCell.xib in Resources */,
@@ -851,6 +861,7 @@
 				22A5E54D1F8E162F0025A0D5 /* AppDelegate.swift in Sources */,
 				2272CC191F9F6AF80032B691 /* ImageCell.swift in Sources */,
 				2280660D1FD3333F00832D77 /* NetInfo.swift in Sources */,
+				22A0EF9C1FEC2B7C00693523 /* BrightnessViewController.swift in Sources */,
 				22A372191FD5D96B0029DEDB /* PhotoEditor+Controls.swift in Sources */,
 				22A3721C1FD5D96B0029DEDB /* PhotoEditor+FiltersViewController.swift in Sources */,
 				228066071FD314E200832D77 /* IPObjectiveManager.m in Sources */,
@@ -883,6 +894,7 @@
 				2280660A1FD314E200832D77 /* WifiIPManager.swift in Sources */,
 				22037D131F8E21D100315130 /* Constants.swift in Sources */,
 				2289913E1F94D5A500DF2175 /* TilesWorker.swift in Sources */,
+				22A0EF9F1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift in Sources */,
 				22FA0B691FB20ECA0088D5BA /* ProfileWorker.swift in Sources */,
 				228991311F94BA5700DF2175 /* EditTileWorker.swift in Sources */,
 				229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */,

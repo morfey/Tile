@@ -19,6 +19,7 @@ public enum control {
     case share
     case clear
     case filters
+    case brightness
 }
 
 extension PhotoEditorViewController {
@@ -104,6 +105,18 @@ extension PhotoEditorViewController {
         for subview in canvasImageView.subviews {
             subview.removeFromSuperview()
         }
+        //clean effects
+        colorControlsFilter.setDefaults()
+        if let outputImage = self.colorControlsFilter.value(forKey: kCIInputImageKey) as? CIImage {
+            if let cgImageNew = self.ciImageContext.createCGImage(outputImage, from: outputImage.extent) {
+                let newImg = UIImage(cgImage: cgImageNew)
+                imageView.image = newImg
+            }
+        }
+    }
+    
+    @IBAction func brightnessButtonTapped(_ sender: Any) {
+        addBrightnessViewController()
     }
     
     @IBAction func continueButtonPressed(_ sender: Any) {
@@ -140,6 +153,8 @@ extension PhotoEditorViewController {
                 textButton.isHidden = true
             case .filters:
                 filtersButton.isHidden = true
+            case .brightness:
+                brightnessButton.isHidden = true
             }
         }
     }
