@@ -67,6 +67,19 @@ class FirebaseService {
         }
     }
     
+    func waiter(id: String, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
+        REF_TILES.child(id).observeSingleEvent(of: .value) { snapshot in
+            if let snapshot = snapshot.value as? Dictionary<String, Any> {
+                let tile: Tile? = try? unbox(dictionary: snapshot)
+                self.update(tile: tile!, owner: userId)
+                self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([id: true])
+                completion(.success, tile)
+            } else {
+                self.waiter(id: id, userId: userId, completion: completion)
+            }
+        }
+    }
+    
     func add(tile: Tile, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
         REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
@@ -137,6 +150,11 @@ class FirebaseService {
     
     func update(tile: Tile, name: String, completion: (() -> ())? = nil) {
         self.REF_TILES.child(tile.id).updateChildValues([NAME_KEY: name])
+        completion?()
+    }
+    
+    func update(tile: Tile, owner: String, completion: (() -> ())? = nil) {
+        self.REF_TILES.child(tile.id).updateChildValues([OWNER_KEY: owner])
         completion?()
     }
     

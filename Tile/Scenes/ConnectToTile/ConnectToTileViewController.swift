@@ -172,7 +172,7 @@ extension ConnectToTileViewController: UITableViewDelegate, UITableViewDataSourc
             
             let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
             let request = ConnectToTile.NewTile.Request(id: self.mac, userId: userId!)
-//            self.interactor?.addNewTile(request: request)
+            self.interactor?.addNewTile(request: request)
         }
         alert.addAction(action)
         alert.addAction(cancel)

@@ -104,18 +104,8 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
         let velocity = recognizer.velocity(in: self.view)
         
         let y = self.view.frame.minY
-        if y + translation.y >= fullView {
-            let newMinY = y + translation.y
-            self.view.frame = CGRect(x: 0, y: newMinY, width: view.frame.width, height: UIScreen.main.bounds.height - newMinY )
-            self.view.layoutIfNeeded()
-            recognizer.setTranslation(CGPoint.zero, in: self.view)
-        }
-        
         if recognizer.state == .ended {
-            var duration =  velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y )
-            duration = duration > 1.3 ? 1 : duration
-            //velocity is direction of gesture
-            UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
                 if  velocity.y >= 0 {
                     if y + translation.y >= self.partialView  {
                         self.removeBottomSheetView()
@@ -126,9 +116,6 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
                 } else {
                     if y + translation.y >= self.partialView  {
                         self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: UIScreen.main.bounds.height - self.partialView)
-                        self.view.layoutIfNeeded()
-                    } else {
-                        self.view.frame = CGRect(x: 0, y: self.fullView, width: self.view.frame.width, height: UIScreen.main.bounds.height - self.fullView)
                         self.view.layoutIfNeeded()
                     }
                 }

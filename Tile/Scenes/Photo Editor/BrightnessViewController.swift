@@ -19,7 +19,7 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let screenSize = UIScreen.main.bounds.size
     var delegate: BrightnessViewControllerDelegate?
-    let fullView: CGFloat = 150 // remainder of screen height
+//    let fullView: CGFloat = 130 // remainder of screen height
     var partialView: CGFloat {
         return UIScreen.main.bounds.height - 130
     }
@@ -30,6 +30,10 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BrightnessViewController.panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
+        setSelected(brightnessButton)
+        slider.value =  0.0
+        slider.maximumValue = 1.00
+        slider.minimumValue = -1.00
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,8 +54,8 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func brightnessButtonTapped(_ sender: UIButton) {
         setSelected(sender)
-        saturationButton.isHighlighted = false
-        constrastButton.isHighlighted = false
+        setSelected(saturationButton, false)
+        setSelected(constrastButton, false)
         let brightnessValue = delegate?.colorControlsFilter.value(forKey: kCIInputBrightnessKey) as? Float
         slider.value = brightnessValue ?? 0.0
         slider.maximumValue = 1.00
@@ -60,8 +64,8 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     @IBAction func contrastButtonTapped(_ sender: UIButton) {
         setSelected(sender)
-        saturationButton.isHighlighted = false
-        brightnessButton.isHighlighted = false
+        setSelected(saturationButton, false)
+        setSelected(brightnessButton, false)
         let contrastValue = delegate?.colorControlsFilter.value(forKey: kCIInputContrastKey) as? Float
         slider.value = contrastValue ?? 1.00
         slider.maximumValue = 2.00
@@ -71,8 +75,8 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func saturationButtonTapped(_ sender: UIButton) {
         setSelected(sender)
-        brightnessButton.isHighlighted = false
-        constrastButton.isHighlighted = false
+        setSelected(brightnessButton, false)
+        setSelected(constrastButton, false)
         let saturationValue = delegate?.colorControlsFilter.value(forKey: kCIInputSaturationKey) as? Float
         slider.value = saturationValue ?? 1.00
         slider.maximumValue = 2.00
@@ -90,18 +94,8 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         let velocity = recognizer.velocity(in: self.view)
         
         let y = self.view.frame.minY
-        if y + translation.y >= fullView {
-            let newMinY = y + translation.y
-            self.view.frame = CGRect(x: 0, y: newMinY, width: view.frame.width, height: UIScreen.main.bounds.height - newMinY )
-            self.view.layoutIfNeeded()
-            recognizer.setTranslation(CGPoint.zero, in: self.view)
-        }
-        
         if recognizer.state == .ended {
-            var duration =  velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y )
-            duration = duration > 1.3 ? 1 : duration
-            //velocity is direction of gesture
-            UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
                 if  velocity.y >= 0 {
                     if y + translation.y >= self.partialView  {
                         self.removeBottomSheetView()
@@ -112,9 +106,6 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
                 } else {
                     if y + translation.y >= self.partialView  {
                         self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: UIScreen.main.bounds.height - self.partialView)
-                        self.view.layoutIfNeeded()
-                    } else {
-                        self.view.frame = CGRect(x: 0, y: self.fullView, width: self.view.frame.width, height: UIScreen.main.bounds.height - self.fullView)
                         self.view.layoutIfNeeded()
                     }
                 }
@@ -149,16 +140,20 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         view.insertSubview(bluredView, at: 0)
     }
     
-    func setSelected(_ button: UIButton) {
-        button.isSelected = !button.isSelected
-        if button.isSelected {
-            button.layer.shadowColor = UIColor.red.cgColor
-            button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-            button.layer.masksToBounds = false
-            button.layer.shadowRadius = 2
-            button.layer.shadowOpacity = 0.2
+    func setSelected(_ button: UIButton, _ force: Bool = true) {
+//        button.isHighlighted = force
+        if force {
+            let view = UIView(frame: CGRect(x: 10, y: button.frame.height, width: button.frame.width - 20, height: 1))
+            view.backgroundColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
+            view.tag = 997
+            button.addSubview(view)
         } else {
             button.layer.shadowColor = UIColor.clear.cgColor
+            button.subviews.forEach {
+                if $0.tag == 997 {
+                    $0.removeFromSuperview()
+                }
+            }
         }
     }
 }

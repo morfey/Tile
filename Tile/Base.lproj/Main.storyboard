@@ -679,7 +679,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="QSR-Lt-gSY">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="gMl-eV-hKJ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gMl-eV-hKJ">
                             <connections>
                                 <action selector="saveBtnTapped:" destination="1SB-ET-22N" id="t6B-sc-bri"/>
                             </connections>

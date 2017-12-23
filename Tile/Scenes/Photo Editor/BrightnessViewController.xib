@@ -54,8 +54,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Brightness"/>
                             <state key="highlighted">
-                                <color key="titleColor" red="0.86565148830000005" green="0.73320990799999997" blue="0.46267938609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="titleShadowColor" red="0.86565148830000005" green="0.73320990799999997" blue="0.46267938609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="titleColor" red="0.27058821919999998" green="0.27058821919999998" blue="0.27058821919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>
                                 <action selector="brightnessButtonTapped:" destination="-1" eventType="touchUpInside" id="bz6-DL-Ogx"/>
