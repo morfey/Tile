@@ -54,6 +54,7 @@ open class CropViewController: UIViewController {
     }
     
     fileprivate var cropView: CropView?
+    fileprivate var rotateButton: UIButton!
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -83,15 +84,19 @@ open class CropViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.toolbar.isTranslucent = false
+        
         let cancelBtn = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(CropViewController.cancel(_:)))
         cancelBtn.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
         navigationItem.leftBarButtonItem = cancelBtn
+        
+        let rotateBtn = UIBarButtonItem(title: "Rotate", style: .plain, target: self, action: #selector(CropViewController.rotate))
+        rotateBtn.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
+        
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(CropViewController.done(_:)))
         doneBtn.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
-        navigationItem.rightBarButtonItem = doneBtn
+        navigationItem.rightBarButtonItems = [doneBtn, rotateBtn]
         
         if self.toolbarItems == nil {
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -145,6 +150,20 @@ open class CropViewController: UIViewController {
                 return
             }
             delegate?.cropViewController(self, didFinishCroppingImage: image, transform: rotation, cropRect: rect)
+        }
+    }
+    
+    var angle: Double = 0.0
+    
+    @objc func rotate() {
+        angle += .pi / 2
+        UIView.animate(withDuration: 0.3) {
+            self.cropView?.setRotationAngle(CGFloat(self.angle), snap: true)
+            //        cropView?.cropRect = (cropView?.frame)!
+            //        adjustCropRect()
+            if self.angle == 2 * .pi {
+                self.angle = 0.0
+            }
         }
     }
     

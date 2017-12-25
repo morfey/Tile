@@ -94,29 +94,10 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         socket.connect()
     }
     
-//    @IBAction func sendBtnTapped(_ sender: Any) {
-//        if let name = nameField.text, !name.isEmpty, let pass = passField.text, !pass.isEmpty, socket.isConnected {
-//            waitView.isHidden = false
-//            activityIndicator.isHidden = false
-//            activityIndicator.startAnimating()
-//            let wifi = WifiModel(name: name, pass: pass)
-//            socket.write(data: wifi.jsonRepresentation)
-//
-//            let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
-//            let request = ConnectToTile.NewTile.Request(id: mac, userId: userId!)
-//            self.interactor?.addNewTile(request: request)
-//        } else {
-//            let alert = UIAlertController(title: "Error", message: "Something went wrong", preferredStyle: .alert)
-//            alert.addTextField(configurationHandler: nil)
-//            let action = UIAlertAction(title: "OK", style: .default)
-//            alert.addAction(action)
-//            present(alert, animated: true, completion: nil)
-//        }
-//    }
-    
     func displayNewTile(viewModel: ConnectToTile.NewTile.ViewModel) {
         waitView.isHidden = true
         activityIndicator.stopAnimating()
+        
         let alert = UIAlertController(title: "Success", message: "Tile is succusfully connected. Enter the name", preferredStyle: .alert)
         alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         alert.addTextField(configurationHandler: nil)
@@ -128,7 +109,7 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-    
+
     func displayWifiConnectionAlert(viewModel: ConnectToTile.ConnectionStatus.ViewModel) {
         present(viewModel.alert, animated: true, completion: nil)
     }
@@ -160,6 +141,7 @@ extension ConnectToTileViewController: UITableViewDelegate, UITableViewDataSourc
         let alert = UIAlertController(title: "Connect", message: "Enter Wi-Fi password", preferredStyle: .alert)
         alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         alert.addTextField(configurationHandler: nil)
+        alert.textFields?.first?.isSecureTextEntry = true
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let action = UIAlertAction(title: "OK", style: .default) { act in
             self.waitView.isHidden = false
@@ -167,7 +149,6 @@ extension ConnectToTileViewController: UITableViewDelegate, UITableViewDataSourc
             self.activityIndicator.startAnimating()
             let pass = alert.textFields?.first?.text ?? "Untitled"
             self.networks[indexPath.row].add(pass: pass)
-//            self.socket.write(data: self.networks[indexPath.row].jsonRepresentation)
             self.socket.write(string: String.init(data: self.networks[indexPath.row].jsonRepresentation, encoding: .utf8)!)
             
             let userId = KeychainWrapper.standard.string(forKey: UID_KEY)

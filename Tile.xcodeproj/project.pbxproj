@@ -53,6 +53,7 @@
 		229B106B1F8F87B700FDA0F4 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10651F8F87B700FDA0F4 /* LoginRouter.swift */; };
 		229B106C1F8F87B700FDA0F4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10661F8F87B700FDA0F4 /* LoginViewController.swift */; };
 		229B106D1F8F87B700FDA0F4 /* LoginWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B10671F8F87B700FDA0F4 /* LoginWorker.swift */; };
+		229E2B3A1FF014DE00675273 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229E2B391FF014DE00675273 /* SignInViewController.swift */; };
 		22A0EF9C1FEC2B7C00693523 /* BrightnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A0EF9A1FEC2B7C00693523 /* BrightnessViewController.swift */; };
 		22A0EF9D1FEC2B7C00693523 /* BrightnessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A0EF9B1FEC2B7C00693523 /* BrightnessViewController.xib */; };
 		22A0EF9F1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A0EF9E1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift */; };
@@ -184,6 +185,7 @@
 		229B10651F8F87B700FDA0F4 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		229B10661F8F87B700FDA0F4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		229B10671F8F87B700FDA0F4 /* LoginWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWorker.swift; sourceTree = "<group>"; };
+		229E2B391FF014DE00675273 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		22A0EF9A1FEC2B7C00693523 /* BrightnessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessViewController.swift; sourceTree = "<group>"; };
 		22A0EF9B1FEC2B7C00693523 /* BrightnessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrightnessViewController.xib; sourceTree = "<group>"; };
 		22A0EF9E1FEC2E5800693523 /* PhotoEditorViewController + Brightness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController + Brightness.swift"; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		229B10601F8F879700FDA0F4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				229E2B381FF0149F00675273 /* SignIn */,
 				228E024F1FE98F81009AA8EC /* GoToSettings */,
 				22A371C81FD5D96B0029DEDB /* Photo Editor */,
 				226982C81FCF37E000BDFB1D /* ConnectToTile */,
@@ -414,6 +417,14 @@
 				229B10671F8F87B700FDA0F4 /* LoginWorker.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		229E2B381FF0149F00675273 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				229E2B391FF014DE00675273 /* SignInViewController.swift */,
+			);
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		22A371C81FD5D96B0029DEDB /* Photo Editor */ = {
@@ -885,6 +896,7 @@
 				22A3722F1FD5D96B0029DEDB /* UIView+Image.swift in Sources */,
 				2272CC1E1F9F92800032B691 /* Tile.swift in Sources */,
 				22A3722D1FD5D96B0029DEDB /* UIImageView+Alpha.swift in Sources */,
+				229E2B3A1FF014DE00675273 /* SignInViewController.swift in Sources */,
 				22A372241FD5D96B0029DEDB /* Protocols.swift in Sources */,
 				22A3722A1FD5D96B0029DEDB /* UIImage+Crop.swift in Sources */,
 				226982CF1FCF380900BDFB1D /* ConnectToTileInteractor.swift in Sources */,

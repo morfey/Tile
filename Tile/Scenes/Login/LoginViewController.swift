@@ -67,16 +67,14 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = SignIn.shared
         SignIn.shared.delegate = self
     }
     
     // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
     
     @IBAction func facebookSignInTapped(_ sender: Any) {
         interactor?.facebookSignIn() {

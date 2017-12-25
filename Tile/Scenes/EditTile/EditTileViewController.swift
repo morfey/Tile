@@ -83,6 +83,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         imagesCollectionView.dataSource = self
         sleepTimeTextField.delegate = self
         imagePicker = UIImagePickerController()
+        imagePicker.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         tile = router?.dataStore?.tile

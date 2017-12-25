@@ -85,7 +85,7 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
             let rect = CGRect(x: x, y: y, width: width, height: height)
             let intersection = rect.intersection(scrollView.frame)
             
-            if !intersection.isNull {
+            if !intersection.isNull && !intersection.size.equalTo(.zero) {
                 cropRect = intersection
             }
         }

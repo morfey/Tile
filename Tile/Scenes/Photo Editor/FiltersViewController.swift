@@ -22,7 +22,6 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
     let screenSize = UIScreen.main.bounds.size
     var images: [CGImage]!
     
-    let fullView: CGFloat = 100 // remainder of screen height
     var partialView: CGFloat {
         return UIScreen.main.bounds.height - 130
     }

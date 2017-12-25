@@ -51,17 +51,21 @@ class SignIn: NSObject, GIDSignInDelegate {
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        guard let authentication = user.authentication else {
-            delegate?.handleError(error!)
-            return
-        }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        FirebaseService.shared.auth(credential) { error in
-            if let error = error {
-                self.delegate?.handleError(error)
-            } else {
-                self.delegate?.handleSuccess()
+        if let error = error {
+            self.delegate?.handleError(error)
+        } else {
+            guard let authentication = user.authentication else {
+                delegate?.handleError(error!)
+                return
+            }
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                           accessToken: authentication.accessToken)
+            FirebaseService.shared.auth(credential) { error in
+                if let error = error {
+                    self.delegate?.handleError(error)
+                } else {
+                    self.delegate?.handleSuccess()
+                }
             }
         }
     }
