@@ -15,6 +15,7 @@ class TileCell: UICollectionViewCell {
     @IBOutlet weak var tileStatusBtn: CircleButton!
     @IBOutlet weak var batteryView: UIView!
     @IBOutlet weak var batteryLabel: UILabel!
+    @IBOutlet weak var viewForShadow: UIView!
     var tile: Tile!
     
     override init(frame: CGRect) {
@@ -51,10 +52,18 @@ class TileCell: UICollectionViewCell {
                 tileImageView.kf.setImage(with: URL(string: imgStr))
                 tileImageView.contentMode = .scaleAspectFill
                 tileImageView.clipsToBounds = true
+                tileImageView.layer.shadowColor = UIColor.clear.cgColor
+                viewForShadow.isHidden = true
                 hideBtns = false
             } else {
                 tileImageView.image = #imageLiteral(resourceName: "empty_image")
                 tileImageView.contentMode = .center
+                viewForShadow.isHidden = false
+                viewForShadow.layer.shadowColor = UIColor.black.cgColor
+                viewForShadow.layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
+                viewForShadow.layer.masksToBounds = false
+                viewForShadow.layer.shadowRadius = 2
+                viewForShadow.layer.shadowOpacity = 0.2
                 hideBtns = false
             }
         } else {
@@ -62,6 +71,7 @@ class TileCell: UICollectionViewCell {
             tileImageView.image = #imageLiteral(resourceName: "add_tile")
             tileImageView.contentMode = .center
             tileStatusBtn.isSelected = false
+            viewForShadow.isHidden = true
             tileImageView.removeBlurEffect()
             hideBtns = true
         }

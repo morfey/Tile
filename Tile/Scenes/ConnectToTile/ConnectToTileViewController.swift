@@ -101,6 +101,7 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         let alert = UIAlertController(title: "Success", message: "Tile is succusfully connected. Enter the name", preferredStyle: .alert)
         alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         alert.addTextField(configurationHandler: nil)
+        alert.textFields?.first?.keyboardAppearance = .dark
         let action = UIAlertAction(title: "OK", style: .default) { act in
             let name = alert.textFields?.first?.text ?? "Untitled"
             FirebaseService.shared.update(tile: viewModel.tile, name: name)
@@ -142,6 +143,7 @@ extension ConnectToTileViewController: UITableViewDelegate, UITableViewDataSourc
         alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         alert.addTextField(configurationHandler: nil)
         alert.textFields?.first?.isSecureTextEntry = true
+        alert.textFields?.first?.keyboardAppearance = .dark
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let action = UIAlertAction(title: "OK", style: .default) { act in
             self.waitView.isHidden = false
