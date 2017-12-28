@@ -67,8 +67,8 @@ class TileCell: UICollectionViewCell {
                 hideBtns = false
             }
         } else {
-            tileNameLbl.text = "Add Tile"
-            tileImageView.image = #imageLiteral(resourceName: "add_tile")
+            tileNameLbl.text = "Add new Tile"
+            tileImageView.image = #imageLiteral(resourceName: "addTile")
             tileImageView.contentMode = .center
             tileStatusBtn.isSelected = false
             viewForShadow.isHidden = true

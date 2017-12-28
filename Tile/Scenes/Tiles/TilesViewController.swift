@@ -79,8 +79,8 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
         tilesView.dataSource = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if KeychainWrapper.standard.string(forKey: UID_KEY) == nil {
             performSegue(withIdentifier: "Login", sender: nil)
         } else {
@@ -91,7 +91,8 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     
     // MARK: Do something
     @IBOutlet weak var tilesView: UICollectionView!
-    
+    @IBOutlet weak var waitView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBAction func selectImage(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
     }
@@ -105,6 +106,8 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     }
     
     func initializeTiles() {
+        waitView.isHidden = false
+        activityIndicator.startAnimating()
         let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
         let request = Tiles.GetTiles.Request(userId: userId!)
         interactor?.getTiles(request: request)
@@ -121,9 +124,12 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     }
     
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel) {
+        waitView.isHidden = true
+        activityIndicator.stopAnimating()
         tiles.removeAll()
         tiles.append(contentsOf: viewModel.tiles)
         tiles.reverse()
+        tilesView.isHidden = false
         tilesView.reloadData()
     }
     

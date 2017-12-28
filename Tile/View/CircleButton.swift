@@ -20,12 +20,14 @@ class CircleButton: UIButton {
     
     @IBInspectable var shadowRadius: CGFloat = 0.0 {
         didSet {
-            layer.cornerRadius = cornerRadius
-            layer.shadowColor = UIColor.black.cgColor
-            layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
-            layer.masksToBounds = false
-            layer.shadowRadius = shadowRadius
-            layer.shadowOpacity = 0.2
+            if shadowRadius > 0 {
+                layer.cornerRadius = cornerRadius
+                layer.shadowColor = UIColor.black.cgColor
+                layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
+                layer.masksToBounds = false
+                layer.shadowRadius = shadowRadius
+                layer.shadowOpacity = 0.2
+            }
         }
     }
     
