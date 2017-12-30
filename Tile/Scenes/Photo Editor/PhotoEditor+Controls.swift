@@ -106,13 +106,9 @@ extension PhotoEditorViewController {
             subview.removeFromSuperview()
         }
         //clean effects
-        colorControlsFilter.setDefaults()
-        if let outputImage = self.colorControlsFilter.value(forKey: kCIInputImageKey) as? CIImage {
-            if let cgImageNew = self.ciImageContext.createCGImage(outputImage, from: outputImage.extent) {
-                let newImg = UIImage(cgImage: cgImageNew)
-                imageView.image = newImg
-            }
-        }
+        colorControlsSliders.setDefaults()
+        currentFilterIndex = 0
+        imageView.image = image
     }
     
     @IBAction func brightnessButtonTapped(_ sender: Any) {

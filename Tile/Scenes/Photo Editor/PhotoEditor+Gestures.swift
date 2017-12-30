@@ -230,3 +230,15 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
     }
 }
 
+extension UIViewController {
+    func addGestureRecorgonizerForDismissPicker() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissPicker))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissPicker() {
+        view.endEditing(true)
+    }
+}
+

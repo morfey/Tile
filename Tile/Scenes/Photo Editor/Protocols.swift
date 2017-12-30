@@ -47,7 +47,7 @@ protocol StickersViewControllerDelegate {
 }
 
 protocol BrightnessViewControllerDelegate {
-    var colorControlsFilter : CIFilter!  { get }
+    var colorControlsSliders : CIFilter!  { get }
     func didChangeFilter(value: Float, forKey: String)
     func brightnessViewDidDisappear()
 }
@@ -72,4 +72,5 @@ protocol ColorDelegate {
 
 public protocol GPUimagePlusDelegate {
     func proccessFilters(image: UIImage) -> ([CGImage])
+    func applyFilter(index: Int, toImage image: UIImage) -> UIImage
 }

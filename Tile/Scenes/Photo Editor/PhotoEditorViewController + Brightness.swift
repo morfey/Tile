@@ -13,7 +13,7 @@ import CoreImage
 extension PhotoEditorViewController {
     
     func addBrightnessViewController() {
-//        filtersVCIsVisible = true
+        brigtnessVCIsVisible = true
         hideToolbar(hide: true)
         self.canvasImageView.isUserInteractionEnabled = false
         brightnessViewController.delegate = self
@@ -27,7 +27,7 @@ extension PhotoEditorViewController {
     }
     
     func removeBrightnessView() {
-//        stickersVCIsVisible = false
+        brigtnessVCIsVisible = false
         self.canvasImageView.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.3,
                        delay: 0,
@@ -45,19 +45,14 @@ extension PhotoEditorViewController {
     }
 }
 
-extension PhotoEditorViewController: BrightnessViewControllerDelegate {    
+extension PhotoEditorViewController: BrightnessViewControllerDelegate {
     func didChangeFilter(value: Float, forKey key: String) {
-        colorControlsFilter.setValue(value, forKey: key)
-        if let outputImage = self.colorControlsFilter.outputImage {
-            if let cgImageNew = self.ciImageContext.createCGImage(outputImage, from: outputImage.extent) {
-                let newImg = UIImage(cgImage: cgImageNew)
-                imageView.image = newImg
-            }
-        }
+        colorControlsSliders.setValue(value, forKey: key)
+        showResult()
     }
     
     func brightnessViewDidDisappear() {
-        stickersVCIsVisible = false
+        brigtnessVCIsVisible = false
         hideToolbar(hide: false)
     }
 }

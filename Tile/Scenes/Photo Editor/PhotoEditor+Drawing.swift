@@ -28,6 +28,24 @@ extension PhotoEditorViewController {
             }
         }
         
+        else if filtersVCIsVisible == true {
+            if let touch = touches.first {
+                let location = touch.location(in: self.view)
+                if !filtersViewControler.view.frame.contains(location) {
+                    removeFiltersView()
+                }
+            }
+        }
+        
+        else if brigtnessVCIsVisible == true {
+            if let touch = touches.first {
+                let location = touch.location(in: self.view)
+                if !brightnessViewController.view.frame.contains(location) {
+                    removeBrightnessView()
+                }
+            }
+        }
+        
     }
     
     override public func touchesMoved(_ touches: Set<UITouch>,

@@ -17,7 +17,7 @@ extension PhotoEditorViewController {
         self.canvasImageView.isUserInteractionEnabled = false
         filtersViewControler.filtersViewControllerDelegate = self
         filtersViewControler.gpuImagePlusDelegate = gpuImagePlusDelegate
-        filtersViewControler.originalImage = imageView.image
+        filtersViewControler.originalImage = image
 
         self.addChildViewController(filtersViewControler)
         self.view.addSubview(filtersViewControler.view)
@@ -49,12 +49,12 @@ extension PhotoEditorViewController {
 extension PhotoEditorViewController: FiltersViewControllerDelegate {
     
     @objc func didSelectFilter(_ sender: UIButton) {
-        self.imageView.image = sender.backgroundImage(for: .normal)
-//        self.removeFiltersView()
+        currentFilterIndex = sender.tag
+        showResult()
     }
     
     func filtersViewDidDisappear() {
-        stickersVCIsVisible = false
+        filtersVCIsVisible = false
         hideToolbar(hide: false)
     }
 }

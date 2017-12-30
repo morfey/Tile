@@ -51,7 +51,7 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.6) { [weak self] in
+        UIView.animate(withDuration: 0.3) { [weak self] in
             guard let `self` = self else { return }
             let frame = self.view.frame
             let yComponent = self.partialView

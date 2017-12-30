@@ -39,12 +39,21 @@ class EditTileWorker
     }
     
     func applyGPUImageFilters(originalImage image: UIImage) -> [CGImage] {
-        var filteredImages: [CGImage?] = []
+        var filteredImages: [CGImage] = []
         for i in 0...gpuEffectConfigs.count - 1 {
             let config = gpuEffectConfigs[i]
-            let imageWFilter = cgeFilterUIImage_MultipleEffects(image, config, 1.0, nil)
-            filteredImages.append(imageWFilter?.cgImage)
+            if let imageWFilter = cgeFilterUIImage_MultipleEffects(image, config, 1.0, nil), let cgImage = imageWFilter.cgImage {
+                filteredImages.append(cgImage)
+            }
         }
-        return filteredImages as! [CGImage]
+        return filteredImages
+    }
+    
+    func applyGPUImageFilter(index: Int, toImage image: UIImage) -> UIImage {
+        let config = gpuEffectConfigs[index]
+        if let imageWFilter = cgeFilterUIImage_MultipleEffects(image, config, 1.0, nil) {
+            return imageWFilter
+        }
+        return image
     }
 }

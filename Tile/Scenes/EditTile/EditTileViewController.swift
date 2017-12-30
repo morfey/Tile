@@ -61,8 +61,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     private var tile: Tile!
     private var numberOfCellsPerRow = 3
     
-    @IBOutlet weak var sleepTimeTextField: UITextField!
-    @IBOutlet weak var sleepTimePicker: UIDatePicker!
+    @IBOutlet weak var sleepTimeStartTextField: UITextField!
+    @IBOutlet weak var sleepTimeEndTextField: UITextField!
     
     
     var CIFilterNames = [
@@ -81,15 +81,17 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         super.viewDidLoad()
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
-        sleepTimeTextField.delegate = self
+        sleepTimeStartTextField.delegate = self
+        sleepTimeEndTextField.delegate = self
         imagePicker = UIImagePickerController()
         imagePicker.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         tile = router?.dataStore?.tile
         title = tile.name
-        sleepTimeTextField.text = tile.sleepTime
-        //        initializeTextFieldInputView()
+        sleepTimeStartTextField.text = tile.sleepTime.split(separator: "-").first?.trimmingCharacters(in: .whitespaces)
+        sleepTimeEndTextField.text = tile.sleepTime.split(separator: "-").last?.trimmingCharacters(in: .whitespaces)
+        initializeTextFieldInputView()
         
         if let url = tile.imageUrl {
             let placeholder = #imageLiteral(resourceName: "empty_image").imageWithInsets(insetDimen: 30)
@@ -103,6 +105,11 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         if let image = originalImage.image {
             let request = EditTile.ImageForTile.Request(image: image)
             interactor?.saveImageForTile(request: request)
+        }
+        
+        let sleepTime = (sleepTimeStartTextField.text ?? "") + " - " + (sleepTimeEndTextField.text ?? "")
+        if sleepTime != tile.sleepTime {
+            FirebaseService.shared.update(tile: tile, sleepTime: sleepTime)
         }
     }
     
@@ -121,6 +128,11 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         let worker = EditTileWorker()
         let images = worker.applyGPUImageFilters(originalImage: image)
         return images
+    }
+    
+    func applyFilter(index: Int, toImage image: UIImage) -> UIImage {
+        let worker = EditTileWorker()
+        return worker.applyGPUImageFilter(index: index, toImage: image)
     }
     
     func cameraPicker() {
@@ -245,35 +257,55 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 extension EditTileViewController: UITextFieldDelegate {
-    //    func initializeTextFieldInputView() {
-    //        // Add date picker
-    //        let datePicker = UIDatePicker()
-    //        datePicker.datePickerMode = .time
-    //        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-    //        sleepTimeTextField.inputView = datePicker
-    //
-    //        // Add toolbar with done button on the right
-    //        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 10))
-    //        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    //        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
-    //        toolbar.items = [flexibleSeparator, doneButton]
-    //        sleepTimeTextField.inputAccessoryView = toolbar
-    //    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        guard let text = textField.text, text.count > 0 else { return false }
-        let matche = matches(for: "[0-9]{2}:[0-9]{2}[ ]-[ ][0-9]{2}:[0-9]{2}", in: text)
-        if matche.count > 0 {
-            FirebaseService.shared.update(tile: tile, sleepTime: matche.first!)
-        } else {
-            let alert = UIAlertController(title: "Error", message: "Time format must be\nхх:хх - хх:хх", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alert.addAction(ok)
-            present(alert, animated: true, completion: nil)
-        }
-        return true
+    func initializeTextFieldInputView() {
+        // Add date picker
+        let datePicker1 = UIDatePicker()
+        datePicker1.datePickerMode = .time
+        datePicker1.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        sleepTimeStartTextField.inputView = datePicker1
+        let datePicker2 = UIDatePicker()
+        datePicker2.datePickerMode = .time
+        datePicker2.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        sleepTimeEndTextField.inputView = datePicker2
+        
+        // Add toolbar with done button on the right
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 35))
+        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
+        doneButton.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
+        toolbar.items = [flexibleSeparator, doneButton]
+        sleepTimeStartTextField.inputAccessoryView = toolbar
+        sleepTimeEndTextField.inputAccessoryView = toolbar
     }
+    
+    @objc func dateChanged(_ datePicker: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        if datePicker == sleepTimeEndTextField.inputView {
+            sleepTimeEndTextField.text = formatter.string(from: datePicker.date)
+        } else if datePicker == sleepTimeStartTextField.inputView {
+            sleepTimeStartTextField.text = formatter.string(from: datePicker.date)
+        }
+    }
+    
+    @objc func doneButtonPressed(_ sender: UIButton) {
+        view.endEditing(true)
+    }
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        view.endEditing(true)
+//        guard let text = textField.text, text.count > 0 else { return false }
+//        let matche = matches(for: "[0-9]{2}:[0-9]{2}[ ]-[ ][0-9]{2}:[0-9]{2}", in: text)
+//        if matche.count > 0 {
+//            FirebaseService.shared.update(tile: tile, sleepTime: matche.first!)
+//        } else {
+//            let alert = UIAlertController(title: "Error", message: "Time format must be\nхх:хх - хх:хх", preferredStyle: .alert)
+//            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+//            alert.addAction(ok)
+//            present(alert, animated: true, completion: nil)
+//        }
+//        return true
+//    }
     
     func matches(for regex: String, in text: String) -> [String] {
         
@@ -298,33 +330,5 @@ extension EditTileViewController: PhotoEditorDelegate {
     
     func canceledEditing() {
         print("Canceled")
-    }
-}
-
-extension UIImage {
-    /// Returns a image that fills in newSize
-    func resizedImage(newSize: CGSize) -> UIImage {
-        // Guard newSize is different
-        guard self.size != newSize else { return self }
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.width))
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-    
-    func imageWithInsets(insetDimen: CGFloat) -> UIImage {
-        return imageWithInset(insets: UIEdgeInsets(top: insetDimen, left: insetDimen, bottom: insetDimen, right: insetDimen))
-    }
-    
-    func imageWithInset(insets: UIEdgeInsets) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(
-            CGSize(width: self.size.width + insets.left + insets.right,
-                   height: self.size.height + insets.top + insets.bottom), false, self.scale)
-        let origin = CGPoint(x: insets.left, y: insets.top)
-        self.draw(at: origin)
-        let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return imageWithInsets!
     }
 }

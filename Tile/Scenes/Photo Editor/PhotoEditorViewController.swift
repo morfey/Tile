@@ -60,6 +60,7 @@ public final class PhotoEditorViewController: UIViewController {
     
     var stickersVCIsVisible = false
     var filtersVCIsVisible = false
+    var brigtnessVCIsVisible = false
     var drawColor: UIColor = UIColor.black
     var textColor: UIColor = UIColor.white
     var isDrawing: Bool = false
@@ -72,12 +73,13 @@ public final class PhotoEditorViewController: UIViewController {
     var activeTextView: UITextView?
     var imageViewToPan: UIImageView?
     var isTyping: Bool = false
-    var colorControlsFilter : CIFilter!
+    var colorControlsSliders : CIFilter!
     var ciImageContext: CIContext!
     
     var stickersViewController: StickersViewController!
     var filtersViewControler: FiltersViewController!
     var brightnessViewController: BrightnessViewController!
+    var currentFilterIndex: Int = 0
     
     //Register Custom font before we load XIB
     public override func loadView() {
@@ -113,12 +115,14 @@ public final class PhotoEditorViewController: UIViewController {
         brightnessViewController = BrightnessViewController(nibName: "BrightnessViewController", bundle: Bundle(for: FiltersViewController.self))
         let openGLContext = EAGLContext(api: .openGLES3)!
         ciImageContext = CIContext(eaglContext: openGLContext)
-        colorControlsFilter = CIFilter(name: "CIColorControls")!
-        colorControlsFilter.setDefaults()
+        colorControlsSliders = CIFilter(name: "CIColorControls")!
+        colorControlsSliders.setDefaults()
         
-        if let cgimg = imageView.image?.cgImage {
-            let coreImage = CIImage(cgImage: cgimg)
-            self.colorControlsFilter.setValue(coreImage, forKey: kCIInputImageKey)
+        
+        if let img = image {
+            let coreImage = CIImage(image: img)?
+                .oriented(forExifOrientation: imageOrientationToTiffOrientation((img.imageOrientation)))
+            self.colorControlsSliders.setValue(coreImage, forKey: kCIInputImageKey)
         }
         
         hideControls()
@@ -155,6 +159,38 @@ public final class PhotoEditorViewController: UIViewController {
         topGradient.isHidden = hide
         bottomToolbar.isHidden = hide
 //        bottomGradient.isHidden = hide
+    }
+    
+    func showResult() {
+        if let outputImage = self.colorControlsSliders.outputImage {
+            if let cgImageNew = self.ciImageContext.createCGImage(outputImage, from: outputImage.extent) {
+                let newImg = UIImage(cgImage: cgImageNew)
+                imageView.image = gpuImagePlusDelegate?.applyFilter(index: currentFilterIndex, toImage: newImg)
+            }
+        }
+    }
+    
+    func imageOrientationToTiffOrientation(_ value: UIImageOrientation) -> Int32
+    {
+        switch (value)
+        {
+        case .up:
+            return 1
+        case .down:
+            return 3
+        case .left:
+            return 8
+        case .right:
+            return 6
+        case .upMirrored:
+            return 2
+        case .downMirrored:
+            return 4
+        case .leftMirrored:
+            return 5
+        case .rightMirrored:
+            return 7
+        }
     }
 }
 

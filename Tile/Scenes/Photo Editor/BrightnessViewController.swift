@@ -29,15 +29,17 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         holdView.layer.cornerRadius = 3
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BrightnessViewController.panGesture))
         gesture.delegate = self
-        view.addGestureRecognizer(gesture)
+        headerView.addGestureRecognizer(gesture)
         setSelected(brightnessButton)
         slider.value =  0.0
         slider.maximumValue = 1.00
         slider.minimumValue = -1.00
+        view.tag = 1
+        headerView.tag = 1
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 0.6) { [weak self] in
+        UIView.animate(withDuration: 0.3) { [weak self] in
             guard let `self` = self else { return }
             let frame = self.view.frame
             let yComponent = self.partialView
@@ -46,6 +48,7 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
                                      width: frame.width,
                                      height: UIScreen.main.bounds.height - self.partialView)
         }
+        slider.value = (delegate?.colorControlsSliders.value(forKey: self.currentKey) as? Float) ?? 0.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +59,7 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         setSelected(sender)
         setSelected(saturationButton, false)
         setSelected(constrastButton, false)
-        let brightnessValue = delegate?.colorControlsFilter.value(forKey: kCIInputBrightnessKey) as? Float
+        let brightnessValue = delegate?.colorControlsSliders.value(forKey: kCIInputBrightnessKey) as? Float
         slider.value = brightnessValue ?? 0.0
         slider.maximumValue = 1.00
         slider.minimumValue = -1.00
@@ -66,7 +69,7 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         setSelected(sender)
         setSelected(saturationButton, false)
         setSelected(brightnessButton, false)
-        let contrastValue = delegate?.colorControlsFilter.value(forKey: kCIInputContrastKey) as? Float
+        let contrastValue = delegate?.colorControlsSliders.value(forKey: kCIInputContrastKey) as? Float
         slider.value = contrastValue ?? 1.00
         slider.maximumValue = 2.00
         slider.minimumValue = 0.00
@@ -77,7 +80,7 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         setSelected(sender)
         setSelected(brightnessButton, false)
         setSelected(constrastButton, false)
-        let saturationValue = delegate?.colorControlsFilter.value(forKey: kCIInputSaturationKey) as? Float
+        let saturationValue = delegate?.colorControlsSliders.value(forKey: kCIInputSaturationKey) as? Float
         slider.value = saturationValue ?? 1.00
         slider.maximumValue = 2.00
         slider.minimumValue = 0.00
@@ -96,7 +99,7 @@ class BrightnessViewController: UIViewController, UIGestureRecognizerDelegate {
         let y = self.view.frame.minY
         if recognizer.state == .ended {
             UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
-                if  velocity.y >= 0 {
+                if velocity.y >= 0 {
                     if y + translation.y >= self.partialView  {
                         self.removeBottomSheetView()
                     } else {
