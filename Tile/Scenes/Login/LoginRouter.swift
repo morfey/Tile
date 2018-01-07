@@ -41,8 +41,7 @@ class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
     func navigateToTiles(source: LoginViewController, destination: UINavigationController) {
 //        let nav = UINavigationController(rootViewController: destination)
 //        source.present(destination, animated: true)
-        source.showDetailViewController(destination, sender: nil)
+        source.show(destination, sender: nil)
     }
-    
     // MARK: Passing data
 }

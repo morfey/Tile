@@ -10,21 +10,22 @@ import UIKit
 
 @objc protocol CreateNewAccountRoutingLogic
 {
-  func routeToTiles(segue: UIStoryboardSegue?)
+    func routeToTiles(segue: UIStoryboardSegue?)
+    func routeToLogin(segue: UIStoryboardSegue?)
 }
 
 protocol CreateNewAccountDataPassing
 {
-  var dataStore: CreateNewAccountDataStore? { get }
+    var dataStore: CreateNewAccountDataStore? { get }
 }
 
 class CreateNewAccountRouter: NSObject, CreateNewAccountRoutingLogic, CreateNewAccountDataPassing
 {
-  weak var viewController: CreateNewAccountViewController?
-  var dataStore: CreateNewAccountDataStore?
-  
-  // MARK: Routing
-  
+    weak var viewController: CreateNewAccountViewController?
+    var dataStore: CreateNewAccountDataStore?
+    
+    // MARK: Routing
+    
     func routeToTiles(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
@@ -35,9 +36,20 @@ class CreateNewAccountRouter: NSObject, CreateNewAccountRoutingLogic, CreateNewA
             navigateToTiles(source: viewController!, destination: destinationVC)
         }
     }
-
-  // MARK: Navigation
-  
+    
+    func routeToLogin(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let _ = segue.destination as! TilesViewController
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
+            navigateToTiles(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
     func navigateToTiles(source: CreateNewAccountViewController, destination: UINavigationController) {
         source.show(destination, sender: nil)
     }

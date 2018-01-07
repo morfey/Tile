@@ -92,7 +92,7 @@ class ProfileViewController: UIViewController, ProfileDisplayLogic
     }
     
     func displayUserData(viewModel: Profile.User.ViewModel) {
-        avatarImage.kf.setImage(with: URL(string: viewModel.profileImgUrl))
+        avatarImage.kf.setImage(with: URL(string: viewModel.profileImgUrl), placeholder: #imageLiteral(resourceName: "user"), options: nil, progressBlock: nil, completionHandler: nil)
         fullNameLbl.text = viewModel.fullName
         emailLbl.text = viewModel.email
     }

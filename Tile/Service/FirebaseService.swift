@@ -45,6 +45,8 @@ class FirebaseService {
                         }
                     }
                 }
+            } else {
+                completion(tilesData)
             }
         }
     }
@@ -222,6 +224,10 @@ class FirebaseService {
         })      
     }
     
+    func resetPass(withEmail email: String, completion: @escaping (Error?) -> ()){
+        Auth.auth().sendPasswordReset(withEmail: email, completion: completion)
+    }
+    
     func auth(email: String, pass: String, completion: @escaping (Error?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: pass, completion: {(user, error) in
             if error == nil {
@@ -246,10 +252,13 @@ class FirebaseService {
             } else {
                 print ("USER: Successfuly auth email with Firebase")
                 if let user = user {
-                    let userData = ["provider": user.providerID, "fullName": "\(name) \(lastName)", "email": email]
-                    self.completeSingIn(id: user.uid, userData: userData) {
-                        completion(nil)
-                    }
+                    user.sendEmailVerification(completion: { (error) in
+                        if let error = error {
+                            completion(error)
+                        } else {
+                            completion(nil)
+                        }
+                    })
                 }
             }
         })

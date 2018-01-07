@@ -33,9 +33,9 @@ class SignInViewController: UIViewController, SignInDisplayLogic, GIDSignInUIDel
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        SignIn.shared.delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = SignIn.shared
-        SignIn.shared.delegate = self
     }
     
     // MARK: Do something
@@ -58,8 +58,30 @@ class SignInViewController: UIViewController, SignInDisplayLogic, GIDSignInUIDel
             self?.routeToTiles(segue: nil)
         }
     }
+    
     @IBAction func googleBtnTapped(_ sender: UIButton) {
         SignIn.shared.googleSignIn()
+    }
+    
+    @IBAction func forgotPasswordTapped(_ sender: Any) {
+        let alert = UIAlertController(title: "Reset password", message: "Enter your email", preferredStyle: .alert)
+        alert.view.tintColor = #colorLiteral(red: 0.8901960784, green: 0.7254901961, blue: 0.4196078431, alpha: 1)
+        alert.addTextField(configurationHandler: nil)
+        alert.textFields?.first?.keyboardAppearance = .dark
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let action = UIAlertAction(title: "OK", style: .default) { act in
+            let email = alert.textFields?.first?.text ?? "Untitled"
+            FirebaseService.shared.resetPass(withEmail: email, completion: { [weak self] error in
+                if let error = error {
+                    self?.presentError(error)
+                } else {
+                    
+                }
+            })
+        }
+        alert.addAction(action)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
     }
     
     func handleError(_ error: Error) {
@@ -85,7 +107,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic, GIDSignInUIDel
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
-            showDetailViewController(destinationVC, sender: nil)
+            show(destinationVC, sender: nil)
         }
     }
 }

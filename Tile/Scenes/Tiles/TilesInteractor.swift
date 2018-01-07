@@ -53,18 +53,16 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
     func getTiles(request: Tiles.GetTiles.Request) {
         var tiles: [Tile] = []
         FirebaseService.shared.getUsersTiles(byId: request.userId) { [weak self] tilesData in
-            for (index, data) in tilesData.enumerated() {
-                let data = data.value as! Dictionary<String, Any>
+            for data in tilesData {
+                guard let data = data.value as? Dictionary<String, Any> else {return}
                 do {
                     let tile: Tile = try unbox(dictionary: data)
                     tiles.append(tile)
                 } catch {
                 }
-                if index == tilesData.count - 1 {
-                    let responce = Tiles.GetTiles.Response(tiles: tiles)
-                    self?.presenter?.presentUsersTiles(responce: responce)
-                }
             }
+            let responce = Tiles.GetTiles.Response(tiles: tiles)
+            self?.presenter?.presentUsersTiles(responce: responce)
         }
     }
     

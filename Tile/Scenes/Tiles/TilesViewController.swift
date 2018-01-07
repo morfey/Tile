@@ -81,11 +81,14 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isConnectedToWifi()
+        initializeTiles()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if KeychainWrapper.standard.string(forKey: UID_KEY) == nil {
             performSegue(withIdentifier: "Login", sender: nil)
-        } else {
-            isConnectedToWifi()
-            initializeTiles()
         }
     }
     
@@ -106,11 +109,12 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     }
     
     func initializeTiles() {
-        waitView.isHidden = false
-        activityIndicator.startAnimating()
-        let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
-        let request = Tiles.GetTiles.Request(userId: userId!)
-        interactor?.getTiles(request: request)
+        if let userId = KeychainWrapper.standard.string(forKey: UID_KEY) {
+            waitView.isHidden = false
+            activityIndicator.startAnimating()
+            let request = Tiles.GetTiles.Request(userId: userId)
+            interactor?.getTiles(request: request)
+        }
     }
     
     func displayWifiConnectionAlert(viewModel: Tiles.ConnectionStatus.ViewModel) {
@@ -151,7 +155,10 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
             let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
             let rightInset = leftInset
             
-            return UIEdgeInsetsMake(0, leftInset, 0, rightInset)
+            let topInset = (collectionView.frame.height - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+            let bottomInset = topInset
+            
+            return UIEdgeInsetsMake(topInset, leftInset, bottomInset, rightInset)
         } else {
             return UIEdgeInsetsMake(10, 16, 0, 16)
         }

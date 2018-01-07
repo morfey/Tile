@@ -107,8 +107,14 @@ class CreateNewAccountViewController: UIViewController, CreateNewAccountDisplayL
     @IBAction func createAccountBtnTapped(_ sender: Any) {
         guard let name = nameTextField.text, let lastName = lastNameTextField.text, let email = emailTextField.text, let pass = passTextField.text else { return }
         let request = CreateNewAccount.New.Request(name: name, lastName: lastName, email: email, pass: pass)
-        interactor?.createNewAccount(request: request) {
-            self.router?.routeToTiles(segue: nil)
+        interactor?.createNewAccount(request: request) { [weak self] in
+            let alert = UIAlertController(title: "Verification", message: "We sent you a letter with confirmation code. Please follow by link in email.", preferredStyle: .alert)
+            alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
+            let action = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self?.router?.routeToTiles(segue: nil)
+            })
+            alert.addAction(action)
+            self?.present(alert, animated: true, completion: nil)
         }
     }
     

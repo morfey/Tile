@@ -7,6 +7,7 @@
 
 import UIKit
 import Photos
+import TTSegmentedControl
 
 protocol EditTileDisplayLogic: class
 {
@@ -63,7 +64,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     
     @IBOutlet weak var sleepTimeStartTextField: UITextField!
     @IBOutlet weak var sleepTimeEndTextField: UITextField!
-    
+    @IBOutlet weak var segment: TTSegmentedControl!
     
     var CIFilterNames = [
         "CIPhotoEffectChrome",
@@ -79,19 +80,35 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        tile = router?.dataStore?.tile
+        title = tile.name
+        
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
+        
         sleepTimeStartTextField.delegate = self
         sleepTimeEndTextField.delegate = self
+        sleepTimeStartTextField.text = tile.sleepTime.split(separator: "-").first?.trimmingCharacters(in: .whitespaces)
+        sleepTimeEndTextField.text = tile.sleepTime.split(separator: "-").last?.trimmingCharacters(in: .whitespaces)
+        initializeTextFieldInputView()
+        
         imagePicker = UIImagePickerController()
         imagePicker.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
-        tile = router?.dataStore?.tile
-        title = tile.name
-        sleepTimeStartTextField.text = tile.sleepTime.split(separator: "-").first?.trimmingCharacters(in: .whitespaces)
-        sleepTimeEndTextField.text = tile.sleepTime.split(separator: "-").last?.trimmingCharacters(in: .whitespaces)
-        initializeTextFieldInputView()
+        
+        segment.itemTitles = ["Photo", "Gallery"]
+        segment.allowChangeThumbWidth = false
+        segment.thumbColor = .white
+        segment.useGradient = false
+        segment.selectedTextColor = .black
+        segment.backgroundColor = #colorLiteral(red: 0.9511725307, green: 0.9610235095, blue: 0.9694404006, alpha: 1)
+        segment.useShadow = false
+        segment.defaultTextFont = UIFont.systemFont(ofSize: 17)
+        segment.selectedTextFont = UIFont.systemFont(ofSize: 17)
+        segment.didSelectItemWith = { (index, title) -> () in
+            print("Selected item \(index)")
+        }
         
         if let url = tile.imageUrl {
             let placeholder = #imageLiteral(resourceName: "empty_image").imageWithInsets(insetDimen: 30)
@@ -292,35 +309,6 @@ extension EditTileViewController: UITextFieldDelegate {
         view.endEditing(true)
     }
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        view.endEditing(true)
-//        guard let text = textField.text, text.count > 0 else { return false }
-//        let matche = matches(for: "[0-9]{2}:[0-9]{2}[ ]-[ ][0-9]{2}:[0-9]{2}", in: text)
-//        if matche.count > 0 {
-//            FirebaseService.shared.update(tile: tile, sleepTime: matche.first!)
-//        } else {
-//            let alert = UIAlertController(title: "Error", message: "Time format must be\nхх:хх - хх:хх", preferredStyle: .alert)
-//            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-//            alert.addAction(ok)
-//            present(alert, animated: true, completion: nil)
-//        }
-//        return true
-//    }
-    
-    func matches(for regex: String, in text: String) -> [String] {
-        
-        do {
-            let regex = try NSRegularExpression(pattern: regex)
-            let results = regex.matches(in: text,
-                                        range: NSRange(text.startIndex..., in: text))
-            return results.map {
-                String(text[Range($0.range, in: text)!])
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return []
-        }
-    }
 }
 
 extension EditTileViewController: PhotoEditorDelegate {

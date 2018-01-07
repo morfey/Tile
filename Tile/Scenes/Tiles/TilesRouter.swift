@@ -41,7 +41,7 @@ class TilesRouter: NSObject, TilesRoutingLogic, TilesDataPassing
     // MARK: Navigation
     
     func navigateToEditTile(source: TilesViewController, destination: EditTileViewController) {
-        source.present(destination, animated: true, completion: nil)
+        source.show(destination, sender: nil)
     }
     
     // MARK: Passing data
