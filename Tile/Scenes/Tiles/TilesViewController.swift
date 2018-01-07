@@ -16,7 +16,7 @@ protocol TilesDisplayLogic: class
     func display(alert: UIAlertController)
 }
 
-class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationControllerDelegate
+class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationControllerDelegate, UIGestureRecognizerDelegate
 {
     var interactor: TilesBusinessLogic?
     var router: (NSObjectProtocol & TilesRoutingLogic & TilesDataPassing)?
@@ -77,6 +77,12 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
         tilesView.register(UINib(nibName: "TileCell", bundle: nil), forCellWithReuseIdentifier: "TileCell")
         tilesView.delegate = self
         tilesView.dataSource = self
+        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        lpgr.minimumPressDuration = 1.5
+        lpgr.delegate = self
+        lpgr.delaysTouchesBegan = true
+        self.tilesView.addGestureRecognizer(lpgr)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,6 +108,34 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     
     @IBAction func profileBtnTapped(_ sender: Any) {
         performSegue(withIdentifier: "Profile", sender: nil)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer){
+        if (gestureRecognizer.state != UIGestureRecognizerState.began){
+            return
+        }
+        
+        let p = gestureRecognizer.location(in: self.tilesView)
+        
+        if let indexPath = self.tilesView.indexPathForItem(at: p) {
+            let tile = self.tiles[indexPath.row]
+            let user = KeychainWrapper.standard.string(forKey: UID_KEY) ?? ""
+            let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to delete \(tile.name)", preferredStyle: .alert)
+            alert.view.tintColor = #colorLiteral(red: 0.8930782676, green: 0.7270605564, blue: 0.417747438, alpha: 1)
+            let action = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.tilesView.performBatchUpdates({
+                    self.tiles.remove(at: indexPath.row)
+                    self.tilesView.deleteItems(at: [indexPath])
+                    FirebaseService.shared.delete(tile: tile, forUser: user)
+                }) { (finished) in
+                    self.tilesView.reloadItems(at: self.tilesView.indexPathsForVisibleItems)
+                }
+            })
+            let cancel = UIAlertAction(title: "No", style: .cancel, handler: nil)
+            alert.addAction(action)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func isConnectedToWifi() {
@@ -130,6 +164,11 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel) {
         waitView.isHidden = true
         activityIndicator.stopAnimating()
+        viewModel.tiles.forEach {
+            FirebaseService.shared.deleteObserve(tile: $0, completion: { [weak self] in
+                self?.initializeTiles()
+            })
+        }
         tiles.removeAll()
         tiles.append(contentsOf: viewModel.tiles)
         tiles.reverse()

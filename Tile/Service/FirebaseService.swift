@@ -82,6 +82,14 @@ class FirebaseService {
         }
     }
     
+    func deleteObserve(tile: Tile, completion: @escaping() -> ()) {
+        REF_TILES.observe(.childRemoved) { snapshot in
+            if snapshot.key == tile.id {
+                completion()
+            }
+        }
+    }
+    
     func add(tile: Tile, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
         REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
@@ -151,13 +159,18 @@ class FirebaseService {
     }
     
     func update(tile: Tile, name: String, completion: (() -> ())? = nil) {
-        self.REF_TILES.child(tile.id).updateChildValues([NAME_KEY: name])
+        REF_TILES.child(tile.id).updateChildValues([NAME_KEY: name])
         completion?()
     }
     
     func update(tile: Tile, owner: String, completion: (() -> ())? = nil) {
-        self.REF_TILES.child(tile.id).updateChildValues([OWNER_KEY: owner])
+        REF_TILES.child(tile.id).updateChildValues([OWNER_KEY: owner])
         completion?()
+    }
+    
+    func delete(tile: Tile, forUser user: String) {
+        REF_TILES.child(tile.id).removeValue()
+        REF_USERS.child(user).child(TILES_KEY).child(tile.id).removeValue()
     }
     
     // MARK: - Work with images

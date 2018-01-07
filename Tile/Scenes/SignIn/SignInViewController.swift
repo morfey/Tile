@@ -9,11 +9,7 @@
 import UIKit
 import GoogleSignIn
 
-protocol SignInDisplayLogic: class
-{
-}
-
-class SignInViewController: UIViewController, SignInDisplayLogic, GIDSignInUIDelegate, GoogleManagerDelegate
+class SignInViewController: UIViewController, GIDSignInUIDelegate, GoogleManagerDelegate
 {
     
     // MARK: Object lifecycle
