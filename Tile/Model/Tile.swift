@@ -25,6 +25,7 @@ struct Tile {
     var chargeStatus: Bool
     var currentStatus: String
     var sleepTime: String
+    var time: Int
     var imageUrl: String?
     var otaUrl: String?
     var firmwareVersion: String?
@@ -48,6 +49,7 @@ struct Tile {
         self.otaUrl = "none"
         self.imageUrl = "none"
         self.sleepTime = "22:30 - 08:00"
+        self.time = Int(Date().timeIntervalSince1970)
     }
     
     mutating func add(image: String) {
@@ -86,5 +88,6 @@ extension Tile: Unboxable {
         self.currentStatus = try unboxer.unbox(key: CURRENTSTATUS_KEY)
         self.needUpdateCurrentStatus = try unboxer.unbox(key: NEEDUPDATECURRENTSTATUS_KEY)
         self.sleepTime = try unboxer.unbox(key: SLEEPTIME_KEY)
+        self.time = try unboxer.unbox(key: TIME_KEY)
     }
 }

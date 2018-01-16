@@ -13,6 +13,7 @@ protocol TilesPresentationLogic
     func presentNewTile(response: Tiles.NewTile.Response)
     func presentUsersTiles(responce: Tiles.GetTiles.Response)
     func present(alert: UIAlertController)
+    func presentEditedTile(response: Tiles.EditedImage.Response)
 }
 
 class TilesPresenter: TilesPresentationLogic
@@ -44,5 +45,10 @@ class TilesPresenter: TilesPresentationLogic
     
     func present(alert: UIAlertController) {
         viewController?.display(alert: alert)
+    }
+    
+    func presentEditedTile(response: Tiles.EditedImage.Response) {
+        let viewModel = Tiles.EditedImage.ViewModel(tile: response.tile, image: response.image)
+        viewController?.displayEditedTile(viewModel: viewModel)
     }
 }

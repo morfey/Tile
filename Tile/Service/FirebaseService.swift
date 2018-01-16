@@ -73,9 +73,12 @@ class FirebaseService {
         REF_TILES.child(id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
                 let tile: Tile? = try? unbox(dictionary: snapshot)
-                self.update(tile: tile!, owner: userId)
-                self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([id: true])
-                completion(.success, tile)
+                if let tile = tile {
+                    self.update(tile: tile, owner: userId)
+                    self.updateTime(tile: tile)
+                    self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([id: true])
+                    completion(.success, tile)
+                }
             } else {
                 self.waiter(id: id, userId: userId, completion: completion)
             }
@@ -168,6 +171,10 @@ class FirebaseService {
         completion?()
     }
     
+    func updateTime(tile: Tile) {
+        REF_TILES.child(tile.id).updateChildValues([TIMEZONE_KEY: TimeZone.current.identifier, NEEDUPDATETIME_KEY: true, TIME_KEY: Int(Date().timeIntervalSince1970)])
+    }
+    
     func delete(tile: Tile, forUser user: String) {
         REF_TILES.child(tile.id).removeValue()
         REF_USERS.child(user).child(TILES_KEY).child(tile.id).removeValue()
@@ -175,7 +182,7 @@ class FirebaseService {
     
     // MARK: - Work with images
     
-    func upload(image: UIImage, forTile tile: Tile, completion: @escaping (String) -> ()) {
+    func upload(image: UIImage, forTile tile: Tile, completion: @escaping () -> ()) {
         if let imgData = UIImageJPEGRepresentation(image, 1.0) {
             let imgUid = NSUUID().uuidString
             let metadata = StorageMetadata()
@@ -189,10 +196,18 @@ class FirebaseService {
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL {
                         self.update(tile: tile, withImage: url) {
-                            completion(url)
                         }
                     }
                 }
+            }
+            completion()
+        }
+    }
+    
+    func imageObserve(tile: Tile, completion: @escaping () -> ()) {
+        REF_TILES.child(tile.id).observe(.childChanged) { snapshot in
+            if snapshot.key == IMAGEURL_KEY {
+                completion()
             }
         }
     }

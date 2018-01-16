@@ -49,7 +49,7 @@ class TileCell: UICollectionViewCell {
                 tileImageView.removeBlurEffect()
             }
             if let imgStr = tile.imageUrl, imgStr != "none" {
-                tileImageView.kf.setImage(with: URL(string: imgStr))
+                tileImageView.kf.setImage(with: URL(string: imgStr), placeholder: #imageLiteral(resourceName: "empty_image").imageWithInsets(insetDimen: 30), options: nil, progressBlock: nil, completionHandler: nil)
                 tileImageView.contentMode = .scaleAspectFill
                 tileImageView.clipsToBounds = true
                 tileImageView.layer.shadowColor = UIColor.clear.cgColor

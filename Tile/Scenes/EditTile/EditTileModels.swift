@@ -32,7 +32,7 @@ enum EditTile
         }
         struct Response
         {
-            var url: String
+            
         }
         struct ViewModel
         {

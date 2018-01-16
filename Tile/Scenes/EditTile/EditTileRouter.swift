@@ -31,10 +31,12 @@ class EditTileRouter: NSObject, EditTileRoutingLogic, EditTileDataPassing
             var destinationDS = destinationVC.router!.dataStore!
             passDataToTiles(source: dataStore!, destination: &destinationDS)
         } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "TilesViewController") as! TilesViewController
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let destinationVC = storyboard.instantiateViewController(withIdentifier: "TilesViewController") as! TilesViewController
+            
+            guard let destinationVC = viewController?.navigationController?.viewControllers.filter({ $0 is TilesViewController }).first as? TilesViewController else { return }
             var destinationDS = destinationVC.router!.dataStore!
-//            passDataToTiles(source: dataStore!, destination: &destinationDS)
+            passDataToTiles(source: dataStore!, destination: &destinationDS)
             navigateToTiles(source: viewController!, destination: destinationVC)
         }
     }
@@ -51,6 +53,7 @@ class EditTileRouter: NSObject, EditTileRoutingLogic, EditTileDataPassing
     
     func passDataToTiles(source: EditTileDataStore, destination: inout TilesDataStore)
     {
-//        destination.selectedImage = source.imageWithFilter
+        guard let tile = source.tile, let image = source.image else { return }
+        destination.editedTile = (tile, image)
     }
 }

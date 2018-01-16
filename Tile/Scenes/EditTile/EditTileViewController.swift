@@ -38,6 +38,9 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     @IBOutlet weak var conteinerImage: UIView!
     @IBOutlet weak var originalImage: UIImageView!
     @IBOutlet weak var imagesCollectionView: UICollectionView!
+    @IBOutlet weak var sleepTimeStartTextField: UITextField!
+    @IBOutlet weak var sleepTimeEndTextField: UITextField!
+    @IBOutlet weak var segment: TTSegmentedControl!
     
     private func setup()
     {
@@ -56,15 +59,12 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     // MARK: View lifecycle
     private var imagePicker: UIImagePickerController!
     private var angle: Double = 0.0
-    private var imgSelected = false
-    private var images: NSMutableArray!
+    private var isChanged = false
+    private var images: NSMutableArray = []
     private var totalImageCountNeeded: Int!
     private var tile: Tile!
     private var numberOfCellsPerRow = 3
-    
-    @IBOutlet weak var sleepTimeStartTextField: UITextField!
-    @IBOutlet weak var sleepTimeEndTextField: UITextField!
-    @IBOutlet weak var segment: TTSegmentedControl!
+    private var tileLoadedImage: UIImage!
     
     var CIFilterNames = [
         "CIPhotoEffectChrome",
@@ -113,20 +113,36 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         if let url = tile.imageUrl {
             let placeholder = #imageLiteral(resourceName: "empty_image").imageWithInsets(insetDimen: 30)
             originalImage.kf.setImage(with: URL(string: url), placeholder: placeholder, options: nil, progressBlock: nil)
+            tileLoadedImage =  originalImage.image
         }
-        fetchPhotos()
+        
+        let photos = PHPhotoLibrary.authorizationStatus()
+        if photos == .notDetermined {
+            PHPhotoLibrary.requestAuthorization({status in
+                if status == .authorized{
+                    self.fetchPhotos()
+                } else {
+                    // TODO: - open instapicks gallery
+                }
+            })
+        } else {
+            self.fetchPhotos()
+        }
     }
     
     @IBAction func saveBtnTapped(_ sender: Any) {
         originalImage.endEditing(true)
-        if let image = originalImage.image {
-            let request = EditTile.ImageForTile.Request(image: image)
-            interactor?.saveImageForTile(request: request)
-        }
-        
-        let sleepTime = (sleepTimeStartTextField.text ?? "") + " - " + (sleepTimeEndTextField.text ?? "")
+        let startSleep = sleepTimeStartTextField.text != "" ? sleepTimeStartTextField.text : sleepTimeStartTextField.placeholder
+        let stopSleep = sleepTimeEndTextField.text != "" ? sleepTimeEndTextField.text : sleepTimeEndTextField.placeholder
+        let sleepTime = (startSleep ?? "") + " - " + (stopSleep ?? "")
         if sleepTime != tile.sleepTime {
             FirebaseService.shared.update(tile: tile, sleepTime: sleepTime)
+        }
+        if let image = originalImage.image, image != tileLoadedImage {
+            let request = EditTile.ImageForTile.Request(image: image)
+            interactor?.saveImageForTile(request: request)
+        } else {
+            router?.routeToTiles(segue: nil)
         }
     }
     
@@ -183,11 +199,14 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         
         if fetchResult.count > 0 {
             imgManager.requestImage(for: fetchResult.object(at: fetchResult.count - 1 - index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
-                self.images.add(image!)
+                if let image = image {
+                    self.images.add(image)
+                }
                 if index + 1 < fetchResult.count && self.images.count < self.totalImageCountNeeded {
                     self.fetchPhotoAtIndexFromEnd(index: index + 1)
                 } else {
                     print("Completed array: \(self.images)")
+                    self.imagesCollectionView.reloadData()
                 }
             })
         }
@@ -202,10 +221,10 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             originalImage.image = image
-            imgSelected = true
+            isChanged = true
         } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             originalImage.image = image
-            imgSelected = true
+            isChanged = true
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
@@ -254,7 +273,7 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
             } else {
                 originalImage.image = cell.imageView.image!
                 //                configure()
-                imgSelected = true
+                isChanged = true
                 //                effectsView.isHidden = true
             }
         }

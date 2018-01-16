@@ -13,28 +13,27 @@ protocol TilesBusinessLogic
     func checkWifiConnection()
     func getTiles(request: Tiles.GetTiles.Request)
     func addNewTile(request: Tiles.NewTile.Request)
-    
-    var selectedImage: UIImage? {get set}
     var selectedTile: Tile? {get set}
+    var editedTile: (Tile, UIImage)! {get set}
 }
 
 protocol TilesDataStore
 {
-    var selectedImage: UIImage? {get set}
+    var newTile: Tile! {get set}
     var selectedTile: Tile? {get set}
-    var newTile: Tile? {get set}
+    var editedTile: (Tile, UIImage)! {get set}
 }
 
 class TilesInteractor: TilesBusinessLogic, TilesDataStore
 {
-    var selectedImage: UIImage?
-    var selectedTile: Tile?
-    var newTile: Tile? {
+    var newTile: Tile! {
         didSet {
-            let response = Tiles.NewTile.Response(tile: newTile!)
+            let response = Tiles.NewTile.Response(tile: newTile)
             presenter?.presentNewTile(response: response)
         }
     }
+    var editedTile: (Tile, UIImage)!
+    var selectedTile: Tile?
     var presenter: TilesPresentationLogic?
     var worker: TilesWorker?
     

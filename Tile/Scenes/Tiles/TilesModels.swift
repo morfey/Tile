@@ -60,5 +60,20 @@ enum Tiles
             var tiles: [Tile]
         }
     }
+    enum EditedImage {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var tile: Tile
+            var image: UIImage
+        }
+        struct ViewModel
+        {
+            var tile: Tile
+            var image: UIImage
+        }
+    }
     
 }

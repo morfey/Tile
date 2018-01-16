@@ -1,4 +1,4 @@
-//
+ //
 //  TilesViewController.swift
 //  Tile
 //
@@ -14,6 +14,7 @@ protocol TilesDisplayLogic: class
     func displayNewTile(viewModel: Tiles.NewTile.ViewModel)
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel)
     func display(alert: UIAlertController)
+    func displayEditedTile(viewModel: Tiles.EditedImage.ViewModel)
 }
 
 class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationControllerDelegate, UIGestureRecognizerDelegate
@@ -96,6 +97,10 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
         if KeychainWrapper.standard.string(forKey: UID_KEY) == nil {
             performSegue(withIdentifier: "Login", sender: nil)
         }
+        if let tile = interactor?.editedTile {
+            guard let index = tiles.index(where: {$0.id == tile.0.id}), let item = tilesView.cellForItem(at: IndexPath(item: index, section: 0)) as? TileCell else {return}
+            item.tileImageView.image = tile.1
+        }
     }
     
     // MARK: Do something
@@ -168,6 +173,9 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
             FirebaseService.shared.deleteObserve(tile: $0, completion: { [weak self] in
                 self?.initializeTiles()
             })
+            FirebaseService.shared.imageObserve(tile: $0, completion: { [weak self] in
+                self?.initializeTiles()
+            })
         }
         tiles.removeAll()
         tiles.append(contentsOf: viewModel.tiles)
@@ -178,6 +186,18 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     
     func display(alert: UIAlertController) {
         present(alert, animated: true, completion: nil)
+    }
+    
+    func displayEditedTile(viewModel: Tiles.EditedImage.ViewModel) {
+//        if let index = tiles.index(where: {viewModel.tile.id == $0.id}) {
+////            tilesView.performBatchUpdates({
+//                if let cell = tilesView.cellForItem(at: IndexPath(item: index, section: 0)) as? TileCell {
+//                    cell.tileImageView.image = viewModel.image
+//                }
+////            }, completion: { (finished) in
+////                self.tilesView.reloadItems(at: [IndexPath(item: index, section: 0)])
+////            })
+//        }
     }
 }
 
