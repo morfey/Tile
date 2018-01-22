@@ -204,6 +204,28 @@ class FirebaseService {
         }
     }
     
+    func upload(image: UIImage, forUser user: String, completion: @escaping () -> ()) {
+        if let imgData = UIImageJPEGRepresentation(image, 1.0) {
+            let imgUid = NSUUID().uuidString
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            STORAGE_REF.child(user).child(imgUid).putData(imgData, metadata: metadata) { (metadata, error) in
+                if error != nil {
+                    print ("USER: Unable to upload image")
+                } else {
+                    print ("USER: Success upload image")
+                    let downloadURL = metadata?.downloadURL()?.absoluteString
+                    if let url = downloadURL {
+                        self.updateUser(avatar: url) {
+                            completion()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func imageObserve(tile: Tile, completion: @escaping () -> ()) {
         REF_TILES.child(tile.id).observe(.childChanged) { snapshot in
             if snapshot.key == IMAGEURL_KEY {
@@ -221,6 +243,13 @@ class FirebaseService {
                     completion(snapshot)
                 }
             }
+        }
+    }
+    
+    func updateUser(avatar: String, completion: @escaping () -> ()) {
+        if let current = KeychainWrapper.standard.string(forKey: UID_KEY) {
+            REF_USERS.child(current).updateChildValues(["profileImgUrl": avatar])
+            completion()
         }
     }
     

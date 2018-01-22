@@ -77,6 +77,12 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "network")
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        socket.disconnect()
+        socket = nil
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var waitView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
