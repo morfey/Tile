@@ -70,12 +70,26 @@ class TilesInteractor: TilesBusinessLogic, TilesDataStore
         FirebaseService.shared.add(tile: tile, userId: request.userId) { [weak self] status, tile in
             switch status {
             case .success, .recconnect:
-                FirebaseService.shared.addObserveForTile(tile: tile!) {
-                    let response = Tiles.NewTile.Response(tile: tile!)
-                    self?.presenter?.presentNewTile(response: response)
+                FirebaseService.shared.addObserveForTile(tile: tile!) { error in
+                    if let error = error {
+                        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+                        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                        alert.addAction(action)
+                        alert.view.tintColor = #colorLiteral(red: 0.8930782676, green: 0.7270605564, blue: 0.417747438, alpha: 1)
+                        self?.presenter?.present(alert: alert)
+                    } else {
+                        let response = Tiles.NewTile.Response(tile: tile!)
+                        self?.presenter?.presentNewTile(response: response)
+                    }
                 }
             case .notYourTile:
                 let alert = UIAlertController(title: "Error", message: "Not your tile", preferredStyle: .alert)
+                alert.addTextField(configurationHandler: nil)
+                let action = UIAlertAction(title: "OK", style: .default)
+                alert.addAction(action)
+                self?.presenter?.present(alert: alert)
+            case .timeoutError:
+                let alert = UIAlertController(title: "Error", message: "Timeout Error", preferredStyle: .alert)
                 alert.addTextField(configurationHandler: nil)
                 let action = UIAlertAction(title: "OK", style: .default)
                 alert.addAction(action)

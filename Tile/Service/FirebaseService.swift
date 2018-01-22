@@ -18,7 +18,8 @@ private let STORAGE_REF = Storage.storage().reference()
 enum TileConnection {
     case success,
          notYourTile,
-         recconnect
+         recconnect,
+         timeoutError
 }
 
 class FirebaseService {
@@ -29,8 +30,17 @@ class FirebaseService {
     
     private(set) var REF_USERS = DATABASE_REF.child(USERS_KEY)
     private(set) var REF_TILES = DATABASE_REF.child(TILES_KEY)
+    private var timer = Timer()
     
     // MARK: - Work with Tiles
+    
+    func runTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self,   selector: (#selector(cancel)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func cancel() {
+        REF_TILES.removeAllObservers()
+    }
     
     func getUsersTiles(byId: String, completion: @escaping(Dictionary<String, Any>) -> ()) {
         var tilesData: Dictionary<String, Any> = [:]
@@ -59,30 +69,36 @@ class FirebaseService {
         }
     }
     
-    func addObserveForTile(tile: Tile, completion: @escaping() -> ()) {
+    func addObserveForTile(tile: Tile, completion: @escaping(String?) -> ()) {
         REF_TILES.child(tile.id).child(CURRENTSTATUS_KEY).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? String {
                 if snapshot == "online" {
-                    completion()
+                    completion(nil)
                 }
             }
         }
     }
     
     func waiter(id: String, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
-        REF_TILES.child(id).observeSingleEvent(of: .value) { snapshot in
-            if let snapshot = snapshot.value as? Dictionary<String, Any> {
-                let tile: Tile? = try? unbox(dictionary: snapshot)
-                if let tile = tile {
-                    self.update(tile: tile, owner: userId)
-                    self.updateTime(tile: tile)
-                    self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([id: true])
-                    completion(.success, tile)
+        var times = 30
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { inTimer in
+            times -= 3
+            self.REF_TILES.child(id).observeSingleEvent(of: .value) { snapshot in
+                if let snapshot = snapshot.value as? Dictionary<String, Any> {
+                    let tile: Tile? = try? unbox(dictionary: snapshot)
+                    if let tile = tile {
+                        self.update(tile: tile, owner: userId)
+                        self.updateTime(tile: tile)
+                        self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([id: true])
+                        completion(.success, tile)
+                    }
                 }
-            } else {
-                self.waiter(id: id, userId: userId, completion: completion)
             }
-        }
+            if times <= 0 {
+                inTimer.invalidate()
+                completion(.timeoutError, nil)
+            }
+        })
     }
     
     func deleteObserve(tile: Tile, completion: @escaping() -> ()) {
