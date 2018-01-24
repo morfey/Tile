@@ -170,7 +170,11 @@ class FirebaseService {
         REF_TILES.child(tile.id).observeSingleEvent(of: .value) { snapshot in
             if let snapshot = snapshot.value as? Dictionary<String, Any> {
                 if let currentsSleepTime = snapshot[SLEEPTIME_KEY] as? String, currentsSleepTime != sleepTime {
-                    self.REF_TILES.child(tile.id).updateChildValues([SLEEPTIME_KEY: sleepTime, NEEDUPDATESLEEPINGTIME_KEY: true])
+                    self.REF_TILES.child(tile.id).updateChildValues([SLEEPTIME_KEY: sleepTime,
+                                                                     NEEDUPDATESLEEPINGTIME_KEY: true,
+                                                                     TIMEZONE_KEY: TimeZone.current.identifier,
+                                                                     NEEDUPDATETIME_KEY: true,
+                                                                     TIME_KEY: Int(Date().timeIntervalSince1970)])
                     completion?()
                 }
             }
