@@ -79,6 +79,16 @@ class FirebaseService {
         }
     }
     
+    func sleepingObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
+        REF_TILES.child(tile.id).child(SLEEPING_KEY).observe(.value) { snapshot in
+            if let snapshot = snapshot.value as? Bool {
+                if snapshot == !tile.sleeping {
+                    completion(tile)
+                }
+            }
+        }
+    }
+    
     func waiter(id: String, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
         var times = 30
         Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { inTimer in

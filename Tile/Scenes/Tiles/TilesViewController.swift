@@ -176,6 +176,9 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
             FirebaseService.shared.imageObserve(tile: $0, completion: { [weak self] in
                 self?.initializeTiles()
             })
+            FirebaseService.shared.sleepingObserver(tile: $0, completion: { [weak self] tile in
+                self?.initializeTiles()
+            })
         }
         tiles.removeAll()
         tiles.append(contentsOf: viewModel.tiles)
