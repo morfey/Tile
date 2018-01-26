@@ -16,6 +16,7 @@ protocol ConnectToTileDisplayLogic: class
     func displayNewTile(viewModel: ConnectToTile.NewTile.ViewModel)
     func displayWifiConnectionAlert(viewModel: ConnectToTile.ConnectionStatus.ViewModel)
     func display(alert: UIAlertController)
+    func timeOutError()
 }
 
 class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
@@ -123,6 +124,10 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
     
     func display(alert: UIAlertController) {
         present(alert, animated: true, completion: nil)
+    }
+    
+    func timeOutError() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

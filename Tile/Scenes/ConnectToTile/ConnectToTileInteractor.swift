@@ -48,7 +48,9 @@ class ConnectToTileInteractor: ConnectToTileBusinessLogic, ConnectToTileDataStor
                 case .timeoutError:
                     let alert = UIAlertController(title: "Error", message: "Timeout Error", preferredStyle: .alert)
                     alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
-                    let action = UIAlertAction(title: "OK", style: .default)
+                    let action = UIAlertAction(title: "Try again", style: .default, handler: { _ in
+                        self?.presenter?.timeOutError()
+                        })
                     alert.addAction(action)
                     self?.presenter?.present(alert: alert)
                 }

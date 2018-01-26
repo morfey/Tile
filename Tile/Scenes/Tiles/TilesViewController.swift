@@ -99,6 +99,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
         }
         if let tile = interactor?.editedTile {
             guard let index = tiles.index(where: {$0.id == tile.0.id}), let item = tilesView.cellForItem(at: IndexPath(item: index, section: 0)) as? TileCell else {return}
+            item.tileImageView.contentMode = .scaleAspectFill
             item.tileImageView.image = tile.1
         }
     }

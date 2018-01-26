@@ -80,9 +80,9 @@ class FirebaseService {
     }
     
     func sleepingObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
-        REF_TILES.child(tile.id).child(SLEEPING_KEY).observe(.value) { snapshot in
+        REF_TILES.child(tile.id).child(ISSLEPPING_KEY).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? Bool {
-                if snapshot == !tile.sleeping {
+                if snapshot == !(tile.isSleeping ?? false) {
                     completion(tile)
                 }
             }

@@ -12,6 +12,7 @@ protocol ConnectToTilePresentationLogic
     func presentNewTile(response: ConnectToTile.NewTile.Response)
     func presentWifiAlert(response: ConnectToTile.ConnectionStatus.Response)
     func present(alert: UIAlertController)
+    func timeOutError()
 }
 
 class ConnectToTilePresenter: ConnectToTilePresentationLogic
@@ -39,5 +40,9 @@ class ConnectToTilePresenter: ConnectToTilePresentationLogic
         alert.addAction(actionSettings)
         let viewModel = ConnectToTile.ConnectionStatus.ViewModel(alert: alert)
         viewController?.displayWifiConnectionAlert(viewModel: viewModel)
+    }
+    
+    func timeOutError() {
+        viewController?.timeOutError()
     }
 }
