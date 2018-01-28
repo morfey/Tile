@@ -32,6 +32,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GoogleManager
         SignIn.shared.delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = SignIn.shared
+        addGestureRecorgonizerForDismissPicker()
     }
     
     // MARK: Do something
@@ -50,8 +51,12 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GoogleManager
     }
     
     @IBAction func facebookBtnTapped(_ sender: UIButton) {
-        SignIn.shared.facebookSignIn { [weak self] _ in
-            self?.routeToTiles(segue: nil)
+        SignIn.shared.facebookSignIn { [weak self] error in
+            if let error = error {
+                self?.presentError(error)
+            } else {
+                self?.routeToTiles(segue: nil)
+            }
         }
     }
     

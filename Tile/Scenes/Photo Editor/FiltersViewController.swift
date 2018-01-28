@@ -83,10 +83,9 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
             filterButton.addTarget(self, action: #selector(didSelectFilter(_:)), for: .touchUpInside)
             filterButton.layer.cornerRadius = 6
             filterButton.clipsToBounds = true
-            filterButton.imageView?.contentMode = .center
             let imageForButton = UIImage(cgImage: i)
-            filterButton.setBackgroundImage(imageForButton, for: .normal)
-            filterButton.contentMode = .scaleAspectFit
+            filterButton.setImage(imageForButton, for: .normal)
+            filterButton.imageView?.contentMode = .scaleAspectFill
             xCoord +=  buttonWidth + gapBetweenButtons
             scrollView.addSubview(filterButton)
             activityIndicator.stopAnimating()

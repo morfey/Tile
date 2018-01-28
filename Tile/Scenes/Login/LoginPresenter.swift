@@ -23,6 +23,7 @@ class LoginPresenter: LoginPresentationLogic
         let alert = UIAlertController(title: "Error in login", message: error.localizedDescription, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)
+        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
         let viewModel = Login.Error.ViewModel(alert: alert)
         viewController?.displayError(viewModel: viewModel)
     }

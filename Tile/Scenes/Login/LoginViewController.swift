@@ -69,6 +69,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = SignIn.shared
+        addGestureRecorgonizerForDismissPicker()
     }
     
     override func viewWillAppear(_ animated: Bool) {

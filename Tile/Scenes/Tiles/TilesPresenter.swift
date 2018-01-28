@@ -34,6 +34,7 @@ class TilesPresenter: TilesPresentationLogic
             UIApplication.shared.open(url!, options: [:], completionHandler: nil)
         }
         alert.addAction(actionSettings)
+        alert.view.tintColor = #colorLiteral(red: 0.8930782676, green: 0.7270605564, blue: 0.417747438, alpha: 1)
         let viewModel = Tiles.ConnectionStatus.ViewModel(alert: alert)
         viewController?.displayWifiConnectionAlert(viewModel: viewModel)
     }

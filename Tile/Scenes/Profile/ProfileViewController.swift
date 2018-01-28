@@ -115,7 +115,7 @@ class ProfileViewController: UIViewController, ProfileDisplayLogic
     }
     
     func presentAlert() {
-        let alert = UIAlertController(title: "Select", message: "New userpick", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Select new userpick", message: nil, preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction(title: "Use camera", style: .default, handler: { _ in
             self.cameraPicker()
         })

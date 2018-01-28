@@ -60,7 +60,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     private var imagePicker: UIImagePickerController!
     private var angle: Double = 0.0
     private var isChanged = false
-    private var images: NSMutableArray = []
+    private var photoImages: NSMutableArray = []
+    private var galleryImages: NSMutableArray = []
     private var totalImageCountNeeded: Int!
     private var tile: Tile!
     private var numberOfCellsPerRow = 3
@@ -107,7 +108,14 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         segment.defaultTextFont = UIFont.systemFont(ofSize: 17)
         segment.selectedTextFont = UIFont.systemFont(ofSize: 17)
         segment.didSelectItemWith = { (index, title) -> () in
-            print("Selected item \(index)")
+            switch index {
+            case 0:
+                self.fetchPhotos()
+            case 1:
+                self.fetchGallery()
+            default:
+                break
+            }
         }
         
         if let url = tile.imageUrl {
@@ -122,7 +130,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
                 if status == .authorized{
                     self.fetchPhotos()
                 } else {
-                    // TODO: - open instapicks gallery
+                    self.fetchGallery()
                 }
             })
         } else {
@@ -180,10 +188,24 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         originalImage.image = image
     }
     
+    func fetchGallery() {
+        if galleryImages.count == 0 {
+            galleryImages = NSMutableArray()
+            for i in 1...10 {
+                galleryImages.add(UIImage(named: "\(i)") as Any)
+            }
+        }
+        imagesCollectionView.reloadData()
+    }
+    
     func fetchPhotos () {
-        images = NSMutableArray()
-        totalImageCountNeeded = 5
-        fetchPhotoAtIndexFromEnd(index: 0)
+        if photoImages.count == 0 {
+            photoImages = NSMutableArray()
+            totalImageCountNeeded = 5
+            fetchPhotoAtIndexFromEnd(index: 0)
+        } else {
+            imagesCollectionView.reloadData()
+        }
     }
     
     func fetchPhotoAtIndexFromEnd(index:Int) {
@@ -200,12 +222,12 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         if fetchResult.count > 0 {
             imgManager.requestImage(for: fetchResult.object(at: fetchResult.count - 1 - index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
                 if let image = image {
-                    self.images.add(image)
+                    self.photoImages.add(image)
                 }
-                if index + 1 < fetchResult.count && self.images.count < self.totalImageCountNeeded {
+                if index + 1 < fetchResult.count && self.photoImages.count < self.totalImageCountNeeded {
                     self.fetchPhotoAtIndexFromEnd(index: index + 1)
                 } else {
-                    print("Completed array: \(self.images)")
+                    print("Completed array: \(self.photoImages)")
                     self.imagesCollectionView.reloadData()
                 }
             })
@@ -244,18 +266,19 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
 // MARK: UICollectionViewDelegate & DataSource
 extension EditTileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count + 1
+        return segment.currentIndex == 0 ? photoImages.count + 1 : galleryImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageCell {
-            if indexPath.row == 0 {
+            if indexPath.row == 0 && segment.currentIndex == 0 {
                 cell.configureCell(image: nil, first: true)
-            } else if indexPath.row == images.count {
+            } else if indexPath.row == photoImages.count && segment.currentIndex == 0 {
                 let image = #imageLiteral(resourceName: "phoneGalleryButton")
                 cell.configureCell(image: image, first: false)
             } else {
-                cell.configureCell(image: images.object(at: indexPath.row) as? UIImage, first: false)
+                let image = segment.currentIndex == 0 ? photoImages.object(at: indexPath.row) : galleryImages.object(at: indexPath.row)
+                cell.configureCell(image: image as? UIImage, first: false)
             }
             return cell
         } else {
@@ -265,9 +288,9 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? ImageCell {
-            if indexPath.row == 0 {
+            if indexPath.row == 0 && segment.currentIndex == 0  {
                 cameraPicker()
-            } else if indexPath.row == images.count {
+            } else if indexPath.row == photoImages.count {
                 imagePicker.sourceType = .photoLibrary
                 present(imagePicker, animated: true, completion: nil)
             } else {

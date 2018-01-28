@@ -67,10 +67,12 @@ class CreateNewAccountViewController: UIViewController, CreateNewAccountDisplayL
     @IBOutlet weak var passTextField: UITextField!
     @IBOutlet weak var bottom: NSLayoutConstraint!
     @IBOutlet weak var acceptBtn: UIButton!
+    @IBOutlet weak var weclomeConstraint: NSLayoutConstraint!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        addGestureRecorgonizerForDismissPicker()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,8 +92,10 @@ class CreateNewAccountViewController: UIViewController, CreateNewAccountDisplayL
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
                 self.bottom?.constant = 0.0
+                self.weclomeConstraint.constant = 35.0
             } else {
                 self.bottom?.constant = -endFrame!.size.height
+                self.weclomeConstraint.constant = -20
             }
             UIView.animate(withDuration: duration,
                            delay: TimeInterval(0),

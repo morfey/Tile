@@ -252,6 +252,7 @@
                         <outlet property="lastNameTextField" destination="bLc-wY-m1S" id="dE1-cc-ga8"/>
                         <outlet property="nameTextField" destination="cMx-Mj-d6M" id="4Pe-vY-w3H"/>
                         <outlet property="passTextField" destination="hSx-fc-sch" id="CKv-yp-aEi"/>
+                        <outlet property="weclomeConstraint" destination="1UD-Wc-lJD" id="lTh-vQ-b6M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nsr-Un-GHV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -959,7 +960,7 @@
         <image name="uncheckedCell" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="065-iC-K0R"/>
+        <segue reference="fg5-Cv-5yq"/>
         <segue reference="L9E-5e-SYz"/>
     </inferredMetricsTieBreakers>
 </document>
