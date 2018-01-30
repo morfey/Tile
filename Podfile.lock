@@ -5,6 +5,9 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - Crashlytics (3.9.3):
+    - Fabric (~> 1.7.2)
+  - Fabric (1.7.2)
   - FBSDKCoreKit (4.27.1):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.27.1):
@@ -81,6 +84,8 @@ PODS:
   - Wrap (2.1.1)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - FBSDKLoginKit
   - Firebase
   - Firebase/Auth
@@ -106,6 +111,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
+  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   FBSDKCoreKit: 03365dad5d790249196ffad8be4f6d8a2d98f932
   FBSDKLoginKit: 66ff53b73cffd967ab773e32fac39e90a60e6d46
   Firebase: 3e92884a63e8f76d107c43a67d2ab9071e1eda10
@@ -129,6 +136,6 @@ SPEC CHECKSUMS:
   Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
   Wrap: 9cc7da7551bb81d0846cb3df9fb624c6c32d267d
 
-PODFILE CHECKSUM: fa6370ea75a8ca3e978b71546c27dfc5a06ee6c8
+PODFILE CHECKSUM: fab05c29a0f47df9176364963457303357aabc53
 
 COCOAPODS: 1.3.1

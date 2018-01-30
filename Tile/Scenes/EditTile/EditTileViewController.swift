@@ -159,7 +159,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         
         photoEditor.photoEditorDelegate = self
         photoEditor.gpuImagePlusDelegate = self
-        photoEditor.hiddenControls = [.share, .save, .sticker]
+        photoEditor.hiddenControls = [.share, .save, .sticker, .draw]
         photoEditor.image = originalImage.image
         
         present(photoEditor, animated: true, completion: nil)
@@ -191,7 +191,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     func fetchGallery() {
         if galleryImages.count == 0 {
             galleryImages = NSMutableArray()
-            for i in 1...10 {
+            for i in 1...9 {
                 galleryImages.add(UIImage(named: "\(i)") as Any)
             }
         }
@@ -290,7 +290,7 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
         if let cell = collectionView.cellForItem(at: indexPath) as? ImageCell {
             if indexPath.row == 0 && segment.currentIndex == 0  {
                 cameraPicker()
-            } else if indexPath.row == photoImages.count {
+            } else if indexPath.row == photoImages.count && segment.currentIndex == 0 {
                 imagePicker.sourceType = .photoLibrary
                 present(imagePicker, animated: true, completion: nil)
             } else {

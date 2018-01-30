@@ -19,6 +19,8 @@ target 'Tile' do
   pod 'Wrap'
   pod 'Starscream'
   pod 'TTSegmentedControl', '~>0.3'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
   target 'TileTests' do
     inherit! :search_paths

@@ -34,14 +34,6 @@ class FirebaseService {
     
     // MARK: - Work with Tiles
     
-    func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 30, target: self,   selector: (#selector(cancel)), userInfo: nil, repeats: true)
-    }
-    
-    @objc func cancel() {
-        REF_TILES.removeAllObservers()
-    }
-    
     func getUsersTiles(byId: String, completion: @escaping(Dictionary<String, Any>) -> ()) {
         var tilesData: Dictionary<String, Any> = [:]
         REF_USERS.child(byId).child(TILES_KEY).observeSingleEvent(of: .value) { snapshot in
@@ -90,9 +82,9 @@ class FirebaseService {
     }
     
     func waiter(id: String, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
-        var times = 30
+        var times = 40
         Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { inTimer in
-            times -= 3
+            times -= 2
             self.REF_TILES.child(id).observeSingleEvent(of: .value) { snapshot in
                 if let snapshot = snapshot.value as? Dictionary<String, Any> {
                     let tile: Tile? = try? unbox(dictionary: snapshot)

@@ -584,6 +584,7 @@
 				22A5E5471F8E162F0025A0D5 /* Resources */,
 				4D63D6BEADF036C0FA9CD3B4 /* [CP] Embed Pods Frameworks */,
 				59A0AF42BD1E7C2A2AA9397F /* [CP] Copy Pods Resources */,
+				220969312020EAC80025A997 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -693,6 +694,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		220969312020EAC80025A997 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
 		4D63D6BEADF036C0FA9CD3B4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1083,11 +1097,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MTLL4AFL9Z;
+				DEVELOPMENT_TEAM = MFJQEJ7UBR;
 				INFOPLIST_FILE = Tile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.timhazhyi.instapics2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timhazhyi.instapics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1106,11 +1120,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MTLL4AFL9Z;
+				DEVELOPMENT_TEAM = MFJQEJ7UBR;
 				INFOPLIST_FILE = Tile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.timhazhyi.instapics2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timhazhyi.instapics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
