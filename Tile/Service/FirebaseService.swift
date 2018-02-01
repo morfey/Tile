@@ -92,6 +92,7 @@ class FirebaseService {
                         self.update(tile: tile, owner: userId)
                         self.updateTime(tile: tile)
                         self.REF_USERS.child(userId).child(TILES_KEY).updateChildValues([id: true])
+                        inTimer.invalidate()
                         completion(.success, tile)
                     }
                 }
@@ -312,8 +313,7 @@ class FirebaseService {
             if error == nil {
                 print ("USER: Email user auth with Firebase")
                 if let user = user {
-                    let userData = ["provider": user.providerID]
-                    self.completeSingIn(id: user.uid, userData: userData) {
+                    self.completeSingIn(id: user.uid, userData: [:]) {
                         completion(nil)
                     }
                 }
@@ -335,7 +335,10 @@ class FirebaseService {
                         if let error = error {
                             completion(error)
                         } else {
-                            completion(nil)
+                            let userData = ["provider": user.providerID, "email": email, "fullName": name + " " + lastName]
+                            self.completeSingIn(id: user.uid, userData: userData) {
+                                completion(nil)
+                            }
                         }
                     })
                 }
@@ -347,7 +350,6 @@ class FirebaseService {
         REF_USERS.observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.hasChild(id){
                 print ("Old User Detected")
-                self.createDBUser(uid: id, userData: userData)
                 KeychainWrapper.standard.set(id, forKey: UID_KEY)
                 KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
                 print("USER: Saved to keychain")
@@ -355,8 +357,6 @@ class FirebaseService {
             } else {
                 print ("New User")
                 self.createDBUser(uid: id, userData: userData)
-                KeychainWrapper.standard.set(id, forKey: UID_KEY)
-                KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
                 completion()
             }
         })

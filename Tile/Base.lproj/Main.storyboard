@@ -797,7 +797,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" keyboardAppearance="alert" textContentType="email"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="mail"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
@@ -969,7 +969,7 @@
         <image name="uncheckedCell" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fg5-Cv-5yq"/>
+        <segue reference="065-iC-K0R"/>
         <segue reference="L9E-5e-SYz"/>
     </inferredMetricsTieBreakers>
 </document>
