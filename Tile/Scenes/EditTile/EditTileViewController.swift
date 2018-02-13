@@ -191,8 +191,10 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     func fetchGallery() {
         if galleryImages.count == 0 {
             galleryImages = NSMutableArray()
-            for i in 1...9 {
-                galleryImages.add(UIImage(named: "\(i)") as Any)
+            for i in 1...12 {
+                if let image = UIImage(named: "\(i)") {
+                    galleryImages.add(image as Any)
+                }
             }
         }
         imagesCollectionView.reloadData()

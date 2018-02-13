@@ -32,4 +32,5 @@ let CURRENTSTATUS_KEY = "currentStatus"
 let NEEDUPDATECURRENTSTATUS_KEY = "needUpdateCurrentStatus"
 let SLEEPTIME_KEY = "sleepTime"
 let TIME_KEY = "time"
-let ISSLEPPING_KEY = "isSleeping"
+//let ISSLEPPING_KEY = "isSleeping"
+
