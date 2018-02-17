@@ -324,7 +324,7 @@
                                         <color key="color" red="0.86565148830000005" green="0.73320990799999997" blue="0.46267938609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="ww2-d9-V8U" firstAttribute="centerX" secondItem="xC3-Cz-Z0p" secondAttribute="centerX" id="1PF-nE-Ay9"/>
                                     <constraint firstItem="ww2-d9-V8U" firstAttribute="centerY" secondItem="xC3-Cz-Z0p" secondAttribute="centerY" id="Vpz-2g-GMJ"/>
@@ -970,6 +970,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="065-iC-K0R"/>
-        <segue reference="L9E-5e-SYz"/>
+        <segue reference="pYg-3U-P3B"/>
     </inferredMetricsTieBreakers>
 </document>

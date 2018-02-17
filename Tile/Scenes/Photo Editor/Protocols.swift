@@ -72,5 +72,5 @@ protocol ColorDelegate {
 
 public protocol GPUimagePlusDelegate {
     func proccessFilters(image: UIImage) -> ([CGImage])
-    func applyFilter(index: Int, toImage image: UIImage) -> UIImage
+    func applyFilter(index: Int, toImage image: UIImage) -> UIImage?
 }

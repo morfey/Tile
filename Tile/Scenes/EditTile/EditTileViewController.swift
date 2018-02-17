@@ -171,9 +171,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         return images
     }
     
-    func applyFilter(index: Int, toImage image: UIImage) -> UIImage {
-        let worker = EditTileWorker()
-        return worker.applyGPUImageFilter(index: index, toImage: image)
+    func applyFilter(index: Int, toImage image: UIImage) -> UIImage? {
+        return interactor?.applyGPUImageFilter(index: index, toImage: image)
     }
     
     func cameraPicker() {
