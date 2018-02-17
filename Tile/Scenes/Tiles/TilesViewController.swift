@@ -211,10 +211,9 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let totalCellWidth = 140
+        let totalSpacingWidth = 10
         if tiles.count == 0 {
-            let totalCellWidth = 120
-            let totalSpacingWidth = 0
-            
             let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
             let rightInset = leftInset
             
@@ -222,8 +221,12 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
             let bottomInset = topInset
             
             return UIEdgeInsetsMake(topInset, leftInset, bottomInset, rightInset)
+        } else if tiles.count < 3 {
+            let topInset = (collectionView.frame.height - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+            let bottomInset = topInset
+            return UIEdgeInsetsMake(topInset, 10, bottomInset, 10)
         } else {
-            return UIEdgeInsetsMake(10, 16, 0, 16)
+            return UIEdgeInsetsMake(10, 10, 0, 10)
         }
     }
     

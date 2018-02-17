@@ -41,6 +41,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     @IBOutlet weak var sleepTimeStartTextField: UITextField!
     @IBOutlet weak var sleepTimeEndTextField: UITextField!
     @IBOutlet weak var segment: TTSegmentedControl!
+    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
     private func setup()
     {
@@ -86,6 +87,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
+//        imagesCollectionView.
         
         sleepTimeStartTextField.delegate = self
         sleepTimeEndTextField.delegate = self
@@ -263,7 +265,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     }
 }
 // MARK: UICollectionViewDelegate & DataSource
-extension EditTileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension EditTileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return segment.currentIndex == 0 ? photoImages.count + 1 : galleryImages.count
     }
@@ -307,6 +309,7 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
             let maxS = CGFloat(max(0, numberOfCellsPerRow - 1)) * horizontalSpacing
             var cellWidth = view.frame.width - maxS + (flowLayout.sectionInset.left * 2)
             cellWidth = cellWidth / CGFloat(numberOfCellsPerRow)
+            collectionViewHeight.constant = (cellWidth + 10) * 2
             return CGSize(width: cellWidth, height: cellWidth)
         } else {
             return CGSize(width: 100, height: 100)

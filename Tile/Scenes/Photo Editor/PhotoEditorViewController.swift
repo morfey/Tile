@@ -162,10 +162,12 @@ public final class PhotoEditorViewController: UIViewController {
     }
     
     func showResult() {
+        let created = Date()
         if let outputImage = self.colorControlsSliders.outputImage {
             if let cgImageNew = self.ciImageContext.createCGImage(outputImage, from: outputImage.extent) {
                 let newImg = UIImage(cgImage: cgImageNew)
                 imageView.image = gpuImagePlusDelegate?.applyFilter(index: currentFilterIndex, toImage: newImg)
+                print(Date().timeIntervalSince(created))
             }
         }
     }
