@@ -34,9 +34,8 @@ class FiltersViewController: UIViewController, UIGestureRecognizerDelegate {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(FiltersViewController.panGesture))
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
-        
         DispatchQueue.global().async {
-            self.images = self.gpuImagePlusDelegate?.proccessFilters(image: self.originalImage)
+            self.images = self.gpuImagePlusDelegate?.proccessFilters(image: self.originalImage.resizeImageWidthAspect(newHeight: 100))
             DispatchQueue.main.async {
                 self.configurateScrollView()
             }

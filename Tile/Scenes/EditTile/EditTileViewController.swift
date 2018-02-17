@@ -165,10 +165,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         present(photoEditor, animated: true, completion: nil)
     }
     
-    func proccessFilters(image: UIImage) -> ([CGImage]) {
-        let worker = EditTileWorker()
-        let images = worker.applyGPUImageFilters(originalImage: image)
-        return images
+    func proccessFilters(image: UIImage) -> ([CGImage]?) {
+        return interactor?.applyGPUImageFilters(originalImage: image)
     }
     
     func applyFilter(index: Int, toImage image: UIImage) -> UIImage? {

@@ -84,6 +84,17 @@ public extension UIImage {
     }
     
     /// Returns a image that fills in newSize
+    func resizeImageWidthAspect(newHeight: CGFloat) -> UIImage {
+        guard self.size.height != newHeight else { return self }
+        let scale = newHeight / self.size.height
+        let newWidth = self.size.width * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     func resizedImage(newSize: CGSize) -> UIImage {
         // Guard newSize is different
         guard self.size != newSize else { return self }
