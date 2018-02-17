@@ -107,7 +107,9 @@ class LoginViewController: UIViewController, LoginDisplayLogic, GIDSignInUIDeleg
     }
     
     func handleError(_ error: Error) {
-        presenter?.presentError(error)
+        if (error as NSError).code != -5 {
+            presenter?.presentError(error)
+        }
     }
     
     func handleSuccess() {

@@ -28,13 +28,12 @@ class SignIn: NSObject, GIDSignInDelegate {
     func facebookSignIn(completion: @escaping (Error?) -> ()) {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: LoginViewController.self()) { (result, error) in
-            if let error = error {
+            if result?.isCancelled == true || ((error as NSError?)?.code ?? 1) == 1 {
+                print ("USER: User canceled authentification")
+            } else if let error = error {
                 print("USER: UNABLE to authentificate with Facebook - \(error)")
                 completion(error)
-            } else if result?.isCancelled == true {
-                print ("USER: User canceled authentification")
-            }
-            else {
+            } else {
                 print ("USER: Successfully auth with Facebook")
                 let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 FirebaseService.shared.auth(credential) { error in

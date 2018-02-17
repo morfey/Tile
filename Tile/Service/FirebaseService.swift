@@ -296,6 +296,8 @@ class FirebaseService {
                 print ("USER: Successfully auth with Firebase")
                 if let user = user {
                     let userData = ["provider": credential.provider, "fullName": user.displayName ?? "", "email": user.email ?? "", "profileImgUrl": user.photoURL?.absoluteString ?? ""]
+                    KeychainWrapper.standard.set(user.uid, forKey: UID_KEY)
+                    KeychainWrapper.standard.set(userData["fullName"] ?? "", forKey: "fullName")
                     self.completeSingIn(id: user.uid, userData: userData) {
                         completion(nil)
                     }

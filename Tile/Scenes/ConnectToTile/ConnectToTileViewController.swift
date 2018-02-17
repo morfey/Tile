@@ -150,27 +150,37 @@ extension ConnectToTileViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Connect", message: "Enter Wi-Fi password", preferredStyle: .alert)
-        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
-        alert.addTextField(configurationHandler: nil)
-        alert.textFields?.first?.isSecureTextEntry = true
-        alert.textFields?.first?.keyboardAppearance = .dark
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let action = UIAlertAction(title: "OK", style: .default) { act in
+        if !(networks[indexPath.row].isOpen ?? false) {
+            let alert = UIAlertController(title: "Connect", message: "Enter Wi-Fi password", preferredStyle: .alert)
+            alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
+            alert.addTextField(configurationHandler: nil)
+            alert.textFields?.first?.isSecureTextEntry = true
+            alert.textFields?.first?.keyboardAppearance = .dark
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let action = UIAlertAction(title: "OK", style: .default) { act in
+                self.waitView.isHidden = false
+                self.activityIndicator.isHidden = false
+                self.activityIndicator.startAnimating()
+                let pass = alert.textFields?.first?.text ?? ""
+                self.networks[indexPath.row].add(pass: pass)
+                self.socket.write(string: String.init(data: self.networks[indexPath.row].jsonRepresentation, encoding: .utf8)!)
+                
+                let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
+                let request = ConnectToTile.NewTile.Request(id: self.mac, userId: userId!)
+                self.interactor?.addNewTile(request: request)
+            }
+            alert.addAction(action)
+            alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+        } else {
             self.waitView.isHidden = false
             self.activityIndicator.isHidden = false
             self.activityIndicator.startAnimating()
-            let pass = alert.textFields?.first?.text ?? "Untitled"
-            self.networks[indexPath.row].add(pass: pass)
             self.socket.write(string: String.init(data: self.networks[indexPath.row].jsonRepresentation, encoding: .utf8)!)
-            
             let userId = KeychainWrapper.standard.string(forKey: UID_KEY)
             let request = ConnectToTile.NewTile.Request(id: self.mac, userId: userId!)
             self.interactor?.addNewTile(request: request)
         }
-        alert.addAction(action)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
     }
 }
 

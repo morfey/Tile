@@ -86,7 +86,9 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate, GoogleManager
     }
     
     func handleError(_ error: Error) {
-        presentError(error)
+        if (error as NSError).code != -5 {
+            presentError(error)
+        }
     }
     
     func handleSuccess() {

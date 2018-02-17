@@ -95,7 +95,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         
         imagePicker = UIImagePickerController()
         imagePicker.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
-        imagePicker.allowsEditing = true
+        imagePicker.allowsEditing = false
         imagePicker.delegate = self
         
         segment.itemTitles = ["Photo", "Gallery"]
