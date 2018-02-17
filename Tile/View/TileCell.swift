@@ -40,10 +40,10 @@ class TileCell: UICollectionViewCell {
         var hideBtns = true
         if let tile = tile {
             self.tile = tile
-            tileStatusBtn.isSelected = tile.sleeping
+            tileStatusBtn.isSelected = tile.sleeping || tile.currentStatus != "online"
             tileNameLbl.text = tile.name
             batteryLabel.text = "\(tile.batteryLevel)" + "%"
-            if tile.sleeping {
+            if tile.sleeping || tile.currentStatus != "online" {
                 tileImageView.addBlurEffect()
             } else {
                 tileImageView.removeBlurEffect()

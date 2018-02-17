@@ -42,6 +42,9 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var brightnessButton: UIButton!
     
     public var image: UIImage?
+    var lowResImage: UIImage? {
+        return image?.jpeg(.lowest)
+    }
     /**
      Array of Stickers -UIImage- that the user will choose from
      */

@@ -68,6 +68,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     var imagePicker: UIImagePickerController!
     var imgSelected = false
     var tiles: [Tile] = []
+    var isChecking: Bool = false
     
     override func viewDidLoad()
     {
@@ -90,6 +91,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
         super.viewWillAppear(animated)
         isConnectedToWifi()
         initializeTiles()
+//        isChecking = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -162,16 +164,19 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     }
     
     func displayNewTile(viewModel: Tiles.NewTile.ViewModel) {
+        isChecking = false
         interactor?.selectedTile = viewModel.tile
         tiles.append(viewModel.tile)
         performSegue(withIdentifier: "EditTile", sender: nil)
     }
     
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel) {
+        
         waitView.isHidden = true
         activityIndicator.stopAnimating()
         viewModel.tiles.forEach {
             FirebaseService.shared.deleteObserve(tile: $0, completion: { [weak self] in
+                self?.isChecking = false
                 self?.initializeTiles()
             })
             FirebaseService.shared.imageObserve(tile: $0, completion: { [weak self] in
@@ -180,6 +185,15 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
             FirebaseService.shared.sleepingObserver(tile: $0, completion: { [weak self] tile in
                 self?.initializeTiles()
             })
+            FirebaseService.shared.offlineObserver(tile: $0, completion: { [weak self] tile in
+                self?.initializeTiles()
+            })
+        }
+        if !isChecking {
+            isChecking = true
+            FirebaseService.shared.checkStatus(of: viewModel.tiles) { [weak self] in
+                self?.initializeTiles()
+            }
         }
         tiles.removeAll()
         tiles.append(contentsOf: viewModel.tiles)

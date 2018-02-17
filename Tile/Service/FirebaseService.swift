@@ -81,6 +81,16 @@ class FirebaseService {
         }
     }
     
+    func offlineObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
+        REF_TILES.child(tile.id).child(CURRENTSTATUS_KEY).observe(.value) { snapshot in
+            if let snapshot = snapshot.value as? String {
+                if snapshot == "offline" {
+                    completion(tile)
+                }
+            }
+        }
+    }
+    
     func waiter(id: String, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
         var times = 40
         Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { inTimer in
@@ -100,6 +110,41 @@ class FirebaseService {
             if times <= 0 {
                 inTimer.invalidate()
                 completion(.timeoutError, nil)
+            }
+        })
+    }
+    
+    func checkStatus(of tiles: [Tile], completion: @escaping() -> ()) {
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { inTimer in
+            tiles.forEach { tile in
+                self.REF_TILES.child(tile.id).child(NEEDUPDATECURRENTSTATUS_KEY).observeSingleEvent(of: .value) { snapshot in
+                    if let snapshot = snapshot.value as? Bool {
+                        if !snapshot {
+                            self.update(tile: tile, needUpdateCurrentStatus: true)
+                        } else {
+                            self.waitForResponse(for: tile, completion: completion)
+                        }
+                    }
+                }
+            }
+        })
+    }
+    
+    func waitForResponse(for tile: Tile, completion: @escaping() -> ()) {
+        var times = 10
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { inTimer in
+            times -= 2
+            self.REF_TILES.child(tile.id).child(NEEDUPDATECURRENTSTATUS_KEY).observeSingleEvent(of: .value) { snapshot in
+                if let snapshot = snapshot.value as? Bool {
+                    if !snapshot {
+                        inTimer.invalidate()
+                        completion()
+                    }
+                }
+            }
+            if times <= 0 {
+                inTimer.invalidate()
+                self.update(tile: tile, currentStatus: "offline", completion: completion)
             }
         })
     }
@@ -153,6 +198,12 @@ class FirebaseService {
         }
     }
     
+    func update(tile: Tile, currentStatus: String, completion: @escaping () -> ()) {
+        print ("I am update currentStatus at \(Date().timeIntervalSinceReferenceDate)")
+        REF_TILES.child(tile.id).updateChildValues([CURRENTSTATUS_KEY: currentStatus])
+        completion()
+    }
+    
     func update(tile: Tile, withImage imageUrl: String, completion: @escaping () -> ()) {
         REF_TILES.child(tile.id).updateChildValues([IMAGEURL_KEY: imageUrl, NEEDUPDATEIMAGE_KEY: true])
         completion()
@@ -191,6 +242,12 @@ class FirebaseService {
     
     func update(tile: Tile, owner: String, completion: (() -> ())? = nil) {
         REF_TILES.child(tile.id).updateChildValues([OWNER_KEY: owner])
+        completion?()
+    }
+    
+    func update(tile: Tile, needUpdateCurrentStatus: Bool, completion: (() -> ())? = nil) {
+        REF_TILES.child(tile.id).updateChildValues([NEEDUPDATECURRENTSTATUS_KEY: true])
+        print ("I am update needUpdateCurrentStatus at \(Date().timeIntervalSinceReferenceDate)")
         completion?()
     }
     

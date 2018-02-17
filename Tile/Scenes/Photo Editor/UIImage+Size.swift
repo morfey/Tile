@@ -9,10 +9,27 @@
 import UIKit
 
 public extension UIImage {
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
     
+    /// Returns the data for the specified image in JPEG format.
+    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+    func jpeg(_ quality: JPEGQuality) -> UIImage? {
+        if let data = UIImageJPEGRepresentation(self, quality.rawValue) {
+            return UIImage(data: data)
+        } else {
+            return UIImage()
+        }
+    }
     /**
      Suitable size for specific height or width to keep same image ratio
      */
+    
     func suitableSize(heightLimit: CGFloat? = nil,
                       widthLimit: CGFloat? = nil )-> CGSize? {
         
