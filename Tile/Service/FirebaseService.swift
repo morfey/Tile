@@ -84,7 +84,7 @@ class FirebaseService {
     func offlineObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
         REF_TILES.child(tile.id).child(CURRENTSTATUS_KEY).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? String {
-                if snapshot == "offline" {
+                if snapshot != tile.currentStatus {
                     completion(tile)
                 }
             }
@@ -133,7 +133,7 @@ class FirebaseService {
     func waitForResponse(for tile: Tile, completion: @escaping() -> ()) {
         var times = 10
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { inTimer in
-            times -= 2
+            times -= 3
             self.REF_TILES.child(tile.id).child(NEEDUPDATECURRENTSTATUS_KEY).observeSingleEvent(of: .value) { snapshot in
                 if let snapshot = snapshot.value as? Bool {
                     if !snapshot {

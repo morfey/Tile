@@ -311,7 +311,7 @@
                                     <constraint firstAttribute="height" constant="100" id="XQK-7a-pWA"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.050000000000000003" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xC3-Cz-Z0p">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xC3-Cz-Z0p">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="404"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ww2-d9-V8U">
