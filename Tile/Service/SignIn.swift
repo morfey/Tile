@@ -28,7 +28,7 @@ class SignIn: NSObject, GIDSignInDelegate {
     func facebookSignIn(completion: @escaping (Error?) -> ()) {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: LoginViewController.self()) { (result, error) in
-            if result?.isCancelled == true || ((error as NSError?)?.code ?? 1) == 1 {
+            if result?.isCancelled == true || ((error as NSError?)?.code ?? 0) == 1 {
                 print ("USER: User canceled authentification")
             } else if let error = error {
                 print("USER: UNABLE to authentificate with Facebook - \(error)")
