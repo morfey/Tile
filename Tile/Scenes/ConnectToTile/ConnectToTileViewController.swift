@@ -110,11 +110,13 @@ class ConnectToTileViewController: UIViewController, ConnectToTileDisplayLogic
         alert.addTextField(configurationHandler: nil)
         alert.textFields?.first?.keyboardAppearance = .dark
         let action = UIAlertAction(title: "OK", style: .default) { act in
-            let name = alert.textFields?.first?.text ?? "Untitled"
+            let name = alert.textFields?.first?.text ?? ""
             FirebaseService.shared.update(tile: viewModel.tile, name: name)
             self.router?.routeToTiles(segue: nil)
         }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(action)
+        alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
     }
 

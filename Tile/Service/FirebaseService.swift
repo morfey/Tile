@@ -340,7 +340,6 @@ class FirebaseService {
         do {
             try Auth.auth().signOut()
             Crashlytics.sharedInstance().setUserIdentifier("")
-            Crashlytics.sharedInstance().crash()
             completion()
         } catch {
             

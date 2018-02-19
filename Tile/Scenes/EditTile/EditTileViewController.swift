@@ -83,7 +83,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     {
         super.viewDidLoad()
         tile = router?.dataStore?.tile
-        title = tile.name
+        setupTitle(with: tile.name)
         
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
@@ -141,6 +141,34 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         } else {
             self.fetchPhotos()
         }
+    }
+    
+    func setupTitle(with name: String) {
+        let titleView = UILabel()
+        titleView.text = name
+        let width = titleView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).width
+        titleView.frame = CGRect(origin:CGPoint.zero, size:CGSize(width: width, height: 500))
+        self.navigationItem.titleView = titleView
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(EditTileViewController.titleWasTapped))
+        titleView.isUserInteractionEnabled = true
+        titleView.addGestureRecognizer(recognizer)
+    }
+    
+    @objc func titleWasTapped() {
+        let alert = UIAlertController(title: "Change Tile name", message: "Enter new name", preferredStyle: .alert)
+        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
+        alert.addTextField(configurationHandler: nil)
+        alert.textFields?.first?.keyboardAppearance = .dark
+        let action = UIAlertAction(title: "OK", style: .default) { act in
+            let name = alert.textFields?.first?.text ?? "none"
+            FirebaseService.shared.update(tile: self.tile, name: name)
+            self.setupTitle(with: name)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func saveBtnTapped(_ sender: Any) {
