@@ -710,7 +710,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="lPS-0K-j34" secondAttribute="bottom" id="0h7-lG-Asl"/>
                                     <constraint firstItem="lPS-0K-j34" firstAttribute="top" secondItem="uRt-yf-7mR" secondAttribute="top" id="14I-8Q-6gM"/>
