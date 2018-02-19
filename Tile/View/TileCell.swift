@@ -61,7 +61,6 @@ class TileCell: UICollectionViewCell {
             }
             if let imgStr = tile.imageUrl, imgStr != "none" {
                 let place = tileImageView.image
-//                tileImageView.kf.setImage(with: URL(string: imgStr))
                 tileImageView.kf.setImage(with: URL(string: imgStr), placeholder: place, options: nil, progressBlock: nil, completionHandler: nil)
                 tileImageView.contentMode = .scaleAspectFill
                 tileImageView.clipsToBounds = true

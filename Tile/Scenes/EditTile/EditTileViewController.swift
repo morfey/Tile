@@ -67,6 +67,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     private var tile: Tile!
     private var numberOfCellsPerRow = 3
     private var tileLoadedImage: UIImage!
+    private var localName: String?
     
     var CIFilterNames = [
         "CIPhotoEffectChrome",
@@ -161,9 +162,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         alert.addTextField(configurationHandler: nil)
         alert.textFields?.first?.keyboardAppearance = .dark
         let action = UIAlertAction(title: "OK", style: .default) { act in
-            let name = alert.textFields?.first?.text ?? "none"
-            FirebaseService.shared.update(tile: self.tile, name: name)
-            self.setupTitle(with: name)
+            self.localName = alert.textFields?.first?.text ?? "none"
+            self.setupTitle(with: self.localName ?? self.tile.name)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(action)
@@ -173,6 +173,9 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     
     @IBAction func saveBtnTapped(_ sender: Any) {
         originalImage.endEditing(true)
+        if let local = localName, tile.name != local {
+            FirebaseService.shared.update(tile: tile, name: local)
+        }
         let startSleep = sleepTimeStartTextField.text != "" ? sleepTimeStartTextField.text : sleepTimeStartTextField.placeholder
         let stopSleep = sleepTimeEndTextField.text != "" ? sleepTimeEndTextField.text : sleepTimeEndTextField.placeholder
         let sleepTime = (startSleep ?? "") + " - " + (stopSleep ?? "")
