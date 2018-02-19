@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self])
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         return true
     }

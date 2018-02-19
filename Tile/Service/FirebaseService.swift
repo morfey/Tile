@@ -11,6 +11,7 @@ import Firebase
 import SwiftKeychainWrapper
 import Wrap
 import Unbox
+import Crashlytics
 
 private let DATABASE_REF = Database.database().reference()
 private let STORAGE_REF = Storage.storage().reference()
@@ -338,6 +339,8 @@ class FirebaseService {
     func signOut(completion: @escaping () -> ()) {
         do {
             try Auth.auth().signOut()
+            Crashlytics.sharedInstance().setUserIdentifier("")
+            Crashlytics.sharedInstance().crash()
             completion()
         } catch {
             
@@ -406,6 +409,7 @@ class FirebaseService {
     }
     
     func completeSingIn (id: String, userData: Dictionary<String, String>, completion: @escaping () -> ()) {
+        Crashlytics.sharedInstance().setUserIdentifier(id)
         REF_USERS.observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.hasChild(id){
                 print ("Old User Detected")
