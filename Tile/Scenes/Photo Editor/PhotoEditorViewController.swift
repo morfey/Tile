@@ -43,7 +43,7 @@ public final class PhotoEditorViewController: UIViewController {
     
     public var image: UIImage?
     var lowResImage: UIImage? {
-        return image?.jpeg(.lowest)
+        return image?.jpeg(.low)?.resizeAspect(scaledToWidth: view.frame.width)
     }
     /**
      Array of Stickers -UIImage- that the user will choose from
@@ -122,7 +122,7 @@ public final class PhotoEditorViewController: UIViewController {
         colorControlsSliders.setDefaults()
         
         
-        if let img = image {
+        if let img = image?.jpeg(.medium)?.resizeAspect(scaledToWidth: view.frame.width * 2) {
             let coreImage = CIImage(image: img)?
                 .oriented(forExifOrientation: imageOrientationToTiffOrientation((img.imageOrientation)))
             self.colorControlsSliders.setValue(coreImage, forKey: kCIInputImageKey)
