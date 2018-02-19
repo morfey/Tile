@@ -54,7 +54,6 @@ open class CropViewController: UIViewController {
     }
     
     fileprivate var cropView: CropView?
-    fileprivate var rotateButton: UIButton!
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -91,12 +90,9 @@ open class CropViewController: UIViewController {
         cancelBtn.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
         navigationItem.leftBarButtonItem = cancelBtn
         
-        let rotateBtn = UIBarButtonItem(title: "Rotate", style: .plain, target: self, action: #selector(CropViewController.rotate))
-        rotateBtn.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
-        
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(CropViewController.done(_:)))
         doneBtn.tintColor = #colorLiteral(red: 0.8918183446, green: 0.7248821259, blue: 0.4182168841, alpha: 1)
-        navigationItem.rightBarButtonItems = [doneBtn, rotateBtn]
+        navigationItem.rightBarButtonItem = doneBtn
         
         if self.toolbarItems == nil {
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

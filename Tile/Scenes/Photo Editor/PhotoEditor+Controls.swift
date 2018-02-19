@@ -35,6 +35,7 @@ extension PhotoEditorViewController {
         let controller = CropViewController()
         controller.delegate = self
         controller.image = image
+        controller.toolbarHidden = true
         let navController = UINavigationController(rootViewController: controller)
         present(navController, animated: true, completion: nil)
     }
@@ -126,6 +127,7 @@ extension PhotoEditorViewController {
     @objc func image(_ image: UIImage, withPotentialError error: NSErrorPointer, contextInfo: UnsafeRawPointer) {
         let alert = UIAlertController(title: "Image Saved", message: "Image successfully saved to Photos library", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        alert.view.tintColor = #colorLiteral(red: 0.8930782676, green: 0.7270605564, blue: 0.417747438, alpha: 1)
         self.present(alert, animated: true, completion: nil)
     }
     

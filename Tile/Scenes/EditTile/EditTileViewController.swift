@@ -125,7 +125,10 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
             originalImage.kf.setImage(with: URL(string: url), placeholder: placeholder, options: nil, progressBlock: nil)
             tileLoadedImage =  originalImage.image
         }
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         let photos = PHPhotoLibrary.authorizationStatus()
         if photos == .notDetermined {
             PHPhotoLibrary.requestAuthorization({status in
@@ -278,7 +281,7 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
                 let image = #imageLiteral(resourceName: "phoneGalleryButton")
                 cell.configureCell(image: image, first: false)
             } else {
-                let image = segment.currentIndex == 0 ? photoImages.object(at: indexPath.row) : galleryImages.object(at: indexPath.row)
+                let image = segment.currentIndex == 0 ? photoImages.object(at: indexPath.row - 1) : galleryImages.object(at: indexPath.row)
                 cell.configureCell(image: image as? UIImage, first: false)
             }
             return cell
@@ -320,12 +323,17 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
 extension EditTileViewController: UITextFieldDelegate {
     func initializeTextFieldInputView() {
         // Add date picker
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat =  "HH:mm"
+        
         let datePicker1 = UIDatePicker()
         datePicker1.datePickerMode = .time
+        datePicker1.date = dateFormatter.date(from: sleepTimeStartTextField.text ?? sleepTimeStartTextField.placeholder ?? "") ?? Date()
         datePicker1.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         sleepTimeStartTextField.inputView = datePicker1
         let datePicker2 = UIDatePicker()
         datePicker2.datePickerMode = .time
+        datePicker2.date = dateFormatter.date(from: sleepTimeEndTextField.text ?? sleepTimeEndTextField.placeholder ?? "") ?? Date()
         datePicker2.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         sleepTimeEndTextField.inputView = datePicker2
         
