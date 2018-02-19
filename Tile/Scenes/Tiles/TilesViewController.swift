@@ -218,6 +218,20 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
 //        }
     }
 }
+ 
+ extension TilesViewController: TileCellDelegate {
+    func sleepBtnTapped(for tile: Tile, status: Bool) {
+        FirebaseService.shared.update(tile: tile, sleepForceStatus: status)
+    }
+    
+    func showOfflineAlert() {
+        let alert = UIAlertController(title: "Tile is offline", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        alert.view.tintColor = #colorLiteral(red: 0.8919044137, green: 0.7269840837, blue: 0.4177360535, alpha: 1)
+        present(alert, animated: true, completion: nil)
+    }
+ }
 
 extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -247,7 +261,7 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = tilesView.dequeueReusableCell(withReuseIdentifier: "TileCell", for: indexPath) as? TileCell {
             let tile = indexPath.row < tiles.count ? tiles[indexPath.row] : nil
-            cell.configureCell(tile: tile)
+            cell.configureCell(tile: tile, delegate: self)
             return cell
         } else {
             return UICollectionViewCell()

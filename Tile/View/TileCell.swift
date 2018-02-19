@@ -9,6 +9,11 @@
 import UIKit
 import Kingfisher
 
+protocol TileCellDelegate {
+    func sleepBtnTapped(for tile: Tile, status: Bool)
+    func showOfflineAlert()
+}
+
 class TileCell: UICollectionViewCell {
     @IBOutlet weak var tileNameLbl: UILabel!
     @IBOutlet weak var tileImageView: UIImageView!
@@ -16,7 +21,8 @@ class TileCell: UICollectionViewCell {
     @IBOutlet weak var batteryView: UIView!
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var viewForShadow: UIView!
-    var tile: Tile!
+    fileprivate var delegate: TileCellDelegate?
+    fileprivate var tile: Tile?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,17 +32,22 @@ class TileCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     @IBAction func sleepBtnTapped(_ sender: UIButton) {
-        guard let tile = tile else { return }
-        tileStatusBtn.isSelected = !tileStatusBtn.isSelected
-        FirebaseService.shared.update(tile: tile, sleepForceStatus: tileStatusBtn.isSelected)
-        if tileStatusBtn.isSelected {
-            tileImageView.addBlurEffect()
+        guard let tile = tile  else { return }
+        if tile.currentStatus != "offline" {
+            delegate?.sleepBtnTapped(for: tile, status: tileStatusBtn.isSelected)
+            tileStatusBtn.isSelected = !tileStatusBtn.isSelected
+            if tileStatusBtn.isSelected {
+                tileImageView.addBlurEffect()
+            } else {
+                tileImageView.removeBlurEffect()
+            }
         } else {
-            tileImageView.removeBlurEffect()
+            delegate?.showOfflineAlert()
         }
     }
     
-    func configureCell(tile: Tile?) {
+    func configureCell(tile: Tile?, delegate: TileCellDelegate) {
+        self.delegate = delegate
         var hideBtns = true
         if let tile = tile {
             self.tile = tile
