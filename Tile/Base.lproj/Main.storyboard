@@ -683,13 +683,6 @@
                                             <constraint firstAttribute="height" constant="20" id="mD2-eX-sXC"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="full_screen" translatesAutoresizingMaskIntoConstraints="NO" id="FOY-R7-v46">
-                                        <rect key="frame" x="8" y="10" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="die-iv-pVa"/>
-                                            <constraint firstAttribute="width" constant="20" id="qCj-Ad-Nqb"/>
-                                        </constraints>
-                                    </imageView>
                                     <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="22:30" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yeC-ah-qzk">
                                         <rect key="frame" x="148" y="0.0" width="60" height="40"/>
                                         <color key="tintColor" red="0.86565148830000005" green="0.73320990799999997" blue="0.46267938609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -725,11 +718,9 @@
                                     <constraint firstItem="gTh-qL-7i9" firstAttribute="leading" secondItem="lPS-0K-j34" secondAttribute="trailing" constant="8" id="8h8-Ei-F39"/>
                                     <constraint firstAttribute="trailing" secondItem="gTh-qL-7i9" secondAttribute="trailing" constant="8" id="AUt-Tc-y2b"/>
                                     <constraint firstAttribute="bottom" secondItem="yeC-ah-qzk" secondAttribute="bottom" id="Ba1-zK-2dY"/>
-                                    <constraint firstItem="FOY-R7-v46" firstAttribute="centerY" secondItem="uRt-yf-7mR" secondAttribute="centerY" id="Bkd-ED-XpS"/>
                                     <constraint firstItem="yeC-ah-qzk" firstAttribute="top" secondItem="uRt-yf-7mR" secondAttribute="top" id="GjB-e9-3If"/>
                                     <constraint firstItem="yeC-ah-qzk" firstAttribute="centerY" secondItem="uRt-yf-7mR" secondAttribute="centerY" id="NnJ-2B-7zQ"/>
                                     <constraint firstItem="2Hl-1T-x2p" firstAttribute="leading" secondItem="yeC-ah-qzk" secondAttribute="trailing" constant="4" id="YW1-UC-fBs"/>
-                                    <constraint firstItem="FOY-R7-v46" firstAttribute="leading" secondItem="uRt-yf-7mR" secondAttribute="leading" constant="8" id="aal-ay-Qfu"/>
                                     <constraint firstItem="2Hl-1T-x2p" firstAttribute="top" secondItem="uRt-yf-7mR" secondAttribute="top" id="jSr-Je-Cxi"/>
                                     <constraint firstAttribute="height" constant="40" id="oys-nA-NT6"/>
                                     <constraint firstItem="lPS-0K-j34" firstAttribute="leading" secondItem="2Hl-1T-x2p" secondAttribute="trailing" constant="4" id="tNM-tO-YMo"/>
@@ -968,7 +959,6 @@
         <image name="emailBtn" width="287" height="70"/>
         <image name="facebook" width="40" height="40"/>
         <image name="facebookBtn" width="256" height="40"/>
-        <image name="full_screen" width="28" height="28"/>
         <image name="googleBtn" width="256" height="40"/>
         <image name="group2" width="40" height="40"/>
         <image name="lock" width="18" height="18"/>

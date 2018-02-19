@@ -133,12 +133,12 @@ class FirebaseService {
     func waitForResponse(for tile: Tile, completion: @escaping() -> ()) {
         var times = 10
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { inTimer in
-            times -= 3
+            times -= 5
             self.REF_TILES.child(tile.id).child(NEEDUPDATECURRENTSTATUS_KEY).observeSingleEvent(of: .value) { snapshot in
                 if let snapshot = snapshot.value as? Bool {
                     if !snapshot {
                         inTimer.invalidate()
-                        completion()
+//                        completion()
                     }
                 }
             }
@@ -201,7 +201,7 @@ class FirebaseService {
     func update(tile: Tile, currentStatus: String, completion: @escaping () -> ()) {
         print ("I am update currentStatus at \(Date().timeIntervalSinceReferenceDate)")
         REF_TILES.child(tile.id).updateChildValues([CURRENTSTATUS_KEY: currentStatus])
-        completion()
+//        completion()
     }
     
     func update(tile: Tile, withImage imageUrl: String, completion: @escaping () -> ()) {
@@ -248,7 +248,7 @@ class FirebaseService {
     func update(tile: Tile, needUpdateCurrentStatus: Bool, completion: (() -> ())? = nil) {
         REF_TILES.child(tile.id).updateChildValues([NEEDUPDATECURRENTSTATUS_KEY: true])
         print ("I am update needUpdateCurrentStatus at \(Date().timeIntervalSinceReferenceDate)")
-        completion?()
+//        completion?()
     }
     
     func updateTime(tile: Tile) {
