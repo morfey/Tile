@@ -10,6 +10,7 @@ import UIKit
 
 protocol ConnectToTileBusinessLogic
 {
+    var tile: Tile? { get set }
     func addNewTile(request: ConnectToTile.NewTile.Request)
 }
 

@@ -31,10 +31,8 @@ class FirebaseService {
     
     private(set) var REF_USERS = DATABASE_REF.child(USERS_KEY)
     private(set) var REF_TILES = DATABASE_REF.child(TILES_KEY)
-    private var timer = Timer()
     
     // MARK: - Work with Tiles
-    
     func getUsersTiles(byId: String, completion: @escaping(Dictionary<String, Any>) -> ()) {
         var tilesData: Dictionary<String, Any> = [:]
         REF_USERS.child(byId).child(TILES_KEY).observeSingleEvent(of: .value) { snapshot in
@@ -72,25 +70,51 @@ class FirebaseService {
         }
     }
     
-    func sleepingObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
-        REF_TILES.child(tile.id).child(SLEEPING_KEY).observe(.value) { snapshot in
-            if let snapshot = snapshot.value as? Bool {
-                if snapshot == !tile.sleeping {
-                    completion(tile)
+    func tileObserver(tile: Tile, completion: @escaping() -> ()) {
+        REF_TILES.child(tile.id).observe(.childChanged) { snapshot in
+            switch snapshot.key {
+            case SLEEPING_KEY:
+                if let value = snapshot.value as? Bool {
+                    if value == tile.sleeping {
+                        completion()
+                    }
                 }
+            case CURRENTSTATUS_KEY:
+                if let value = snapshot.value as? String {
+                    if value != tile.currentStatus {
+                        completion()
+                    }
+                }
+            case IMAGEURL_KEY:
+                if let value = snapshot.value as? String {
+                    if value != tile.imageUrl {
+                        completion()
+                    }
+                }
+            default: break
             }
         }
     }
     
-    func offlineObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
-        REF_TILES.child(tile.id).child(CURRENTSTATUS_KEY).observe(.value) { snapshot in
-            if let snapshot = snapshot.value as? String {
-                if snapshot != tile.currentStatus {
-                    completion(tile)
-                }
-            }
-        }
-    }
+//    func sleepingObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
+//        REF_TILES.child(tile.id).child(SLEEPING_KEY).observe(.value) { snapshot in
+//            if let snapshot = snapshot.value as? Bool {
+//                if snapshot == !tile.sleeping {
+//                    completion(tile)
+//                }
+//            }
+//        }
+//    }
+//
+//    func offlineObserver(tile: Tile, completion: @escaping(Tile) -> ()) {
+//        REF_TILES.child(tile.id).child(CURRENTSTATUS_KEY).observe(.value) { snapshot in
+//            if let snapshot = snapshot.value as? String {
+//                if snapshot != tile.currentStatus {
+//                    completion(tile)
+//                }
+//            }
+//        }
+//    }
     
     func waiter(id: String, userId: String, completion: @escaping(_ status: TileConnection, _ tile: Tile?) -> ()) {
         var times = 40
@@ -134,7 +158,7 @@ class FirebaseService {
     func waitForResponse(for tile: Tile, completion: @escaping() -> ()) {
         var times = 10
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { inTimer in
-            times -= 5
+            times -= 3
             self.REF_TILES.child(tile.id).child(NEEDUPDATECURRENTSTATUS_KEY).observeSingleEvent(of: .value) { snapshot in
                 if let snapshot = snapshot.value as? Bool {
                     if !snapshot {
@@ -145,7 +169,9 @@ class FirebaseService {
             }
             if times <= 0 {
                 inTimer.invalidate()
-                self.update(tile: tile, currentStatus: "offline", completion: completion)
+//                if tile.currentStatus != "offline" {
+                    self.update(tile: tile, currentStatus: "offline", completion: completion)
+//                }
             }
         })
     }
@@ -307,13 +333,13 @@ class FirebaseService {
         }
     }
     
-    func imageObserve(tile: Tile, completion: @escaping () -> ()) {
-        REF_TILES.child(tile.id).observe(.childChanged) { snapshot in
-            if snapshot.key == IMAGEURL_KEY {
-                completion()
-            }
-        }
-    }
+//    func imageObserve(tile: Tile, completion: @escaping () -> ()) {
+//        REF_TILES.child(tile.id).observe(.childChanged) { snapshot in
+//            if snapshot.key == IMAGEURL_KEY {
+//                completion()
+//            }
+//        }
+//    }
     
     // MARK: - Work with User
     

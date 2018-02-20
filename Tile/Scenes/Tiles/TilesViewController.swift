@@ -90,7 +90,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isConnectedToWifi()
-        initializeTiles()
+        initializeTiles(withAnimation: true)
 //        isChecking = false
     }
     
@@ -150,10 +150,12 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
         interactor?.checkWifiConnection()
     }
     
-    func initializeTiles() {
+    func initializeTiles(withAnimation: Bool = false) {
         if let userId = KeychainWrapper.standard.string(forKey: UID_KEY) {
+            if withAnimation {
+                activityIndicator.startAnimating()
+            }
             waitView.isHidden = false
-            activityIndicator.startAnimating()
             let request = Tiles.GetTiles.Request(userId: userId)
             interactor?.getTiles(request: request)
         }
@@ -179,15 +181,18 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
                 self?.isChecking = false
                 self?.initializeTiles()
             })
-            FirebaseService.shared.imageObserve(tile: $0, completion: { [weak self] in
+            FirebaseService.shared.tileObserver(tile: $0, completion: { [weak self] in
                 self?.initializeTiles()
             })
-            FirebaseService.shared.sleepingObserver(tile: $0, completion: { [weak self] tile in
-                self?.initializeTiles()
-            })
-            FirebaseService.shared.offlineObserver(tile: $0, completion: { [weak self] tile in
-                self?.initializeTiles()
-            })
+//            FirebaseService.shared.imageObserve(tile: $0, completion: { [weak self] in
+//                self?.initializeTiles()
+//            })
+//            FirebaseService.shared.sleepingObserver(tile: $0, completion: { [weak self] tile in
+//                self?.initializeTiles()
+//            })
+//            FirebaseService.shared.offlineObserver(tile: $0, completion: { [weak self] tile in
+//                self?.initializeTiles()
+//            })
         }
         if !isChecking {
             isChecking = true
@@ -221,7 +226,10 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
  
  extension TilesViewController: TileCellDelegate {
     func sleepBtnTapped(for tile: Tile, status: Bool) {
-        FirebaseService.shared.update(tile: tile, sleepForceStatus: status)
+        if let index = tiles.index(where: {$0.id == tile.id}) {
+            tiles[index].sleeping = status
+            FirebaseService.shared.update(tile: tile, sleepForceStatus: status)
+        }
     }
     
     func showOfflineAlert() {
@@ -259,13 +267,15 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = tilesView.dequeueReusableCell(withReuseIdentifier: "TileCell", for: indexPath) as? TileCell {
-            let tile = indexPath.row < tiles.count ? tiles[indexPath.row] : nil
-            cell.configureCell(tile: tile, delegate: self)
-            return cell
+        var cell: TileCell!
+        if let cel = tilesView.dequeueReusableCell(withReuseIdentifier: "TileCell", for: indexPath) as? TileCell {
+            cell = cel
         } else {
-            return UICollectionViewCell()
+            cell = TileCell()
         }
+        let tile = indexPath.row < tiles.count ? tiles[indexPath.row] : nil
+        cell.configureCell(tile: tile, delegate: self)
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -276,6 +286,5 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
         } else {
             performSegue(withIdentifier: "GoToSettings", sender: nil)
         }
-
     }
 }

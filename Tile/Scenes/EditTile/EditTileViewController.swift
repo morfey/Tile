@@ -195,7 +195,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         
         photoEditor.photoEditorDelegate = self
         photoEditor.gpuImagePlusDelegate = self
-        photoEditor.hiddenControls = [.share, .save, .sticker, .draw]
+        photoEditor.hiddenControls = [.share, .sticker, .draw]
         photoEditor.image = originalImage.image
         
         present(photoEditor, animated: true, completion: nil)
@@ -234,13 +234,9 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     }
     
     func fetchPhotos () {
-        if photoImages.count == 0 {
-            photoImages = NSMutableArray()
-            totalImageCountNeeded = 5
-            fetchPhotoAtIndexFromEnd(index: 0)
-        } else {
-            imagesCollectionView.reloadData()
-        }
+        photoImages = NSMutableArray()
+        totalImageCountNeeded = 5
+        fetchPhotoAtIndexFromEnd(index: 0)
     }
     
     func fetchPhotoAtIndexFromEnd(index:Int) {
@@ -359,12 +355,14 @@ extension EditTileViewController: UITextFieldDelegate {
         
         let datePicker1 = UIDatePicker()
         datePicker1.datePickerMode = .time
-        datePicker1.date = dateFormatter.date(from: sleepTimeStartTextField.text ?? sleepTimeStartTextField.placeholder ?? "") ?? Date()
+        let startDate = sleepTimeStartTextField.text != nil && sleepTimeStartTextField.text != "" ? sleepTimeStartTextField.text! : sleepTimeStartTextField.placeholder!
+        datePicker1.date = dateFormatter.date(from: startDate) ?? Date()
         datePicker1.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         sleepTimeStartTextField.inputView = datePicker1
+        let endDate = sleepTimeEndTextField.text != nil && sleepTimeEndTextField.text != "" ? sleepTimeEndTextField.text! : sleepTimeEndTextField.placeholder!
         let datePicker2 = UIDatePicker()
         datePicker2.datePickerMode = .time
-        datePicker2.date = dateFormatter.date(from: sleepTimeEndTextField.text ?? sleepTimeEndTextField.placeholder ?? "") ?? Date()
+        datePicker2.date = dateFormatter.date(from: endDate) ?? Date()
         datePicker2.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         sleepTimeEndTextField.inputView = datePicker2
         

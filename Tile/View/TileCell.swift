@@ -31,11 +31,18 @@ class TileCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+//        tileImageView.image = nil
+        tileNameLbl.text = nil
+    }
+    
     @IBAction func sleepBtnTapped(_ sender: UIButton) {
         guard let tile = tile  else { return }
         if tile.currentStatus != "offline" {
-            delegate?.sleepBtnTapped(for: tile, status: tileStatusBtn.isSelected)
             tileStatusBtn.isSelected = !tileStatusBtn.isSelected
+            delegate?.sleepBtnTapped(for: tile, status: tileStatusBtn.isSelected)
             if tileStatusBtn.isSelected {
                 tileImageView.addBlurEffect()
             } else {
