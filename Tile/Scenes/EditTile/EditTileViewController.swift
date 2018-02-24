@@ -235,7 +235,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     
     func fetchPhotos () {
         photoImages = NSMutableArray()
-        totalImageCountNeeded = 5
+        totalImageCountNeeded = 4
         fetchPhotoAtIndexFromEnd(index: 0)
     }
     
@@ -259,10 +259,10 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
                     self.fetchPhotoAtIndexFromEnd(index: index + 1)
                 } else {
                     print("Completed array: \(self.photoImages)")
-                    self.imagesCollectionView.reloadData()
                 }
             })
         }
+        self.imagesCollectionView.reloadData()
     }
     
     func displayTileWithImage(viewModel: EditTile.ImageForTile.ViewModel) {
@@ -297,14 +297,14 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
 // MARK: UICollectionViewDelegate & DataSource
 extension EditTileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return segment.currentIndex == 0 ? photoImages.count + 1 : galleryImages.count
+        return segment.currentIndex == 0 ? photoImages.count + 2 : galleryImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageCell {
             if indexPath.row == 0 && segment.currentIndex == 0 {
                 cell.configureCell(image: nil, first: true)
-            } else if indexPath.row == photoImages.count && segment.currentIndex == 0 {
+            } else if indexPath.row > photoImages.count && segment.currentIndex == 0 {
                 let image = #imageLiteral(resourceName: "phoneGalleryButton")
                 cell.configureCell(image: image, first: false)
             } else {
@@ -321,14 +321,12 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
         if let cell = collectionView.cellForItem(at: indexPath) as? ImageCell {
             if indexPath.row == 0 && segment.currentIndex == 0  {
                 cameraPicker()
-            } else if indexPath.row == photoImages.count && segment.currentIndex == 0 {
+            } else if indexPath.row > photoImages.count && segment.currentIndex == 0 {
                 imagePicker.sourceType = .photoLibrary
                 present(imagePicker, animated: true, completion: nil)
             } else {
-                originalImage.image = cell.imageView.image!
-                //                configure()
+                originalImage.image = cell.imageView.image
                 isChanged = true
-                //                effectsView.isHidden = true
             }
         }
     }
