@@ -14,7 +14,6 @@ protocol TilesDisplayLogic: class
     func displayNewTile(viewModel: Tiles.NewTile.ViewModel)
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel)
     func display(alert: UIAlertController)
-    func displayEditedTile(viewModel: Tiles.EditedImage.ViewModel)
 }
 
 class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationControllerDelegate, UIGestureRecognizerDelegate
@@ -104,6 +103,11 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
             item.tileImageView.contentMode = .scaleAspectFill
             item.tileImageView.image = tile.1
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        FirebaseService.shared.removeObservers()
     }
     
     // MARK: Do something
@@ -210,18 +214,6 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     func display(alert: UIAlertController) {
         present(alert, animated: true, completion: nil)
     }
-    
-    func displayEditedTile(viewModel: Tiles.EditedImage.ViewModel) {
-//        if let index = tiles.index(where: {viewModel.tile.id == $0.id}) {
-////            tilesView.performBatchUpdates({
-//                if let cell = tilesView.cellForItem(at: IndexPath(item: index, section: 0)) as? TileCell {
-//                    cell.tileImageView.image = viewModel.image
-//                }
-////            }, completion: { (finished) in
-////                self.tilesView.reloadItems(at: [IndexPath(item: index, section: 0)])
-////            })
-//        }
-    }
 }
  
  extension TilesViewController: TileCellDelegate {
@@ -257,7 +249,7 @@ extension TilesViewController: UICollectionViewDelegate, UICollectionViewDataSou
             let bottomInset = topInset
             
             return UIEdgeInsetsMake(topInset, leftInset, bottomInset, rightInset)
-        } else if tiles.count < 3 {
+        } else if tiles.count < 2 {
             let topInset = (collectionView.frame.height - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
             let bottomInset = topInset
             return UIEdgeInsetsMake(topInset, 10, bottomInset, 10)

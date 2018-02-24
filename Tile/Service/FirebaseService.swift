@@ -89,12 +89,12 @@ class FirebaseService {
                         completion()
                     }
                 }
-            case IMAGEURL_KEY:
-                if let value = snapshot.value as? String {
-                    if value != tile.imageUrl {
-                        completion()
-                    }
-                }
+//            case IMAGEURL_KEY:
+//                if let value = snapshot.value as? String {
+//                    if value != tile.imageUrl {
+//                        completion()
+//                    }
+//                }
             default: break
             }
         }
@@ -307,11 +307,11 @@ class FirebaseService {
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL {
                         self.update(tile: tile, withImage: url) {
+                            completion()
                         }
                     }
                 }
             }
-            completion()
         }
     }
     

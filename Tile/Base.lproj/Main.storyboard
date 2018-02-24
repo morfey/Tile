@@ -725,6 +725,25 @@
                                     <constraint firstItem="gTh-qL-7i9" firstAttribute="centerY" secondItem="uRt-yf-7mR" secondAttribute="centerY" id="wDw-mg-eJY"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g0k-4D-jl7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="RqH-0w-tsJ">
+                                        <rect key="frame" x="168" y="281.5" width="40" height="40"/>
+                                        <color key="tintColor" red="0.86565148830000005" green="0.73320990799999997" blue="0.46267938609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="vNA-Qr-Kez"/>
+                                            <constraint firstAttribute="height" constant="40" id="y8V-jN-PiS"/>
+                                        </constraints>
+                                        <color key="color" red="0.86565148830000005" green="0.73320990799999997" blue="0.46267938609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="RqH-0w-tsJ" firstAttribute="centerY" secondItem="g0k-4D-jl7" secondAttribute="centerY" id="QZj-Th-q9d"/>
+                                    <constraint firstItem="RqH-0w-tsJ" firstAttribute="centerX" secondItem="g0k-4D-jl7" secondAttribute="centerX" id="YMD-vL-6bg"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
@@ -734,10 +753,14 @@
                             <constraint firstItem="mFE-m9-rnD" firstAttribute="top" secondItem="uRt-yf-7mR" secondAttribute="bottom" id="DAN-sX-U9y"/>
                             <constraint firstItem="dPN-45-uIp" firstAttribute="trailing" secondItem="V4k-aF-xLW" secondAttribute="trailing" id="LLC-wj-bun"/>
                             <constraint firstItem="uRt-yf-7mR" firstAttribute="leading" secondItem="V4k-aF-xLW" secondAttribute="leading" id="NyT-tA-2CB"/>
+                            <constraint firstItem="g0k-4D-jl7" firstAttribute="trailing" secondItem="V4k-aF-xLW" secondAttribute="trailing" id="PRq-vW-QNv"/>
                             <constraint firstItem="dPN-45-uIp" firstAttribute="leading" secondItem="V4k-aF-xLW" secondAttribute="leading" id="Q6o-Zc-32z"/>
+                            <constraint firstItem="g0k-4D-jl7" firstAttribute="bottom" secondItem="V4k-aF-xLW" secondAttribute="bottom" id="Qnd-gS-aRg"/>
+                            <constraint firstItem="g0k-4D-jl7" firstAttribute="top" secondItem="V4k-aF-xLW" secondAttribute="top" id="VTT-gt-6Qh"/>
                             <constraint firstItem="uRt-yf-7mR" firstAttribute="top" secondItem="V4k-aF-xLW" secondAttribute="top" id="aTC-95-EIM"/>
                             <constraint firstItem="ZQg-aN-Ohm" firstAttribute="top" secondItem="dPN-45-uIp" secondAttribute="bottom" id="mQK-O1-rmc"/>
                             <constraint firstItem="mFE-m9-rnD" firstAttribute="trailing" secondItem="V4k-aF-xLW" secondAttribute="trailing" id="nE7-hL-28E"/>
+                            <constraint firstItem="g0k-4D-jl7" firstAttribute="leading" secondItem="V4k-aF-xLW" secondAttribute="leading" id="oWr-fi-AZv"/>
                             <constraint firstItem="mFE-m9-rnD" firstAttribute="leading" secondItem="V4k-aF-xLW" secondAttribute="leading" id="rdS-CW-f4D"/>
                             <constraint firstItem="V4k-aF-xLW" firstAttribute="trailing" secondItem="uRt-yf-7mR" secondAttribute="trailing" id="z5K-Qo-6mc"/>
                             <constraint firstItem="ZQg-aN-Ohm" firstAttribute="bottom" secondItem="V4k-aF-xLW" secondAttribute="bottom" id="zOc-qm-rzL"/>
@@ -753,6 +776,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndecator" destination="RqH-0w-tsJ" id="FhB-Hu-evO"/>
                         <outlet property="collectionViewHeight" destination="YAr-C0-eYc" id="p5t-J8-Otk"/>
                         <outlet property="conteinerImage" destination="mFE-m9-rnD" id="r6G-ak-q0c"/>
                         <outlet property="imagesCollectionView" destination="ZQg-aN-Ohm" id="HeR-IE-pkJ"/>
@@ -760,6 +784,7 @@
                         <outlet property="segment" destination="dPN-45-uIp" id="ZnH-qa-bKg"/>
                         <outlet property="sleepTimeEndTextField" destination="lPS-0K-j34" id="aXm-NL-poq"/>
                         <outlet property="sleepTimeStartTextField" destination="yeC-ah-qzk" id="5CA-Qn-maD"/>
+                        <outlet property="waitView" destination="g0k-4D-jl7" id="idL-G6-chM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eSR-Oa-WGC" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -34,7 +34,7 @@ class TileCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        tileImageView.image = nil
+        tileImageView.image = nil
         tileNameLbl.text = nil
     }
     
@@ -67,8 +67,9 @@ class TileCell: UICollectionViewCell {
                 tileImageView.removeBlurEffect()
             }
             if let imgStr = tile.imageUrl, imgStr != "none" {
-                let place = tileImageView.image
-                tileImageView.kf.setImage(with: URL(string: imgStr), placeholder: place, options: nil, progressBlock: nil, completionHandler: nil)
+                tileImageView.kf.setImage(with: URL(string: imgStr))
+//                let place = tileImageView.image
+//                tileImageView.kf.setImage(with: URL(string: imgStr), placeholder: place, options: nil, progressBlock: nil, completionHandler: nil)
                 tileImageView.contentMode = .scaleAspectFill
                 tileImageView.clipsToBounds = true
                 tileImageView.layer.shadowColor = UIColor.clear.cgColor

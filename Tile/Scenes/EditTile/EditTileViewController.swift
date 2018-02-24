@@ -42,7 +42,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     @IBOutlet weak var sleepTimeEndTextField: UITextField!
     @IBOutlet weak var segment: TTSegmentedControl!
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var activityIndecator: UIActivityIndicatorView!
+    @IBOutlet weak var waitView: UIView!
     private func setup()
     {
         let viewController = self
@@ -185,6 +186,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
         if let image = originalImage.image, image != tileLoadedImage {
             let request = EditTile.ImageForTile.Request(image: image)
             interactor?.saveImageForTile(request: request)
+            waitView.isHidden = false
+            activityIndecator.startAnimating()
         } else {
             router?.routeToTiles(segue: nil)
         }
@@ -266,6 +269,8 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     }
     
     func displayTileWithImage(viewModel: EditTile.ImageForTile.ViewModel) {
+        waitView.isHidden = true
+        activityIndecator.stopAnimating()
         router?.routeToTiles(segue: nil)
     }
     
