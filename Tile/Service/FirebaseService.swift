@@ -70,12 +70,16 @@ class FirebaseService {
         }
     }
     
+    func removeObservers() {
+        REF_TILES.removeAllObservers()
+    }
+    
     func tileObserver(tile: Tile, completion: @escaping() -> ()) {
         REF_TILES.child(tile.id).observe(.childChanged) { snapshot in
             switch snapshot.key {
             case SLEEPING_KEY:
                 if let value = snapshot.value as? Bool {
-                    if value == tile.sleeping {
+                    if value != tile.sleeping {
                         completion()
                     }
                 }

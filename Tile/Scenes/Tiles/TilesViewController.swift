@@ -173,7 +173,7 @@ class TilesViewController: UIViewController, TilesDisplayLogic, UINavigationCont
     }
     
     func displayUsersTiles(viewModel: Tiles.GetTiles.ViewModel) {
-        
+        FirebaseService.shared.removeObservers()
         waitView.isHidden = true
         activityIndicator.stopAnimating()
         viewModel.tiles.forEach {
