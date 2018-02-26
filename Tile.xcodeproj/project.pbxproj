@@ -12,6 +12,7 @@
 		22037D131F8E21D100315130 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22037D121F8E21D100315130 /* Constants.swift */; };
 		22037D141F8E240A00315130 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22A5E56F1F8E180B0025A0D5 /* GoogleService-Info.plist */; };
 		2247FB851F9DF84100CE377B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247FB841F9DF84100CE377B /* Reachability.swift */; };
+		225FDE942044867700D7C86C /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FDE932044867700D7C86C /* Fetcher.swift */; };
 		226982CF1FCF380900BDFB1D /* ConnectToTileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982C91FCF380900BDFB1D /* ConnectToTileInteractor.swift */; };
 		226982D01FCF380900BDFB1D /* ConnectToTileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CA1FCF380900BDFB1D /* ConnectToTileModels.swift */; };
 		226982D11FCF380900BDFB1D /* ConnectToTilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226982CB1FCF380900BDFB1D /* ConnectToTilePresenter.swift */; };
@@ -137,6 +138,7 @@
 		22037D101F8E1E9400315130 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		22037D121F8E21D100315130 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2247FB841F9DF84100CE377B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		225FDE932044867700D7C86C /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		226982C91FCF380900BDFB1D /* ConnectToTileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileInteractor.swift; sourceTree = "<group>"; };
 		226982CA1FCF380900BDFB1D /* ConnectToTileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTileModels.swift; sourceTree = "<group>"; };
 		226982CB1FCF380900BDFB1D /* ConnectToTilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToTilePresenter.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				22037D101F8E1E9400315130 /* SignIn.swift */,
 				22037D121F8E21D100315130 /* Constants.swift */,
 				2247FB841F9DF84100CE377B /* Reachability.swift */,
+				225FDE932044867700D7C86C /* Fetcher.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				22A0EF9C1FEC2B7C00693523 /* BrightnessViewController.swift in Sources */,
 				22A372191FD5D96B0029DEDB /* PhotoEditor+Controls.swift in Sources */,
 				22A3721C1FD5D96B0029DEDB /* PhotoEditor+FiltersViewController.swift in Sources */,
+				225FDE942044867700D7C86C /* Fetcher.swift in Sources */,
 				228066071FD314E200832D77 /* IPObjectiveManager.m in Sources */,
 				2289912D1F94BA5700DF2175 /* EditTileModels.swift in Sources */,
 				226982D31FCF380900BDFB1D /* ConnectToTileViewController.swift in Sources */,

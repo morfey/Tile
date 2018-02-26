@@ -294,25 +294,27 @@ class FirebaseService {
     // MARK: - Work with images
     
     func upload(image: UIImage, forTile tile: Tile, completion: @escaping () -> ()) {
-        if let imgData = UIImageJPEGRepresentation(image, 1.0) {
-            let imgUid = NSUUID().uuidString
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpeg"
-            
-            STORAGE_REF.child(tile.id).child(imgUid).putData(imgData, metadata: metadata) { (metadata, error) in
-                if error != nil {
-                    print ("USER: Unable to upload image")
-                } else {
-                    print ("USER: Success upload image")
-                    let downloadURL = metadata?.downloadURL()?.absoluteString
-                    if let url = downloadURL {
-                        self.update(tile: tile, withImage: url) {
-                            completion()
+        autoreleasepool {
+            if let imgData = UIImageJPEGRepresentation(image, 1.0) {
+                let imgUid = NSUUID().uuidString
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                
+                STORAGE_REF.child(tile.id).child(imgUid).putData(imgData, metadata: metadata) { (metadata, error) in
+                    if error != nil {
+                        print ("USER: Unable to upload image")
+                    } else {
+                        print ("USER: Success upload image")
+                        let downloadURL = metadata?.downloadURL()?.absoluteString
+                        if let url = downloadURL {
+                            self.update(tile: tile, withImage: url) {
+                                completion()
+                            }
                         }
                     }
                 }
             }
-        }
+        } 
     }
     
     func upload(image: UIImage, forUser user: String, completion: @escaping () -> ()) {

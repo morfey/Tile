@@ -62,7 +62,7 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     private var imagePicker: UIImagePickerController!
     private var angle: Double = 0.0
     private var isChanged = false
-    private var photoImages: NSMutableArray = []
+    private var photoImages: [UIImage] = []
     private var galleryImages: NSMutableArray = []
     private var totalImageCountNeeded: Int!
     private var tile: Tile!
@@ -225,48 +225,94 @@ class EditTileViewController: UIViewController, EditTileDisplayLogic, UIImagePic
     }
     
     func fetchGallery() {
-        if galleryImages.count == 0 {
-            galleryImages = NSMutableArray()
-            for i in 1...12 {
-                if let image = UIImage(named: "\(i)") {
-                    galleryImages.add(image as Any)
+        autoreleasepool {
+            if galleryImages.count == 0 {
+                galleryImages = NSMutableArray()
+                for i in 1...12 {
+                    if let image = UIImage(named: "\(i)") {
+                        galleryImages.add(image as Any)
+                    }
                 }
             }
+            imagesCollectionView.reloadData()
         }
-        imagesCollectionView.reloadData()
     }
     
-    func fetchPhotos () {
-        photoImages = NSMutableArray()
-        totalImageCountNeeded = 4
-        fetchPhotoAtIndexFromEnd(index: 0)
+    func fetchPhotos() {
+        autoreleasepool {
+            if photoImages.isEmpty {
+                let fetcher = Fetcher()
+                for i in 0..<4 {
+                    fetcher.requestFullImageAtIndex(index: i, completion: { (image) in
+                        self.photoImages.append(image)
+                        if i >= 3 {
+                            self.imagesCollectionView.reloadData()
+                        }
+                    })
+                }
+            } else {
+                imagesCollectionView.reloadData()
+            }
+        }
+//        photoImages.removeAll()
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+//        fetchOptions.fetchLimit = 4
+//
+//        let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+//
+//        if fetchResult.count > 0 {
+//            let totalImageCountNeeded = 4
+//            fetchPhotoAtIndex(0, totalImageCountNeeded, fetchResult)
+//        }
+//        imagesCollectionView.reloadData()
     }
-    
-    func fetchPhotoAtIndexFromEnd(index:Int) {
-        
-        let imgManager = PHImageManager.default()
+
+    func fetchPhotoAtIndex(_ index:Int, _ totalImageCountNeeded: Int, _ fetchResult: PHFetchResult<PHAsset>) {
         let requestOptions = PHImageRequestOptions()
         requestOptions.isSynchronous = true
         
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: true)]
-        
-        let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-        
-        if fetchResult.count > 0 {
-            imgManager.requestImage(for: fetchResult.object(at: fetchResult.count - 1 - index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
-                if let image = image {
-                    self.photoImages.add(image)
-                }
-                if index + 1 < fetchResult.count && self.photoImages.count < self.totalImageCountNeeded {
-                    self.fetchPhotoAtIndexFromEnd(index: index + 1)
-                } else {
-                    print("Completed array: \(self.photoImages)")
-                }
-            })
-        }
-        self.imagesCollectionView.reloadData()
+        PHImageManager.default().requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
+            if let image = image {
+                self.photoImages += [image]
+            }
+            if index + 1 < fetchResult.count && self.photoImages.count < totalImageCountNeeded {
+                self.fetchPhotoAtIndex(index + 1, totalImageCountNeeded, fetchResult)
+            } else {
+                print("Completed array: \(self.photoImages)")
+            }
+        })
     }
+    
+//    func fetchPhotos() {
+//        photoImages = NSMutableArray()
+//        totalImageCountNeeded = 4
+//        let imgManager = PHImageManager.default()
+//        let requestOptions = PHImageRequestOptions()
+//        requestOptions.isSynchronous = true
+//
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: true)]
+//
+//        let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+//        fetchPhotoAtIndexFromEnd(index: 0, fetchResult: fetchResult, imgManager: imgManager, requestOptions: requestOptions)
+//    }
+//
+//    func fetchPhotoAtIndexFromEnd(index:Int, fetchResult: PHFetchResult<PHAsset>, imgManager: PHImageManager, requestOptions: PHImageRequestOptions) {
+//        if fetchResult.count > 0 {
+//            imgManager.requestImage(for: fetchResult.object(at: fetchResult.count - 1 - index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
+//                if let image = image {
+//                    self.photoImages.add(image)
+//                }
+//                if index + 1 < fetchResult.count && self.photoImages.count < self.totalImageCountNeeded {
+//                    self.fetchPhotoAtIndexFromEnd(index: index + 1, fetchResult: fetchResult, imgManager: imgManager, requestOptions: requestOptions)
+//                } else {
+//                    print("Completed array: \(self.photoImages)")
+//                }
+//            })
+//        }
+//        self.imagesCollectionView.reloadData()
+//    }
     
     func displayTileWithImage(viewModel: EditTile.ImageForTile.ViewModel) {
         waitView.isHidden = true
@@ -313,7 +359,7 @@ extension EditTileViewController: UICollectionViewDelegate, UICollectionViewData
                 let image = #imageLiteral(resourceName: "phoneGalleryButton")
                 cell.configureCell(image: image, first: false)
             } else {
-                let image = segment.currentIndex == 0 ? photoImages.object(at: indexPath.row - 1) : galleryImages.object(at: indexPath.row)
+                let image = segment.currentIndex == 0 ? photoImages[indexPath.row - 1] : galleryImages.object(at: indexPath.row)
                 cell.configureCell(image: image as? UIImage, first: false)
             }
             return cell
